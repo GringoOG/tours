@@ -1,17 +1,293 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#06060c" />
-    <meta name="description" content="Tours — web na míru" />
-    <title>Tours</title>
+    <meta name="theme-color" content="#ffffff" />
+    <meta
+      name="description"
+      content="Ollanta Tours — Machu Picchu, Rainbow Mountain, and mountain bike adventures from Ollantaytambo, Peru."
+    />
+    <title>Ollanta Tours — Sacred Valley Adventures</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
-    <main class="placeholder">
-      <p>Projekt Tours — čeká se na šablonu.</p>
+  <body data-page="home">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="logo" href="index.html">
+          <span class="logo-mark">OT</span>
+          <span data-i18n="brand">Ollanta Tours</span>
+        </a>
+        <nav class="nav-desktop" aria-label="Main">
+          <a href="index.html" class="active" data-i18n="nav.home">Home</a>
+          <a href="about.html" data-i18n="nav.about">About</a>
+          <a href="destinations.html" data-i18n="nav.destinations">Tours</a>
+          <a href="testimonials.html" data-i18n="nav.testimonials">Reviews</a>
+          <a href="contact.html" data-i18n="nav.contact">Contact</a>
+        </nav>
+        <div class="header-actions">
+          <div class="lang-switch" aria-label="Language">
+            <button type="button" data-lang="en">EN</button>
+            <button type="button" data-lang="es">ES</button>
+          </div>
+          <a class="btn btn-primary btn-pill" href="destinations.html" data-i18n="nav.book">Book a tour</a>
+          <button class="nav-toggle" type="button" aria-label="Menu">☰</button>
+        </div>
+      </div>
+      <nav class="nav-mobile" aria-label="Mobile">
+        <a href="index.html" data-i18n="nav.home">Home</a>
+        <a href="about.html" data-i18n="nav.about">About</a>
+        <a href="destinations.html" data-i18n="nav.destinations">Tours</a>
+        <a href="testimonials.html" data-i18n="nav.testimonials">Reviews</a>
+        <a href="contact.html" data-i18n="nav.contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container">
+          <div class="hero-shell">
+            <div class="hero-media">
+              <img
+                src="https://images.unsplash.com/photo-1526392060635-9d5981266fe2?auto=format&fit=crop&w=1800&q=80"
+                alt="Ollantaytambo Sacred Valley"
+              />
+            </div>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+              <div class="hero-badge" data-i18n="hero.badge">4.9 stars from travelers in the Sacred Valley</div>
+              <h1 class="hero-title" data-i18n="hero.title">Your next Andean adventure starts in Ollantaytambo</h1>
+              <div class="hero-trust">
+                <span data-i18n="hero.trust1">Free cancellation</span>
+                <span data-i18n="hero.trust2">Secure payment</span>
+                <span data-i18n="hero.trust3">Local expert guides</span>
+              </div>
+              <form class="hero-booking" data-booking-form>
+                <div class="hero-booking-grid">
+                  <div>
+                    <label for="hero-tour" data-i18n="hero.tour">Tour</label>
+                    <select id="hero-tour" data-tour-select name="tour"></select>
+                  </div>
+                  <div>
+                    <label for="hero-date" data-i18n="hero.date">Date</label>
+                    <input id="hero-date" type="date" name="date" required />
+                  </div>
+                  <div>
+                    <label for="hero-travelers" data-i18n="hero.travelers">Travelers</label>
+                    <select id="hero-travelers" data-travelers-select name="travelers"></select>
+                  </div>
+                </div>
+                <button class="btn btn-light" style="width: 100%; margin-top: 1rem" type="submit" data-i18n="hero.explore">
+                  Explore now
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container story-grid">
+          <div>
+            <p class="eyebrow" data-i18n="story.eyebrow">our story</p>
+            <h2 class="section-title" data-i18n="story.title">We don't sell trips. We craft journeys.</h2>
+            <blockquote class="story-quote" data-i18n="story.quote">
+              Every route starts in Ollantaytambo with local guides who know the valley, the history, and the rhythm of the mountains.
+            </blockquote>
+            <p><strong data-i18n="story.author">Sacred Valley team</strong><br /><span data-i18n="story.role">Local tour operators</span></p>
+            <p class="rating-pill" style="margin-top: 1rem" data-i18n="story.sponsors">2,500+ happy travelers</p>
+          </div>
+          <div class="card-grid card-grid-2">
+            <article class="value-card"><h3 data-i18n="story.v1t">Curated, not crowded</h3><p data-i18n="story.v1d">Small groups for a personal experience at Machu Picchu and beyond.</p></article>
+            <article class="value-card"><h3 data-i18n="story.v2t">No hidden fees. Ever.</h3><p data-i18n="story.v2d">Clear pricing, transparent inclusions, and honest recommendations.</p></article>
+            <article class="value-card"><h3 data-i18n="story.v3t">Travel responsibly</h3><p data-i18n="story.v3d">We respect communities, trails, and the Andean environment.</p></article>
+            <article class="value-card"><h3 data-i18n="story.v4t">Local-first mindset</h3><p data-i18n="story.v4d">Your guides live here and share authentic stories from Ollantaytambo.</p></article>
+            <article class="value-card"><h3 data-i18n="story.v5t">Humans on standby</h3><p data-i18n="story.v5d">WhatsApp support before, during, and after your tour.</p></article>
+            <article class="value-card"><h3 data-i18n="story.v6t">Book with confidence</h3><p data-i18n="story.v6d">Flexible dates, easy changes, and fast confirmation.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-soft">
+        <div class="container">
+          <div class="section-head">
+            <p class="eyebrow" data-i18n="featured.eyebrow">find your tour</p>
+            <h2 class="section-title" data-i18n="featured.title">Top destinations travelers love from Ollantaytambo</h2>
+          </div>
+          <div class="card-grid card-grid-3" data-tour-grid></div>
+          <div class="load-more-wrap">
+            <a class="btn btn-primary" href="destinations.html" data-i18n="featured.more">More tours</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="feature-banner">
+            <img src="https://images.unsplash.com/photo-1587595431973-160fb0a0a0?auto=format&fit=crop&w=1600&q=80" alt="Machu Picchu" />
+            <div class="feature-banner-overlay"></div>
+            <div class="feature-banner-content">
+              <p class="eyebrow" style="color: rgba(255,255,255,0.8)" data-i18n="why.eyebrow">why choose us</p>
+              <h2 class="section-title" style="color: white; max-width: 520px" data-i18n="why.title">Experience the Sacred Valley in motion</h2>
+              <div class="feature-grid">
+                <div class="feature-item"><strong data-i18n="why.f1t">Unlimited explore places</strong><p data-i18n="why.f1d">From Inca ruins to high-altitude trails and village routes.</p></div>
+                <div class="feature-item"><strong data-i18n="why.f2t">Easy booking & refund</strong><p data-i18n="why.f2d">Reserve online in minutes with clear cancellation rules.</p></div>
+                <div class="feature-item"><strong data-i18n="why.f3t">Classy & expert guides</strong><p data-i18n="why.f3d">Licensed local guides in English and Spanish.</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-soft">
+        <div class="container">
+          <div class="section-head">
+            <p class="eyebrow" data-i18n="plan.eyebrow">tour plans</p>
+            <h2 class="section-title" data-i18n="plan.title">Top-notch tours for your next adventure</h2>
+          </div>
+          <div class="marquee-wrap">
+            <div class="marquee-track">
+              <div class="marquee-card">01 · Machu Picchu Day Tour</div>
+              <div class="marquee-card">02 · Rainbow Mountain Trek</div>
+              <div class="marquee-card">03 · Mountain Bike Adventure</div>
+              <div class="marquee-card">04 · Sacred Valley Custom Route</div>
+              <div class="marquee-card">01 · Machu Picchu Day Tour</div>
+              <div class="marquee-card">02 · Rainbow Mountain Trek</div>
+              <div class="marquee-card">03 · Mountain Bike Adventure</div>
+              <div class="marquee-card">04 · Sacred Valley Custom Route</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <p class="eyebrow" data-i18n="testimonials.eyebrow">happy travelers</p>
+            <h2 class="section-title" data-i18n="testimonials.title">Memorable journeys shared by our guests</h2>
+            <p class="rating-pill" data-i18n="testimonials.rating">Based on 650+ reviews</p>
+          </div>
+          <div class="card-grid card-grid-2">
+            <article class="testimonial-card"><p data-i18n="testimonials.t1q">Machu Picchu day trip from Ollantaytambo was perfectly organized.</p><h3 data-i18n="testimonials.t1n">Emma R.</h3><p data-i18n="testimonials.t1r">Travel blogger</p></article>
+            <article class="testimonial-card"><p data-i18n="testimonials.t2q">Rainbow Mountain tour was tough but absolutely worth it. Great guide!</p><h3 data-i18n="testimonials.t2n">Carlos M.</h3><p data-i18n="testimonials.t2r">Photographer</p></article>
+          </div>
+          <div class="load-more-wrap"><a class="btn btn-primary" href="testimonials.html" data-i18n="testimonials.more">Read all reviews</a></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container deal-banner">
+          <div>
+            <span class="deal-badge" data-i18n="deal.badge">15% OFF</span>
+            <h2 class="section-title" style="color: white; margin-top: 1rem" data-i18n="deal.title">Best travel deals for early bookings</h2>
+            <form class="subscribe-form" data-subscribe-form>
+              <input type="email" required data-i18n-placeholder="deal.placeholder" placeholder="Your email address" />
+              <button class="btn btn-light" type="submit" data-i18n="deal.button">Subscribe</button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-soft">
+        <div class="container">
+          <div class="section-head">
+            <p class="eyebrow" data-i18n="steps.eyebrow">how it works</p>
+            <h2 class="section-title" data-i18n="steps.title">Three simple steps to your tour</h2>
+          </div>
+          <div class="steps-grid">
+            <article class="step-card"><div class="step-number">01</div><h3 data-i18n="steps.s1t">Choose your tour</h3><p data-i18n="steps.s1d">Pick Machu Picchu, Rainbow Mountain, mountain bike, or ask for a custom route.</p></article>
+            <article class="step-card"><div class="step-number">02</div><h3 data-i18n="steps.s2t">Confirm reservation</h3><p data-i18n="steps.s2d">Select date, group size, and pickup point in Ollantaytambo.</p></article>
+            <article class="step-card"><div class="step-number">03</div><h3 data-i18n="steps.s3t">Enjoy the journey</h3><p data-i18n="steps.s3d">Travel with local experts and focus on the experience.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container cta-banner">
+          <div>
+            <span class="sale-badge" data-i18n="cta.badge">15% SALE OFF</span>
+            <h2 class="section-title" style="color: white; margin-top: 1rem" data-i18n="cta.title">Start your Sacred Valley journey with us today</h2>
+          </div>
+          <a class="btn btn-light btn-pill" href="contact.html" data-i18n="cta.button">Contact us</a>
+        </div>
+      </section>
+
+      <section class="section section-soft">
+        <div class="container">
+          <div class="section-head">
+            <p class="eyebrow" data-i18n="faq.eyebrow">quick travel help</p>
+            <h2 class="section-title" data-i18n="faq.title">Common travel questions with clear answers</h2>
+          </div>
+          <div class="faq-list">
+            <article class="faq-item"><button class="faq-question" type="button"><span data-i18n="faq.q1">What tours do you offer?</span><span>+</span></button><div class="faq-answer" data-i18n="faq.a1">We currently offer Machu Picchu, Rainbow Mountain, and mountain bike tours from Ollantaytambo, with more routes coming soon.</div></article>
+            <article class="faq-item"><button class="faq-question" type="button"><span data-i18n="faq.q2">Can I cancel my booking?</span><span>+</span></button><div class="faq-answer" data-i18n="faq.a2">Yes. Free cancellation is available up to 48 hours before departure for most tours.</div></article>
+            <article class="faq-item"><button class="faq-question" type="button"><span data-i18n="faq.q3">How long does a refund take?</span><span>+</span></button><div class="faq-answer" data-i18n="faq.a3">Approved refunds are usually processed within 5-7 business days.</div></article>
+            <article class="faq-item"><button class="faq-question" type="button"><span data-i18n="faq.q4">Are guides included?</span><span>+</span></button><div class="faq-answer" data-i18n="faq.a4">Yes. All tours include a licensed local guide in English or Spanish.</div></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <p class="eyebrow" data-i18n="blog.eyebrow">travel tips</p>
+            <h2 class="section-title" data-i18n="blog.title">Guides and stories from the Sacred Valley</h2>
+          </div>
+          <div class="card-grid card-grid-3">
+            <article class="blog-card"><img src="https://images.unsplash.com/photo-1587595431973-160fb0a0a0?auto=format&fit=crop&w=800&q=80" alt="" /><div style="padding:1.25rem"><small data-i18n="blog.b1d">Jul 10, 2026</small><h3 data-i18n="blog.b1t">Best time to visit Machu Picchu from Ollantaytambo</h3></div></article>
+            <article class="blog-card"><img src="https://images.unsplash.com/photo-1526392060635-9d5981266fe2?auto=format&fit=crop&w=800&q=80" alt="" /><div style="padding:1.25rem"><small data-i18n="blog.b2d">Jul 3, 2026</small><h3 data-i18n="blog.b2t">What to pack for Rainbow Mountain</h3></div></article>
+            <article class="blog-card"><img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a0?auto=format&fit=crop&w=800&q=80" alt="" /><div style="padding:1.25rem"><small data-i18n="blog.b3d">Jun 28, 2026</small><h3 data-i18n="blog.b3t">Mountain biking routes around the Inca Valley</h3></div></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-soft">
+        <div class="container">
+          <div class="section-head">
+            <h2 class="section-title" data-i18n="instagram.title">Ollanta Tours on Instagram</h2>
+          </div>
+          <div class="instagram-grid">
+            <img src="https://images.unsplash.com/photo-1587595431973-160fb0a0a0?auto=format&fit=crop&w=400&q=80" alt="" />
+            <img src="https://images.unsplash.com/photo-1526392060635-9d5981266fe2?auto=format&fit=crop&w=400&q=80" alt="" />
+            <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a0?auto=format&fit=crop&w=400&q=80" alt="" />
+            <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=400&q=80" alt="" />
+            <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=400&q=80" alt="" />
+            <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=400&q=80" alt="" />
+          </div>
+          <div class="load-more-wrap"><a class="btn btn-primary btn-pill" href="contact.html" data-i18n="instagram.button">Start your journey</a></div>
+        </div>
+      </section>
     </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <a class="logo" href="index.html"><span class="logo-mark">OT</span><span data-i18n="brand">Ollanta Tours</span></a>
+          <p data-i18n="footer.tagline">Every journey we organize is built on trust, safety, and unforgettable Andean views.</p>
+        </div>
+        <div>
+          <h4 data-i18n="footer.essential">Essential links</h4>
+          <a href="index.html" data-i18n="nav.home">Home</a>
+          <a href="about.html" data-i18n="nav.about">About</a>
+          <a href="destinations.html" data-i18n="nav.destinations">Tours</a>
+          <a href="contact.html" data-i18n="nav.contact">Contact</a>
+        </div>
+        <div>
+          <h4 data-i18n="footer.destinations">Tours</h4>
+          <a href="destination-machu-picchu.html">Machu Picchu</a>
+          <a href="destination-rainbow-mountain.html">Rainbow Mountain</a>
+          <a href="destination-mountain-bike.html">Mountain Bike</a>
+        </div>
+        <div>
+          <h4 data-i18n="nav.contact">Contact</h4>
+          <p>+51 984 123 456</p>
+          <p>info@ollantatours.com</p>
+          <p data-i18n="pages.address">Plaza Principal, Ollantaytambo, Cusco, Peru</p>
+        </div>
+      </div>
+      <div class="container footer-bottom"><span data-i18n="footer.rights">© 2026 Ollanta Tours · Ollantaytambo, Peru</span></div>
+    </footer>
+
     <script src="script.js"></script>
   </body>
 </html>
