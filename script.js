@@ -3,12 +3,12 @@ const STORAGE_KEY = "tours-lang";
 const tours = [
   {
     slug: "machu-picchu",
-    image: "https://images.unsplash.com/photo-1526392060635-9d5981266fe2?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1596422846543-75c6fc5c9f74?auto=format&fit=crop&w=1200&q=80",
     price: 189,
   },
   {
     slug: "rainbow-mountain",
-    image: "https://images.unsplash.com/photo-1526392060635-9d5981266fe2?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1537996194471-e657df775ab4?auto=format&fit=crop&w=1200&q=80",
     price: 79,
   },
   {
