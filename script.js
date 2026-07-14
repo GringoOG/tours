@@ -3,17 +3,17 @@ const STORAGE_KEY = "tours-lang";
 const tours = [
   {
     slug: "machu-picchu",
-    image: "https://images.unsplash.com/photo-1596422846543-75c6fc5c9f74?auto=format&fit=crop&w=1200&q=80",
+    image: "assets/machu-picchu.png",
     price: 189,
   },
   {
     slug: "rainbow-mountain",
-    image: "https://images.unsplash.com/photo-1537996194471-e657df775ab4?auto=format&fit=crop&w=1200&q=80",
+    image: "assets/rainbow-mountain.png",
     price: 79,
   },
   {
     slug: "mountain-bike",
-    image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a0?auto=format&fit=crop&w=1200&q=80",
+    image: "assets/mountain-bike.png",
     price: 69,
   },
 ];
@@ -32,7 +32,8 @@ const i18n = {
     hero: {
       badge: "4.9 stars from travelers in the Sacred Valley",
       title: "Your next Andean adventure starts in Ollantaytambo",
-      tour: "Tour",
+      whereTo: "Where to",
+      tour: "Where to",
       date: "Date",
       travelers: "Travelers",
       explore: "Explore now",
@@ -217,7 +218,8 @@ const i18n = {
     hero: {
       badge: "4.9 estrellas de viajeros en el Valle Sagrado",
       title: "Tu próxima aventura andina comienza en Ollantaytambo",
-      tour: "Tour",
+      whereTo: "A dónde",
+      tour: "A dónde",
       date: "Fecha",
       travelers: "Viajeros",
       explore: "Explorar ahora",
@@ -494,8 +496,8 @@ function renderTourCards(container) {
     .map((tour) => {
       const data = t(`tours.${tour.slug}`, lang);
       return `
-        <a class="tour-card" href="destination-${tour.slug}.html">
-          <div class="tour-card-media">
+        <a class="tour-card reveal" href="destination-${tour.slug}.html">
+          <div class="tour-card-media fx-zoom">
             <img src="${tour.image}" alt="${data.name}" loading="lazy" />
           </div>
           <div class="tour-card-body">
@@ -507,6 +509,8 @@ function renderTourCards(container) {
       `;
     })
     .join("");
+
+  window.ToursEffects?.refresh();
 }
 
 function initHeader() {

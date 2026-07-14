@@ -47,25 +47,27 @@
       <section class="hero">
         <div class="container">
           <div class="hero-shell">
-            <div class="hero-media">
+            <div class="hero-media" data-hero-water>
+              <canvas class="hero-water-canvas" aria-hidden="true"></canvas>
               <img
-                src="https://images.unsplash.com/photo-1526392060635-9d5981266fe2?auto=format&fit=crop&w=1800&q=80"
-                alt="Ollantaytambo Sacred Valley"
+                class="hero-water-source"
+                src="assets/hero-main.png"
+                alt="Sacred Valley adventure in Ollantaytambo"
               />
             </div>
             <div class="hero-overlay"></div>
             <div class="hero-content">
-              <div class="hero-badge" data-i18n="hero.badge">4.9 stars from travelers in the Sacred Valley</div>
-              <h1 class="hero-title" data-i18n="hero.title">Your next Andean adventure starts in Ollantaytambo</h1>
-              <div class="hero-trust">
+              <div class="hero-badge reveal" data-i18n="hero.badge">4.9 stars from travelers in the Sacred Valley</div>
+              <h1 class="hero-title reveal" data-i18n="hero.title">Your next Andean adventure starts in Ollantaytambo</h1>
+              <div class="hero-trust reveal">
                 <span data-i18n="hero.trust1">Free cancellation</span>
                 <span data-i18n="hero.trust2">Secure payment</span>
                 <span data-i18n="hero.trust3">Local expert guides</span>
               </div>
-              <form class="hero-booking" data-booking-form>
+              <form class="hero-booking reveal" data-booking-form>
                 <div class="hero-booking-grid">
                   <div>
-                    <label for="hero-tour" data-i18n="hero.tour">Tour</label>
+                    <label for="hero-tour" data-i18n="hero.whereTo">Where to</label>
                     <select id="hero-tour" data-tour-select name="tour"></select>
                   </div>
                   <div>
@@ -88,7 +90,7 @@
 
       <section class="section">
         <div class="container story-grid">
-          <div>
+          <div class="reveal">
             <p class="eyebrow" data-i18n="story.eyebrow">our story</p>
             <h2 class="section-title" data-i18n="story.title">We don't sell trips. We craft journeys.</h2>
             <blockquote class="story-quote" data-i18n="story.quote">
@@ -98,19 +100,19 @@
             <p class="rating-pill" style="margin-top: 1rem" data-i18n="story.sponsors">2,500+ happy travelers</p>
           </div>
           <div class="card-grid card-grid-2">
-            <article class="value-card"><h3 data-i18n="story.v1t">Curated, not crowded</h3><p data-i18n="story.v1d">Small groups for a personal experience at Machu Picchu and beyond.</p></article>
-            <article class="value-card"><h3 data-i18n="story.v2t">No hidden fees. Ever.</h3><p data-i18n="story.v2d">Clear pricing, transparent inclusions, and honest recommendations.</p></article>
-            <article class="value-card"><h3 data-i18n="story.v3t">Travel responsibly</h3><p data-i18n="story.v3d">We respect communities, trails, and the Andean environment.</p></article>
-            <article class="value-card"><h3 data-i18n="story.v4t">Local-first mindset</h3><p data-i18n="story.v4d">Your guides live here and share authentic stories from Ollantaytambo.</p></article>
-            <article class="value-card"><h3 data-i18n="story.v5t">Humans on standby</h3><p data-i18n="story.v5d">WhatsApp support before, during, and after your tour.</p></article>
-            <article class="value-card"><h3 data-i18n="story.v6t">Book with confidence</h3><p data-i18n="story.v6d">Flexible dates, easy changes, and fast confirmation.</p></article>
+            <article class="value-card reveal"><h3 data-i18n="story.v1t">Curated, not crowded</h3><p data-i18n="story.v1d">Small groups for a personal experience at Machu Picchu and beyond.</p></article>
+            <article class="value-card reveal"><h3 data-i18n="story.v2t">No hidden fees. Ever.</h3><p data-i18n="story.v2d">Clear pricing, transparent inclusions, and honest recommendations.</p></article>
+            <article class="value-card reveal"><h3 data-i18n="story.v3t">Travel responsibly</h3><p data-i18n="story.v3d">We respect communities, trails, and the Andean environment.</p></article>
+            <article class="value-card reveal"><h3 data-i18n="story.v4t">Local-first mindset</h3><p data-i18n="story.v4d">Your guides live here and share authentic stories from Ollantaytambo.</p></article>
+            <article class="value-card reveal"><h3 data-i18n="story.v5t">Humans on standby</h3><p data-i18n="story.v5d">WhatsApp support before, during, and after your tour.</p></article>
+            <article class="value-card reveal"><h3 data-i18n="story.v6t">Book with confidence</h3><p data-i18n="story.v6d">Flexible dates, easy changes, and fast confirmation.</p></article>
           </div>
         </div>
       </section>
 
       <section class="section section-soft">
         <div class="container">
-          <div class="section-head">
+          <div class="section-head reveal">
             <p class="eyebrow" data-i18n="featured.eyebrow">find your tour</p>
             <h2 class="section-title" data-i18n="featured.title">Top destinations travelers love from Ollantaytambo</h2>
           </div>
@@ -123,8 +125,8 @@
 
       <section class="section">
         <div class="container">
-          <div class="feature-banner">
-            <img src="https://images.unsplash.com/photo-1587595431973-160fb0a0a0?auto=format&fit=crop&w=1600&q=80" alt="Machu Picchu" />
+          <div class="feature-banner" data-parallax>
+            <img class="fx-zoom" src="assets/machu-picchu.png" alt="Machu Picchu" />
             <div class="feature-banner-overlay"></div>
             <div class="feature-banner-content">
               <p class="eyebrow" style="color: rgba(255,255,255,0.8)" data-i18n="why.eyebrow">why choose us</p>
@@ -141,7 +143,7 @@
 
       <section class="section section-soft">
         <div class="container">
-          <div class="section-head">
+          <div class="section-head reveal">
             <p class="eyebrow" data-i18n="plan.eyebrow">tour plans</p>
             <h2 class="section-title" data-i18n="plan.title">Top-notch tours for your next adventure</h2>
           </div>
@@ -162,7 +164,7 @@
 
       <section class="section">
         <div class="container">
-          <div class="section-head">
+          <div class="section-head reveal">
             <p class="eyebrow" data-i18n="testimonials.eyebrow">happy travelers</p>
             <h2 class="section-title" data-i18n="testimonials.title">Memorable journeys shared by our guests</h2>
             <p class="rating-pill" data-i18n="testimonials.rating">Based on 650+ reviews</p>
@@ -190,7 +192,7 @@
 
       <section class="section section-soft">
         <div class="container">
-          <div class="section-head">
+          <div class="section-head reveal">
             <p class="eyebrow" data-i18n="steps.eyebrow">how it works</p>
             <h2 class="section-title" data-i18n="steps.title">Three simple steps to your tour</h2>
           </div>
@@ -214,7 +216,7 @@
 
       <section class="section section-soft">
         <div class="container">
-          <div class="section-head">
+          <div class="section-head reveal">
             <p class="eyebrow" data-i18n="faq.eyebrow">quick travel help</p>
             <h2 class="section-title" data-i18n="faq.title">Common travel questions with clear answers</h2>
           </div>
@@ -229,30 +231,30 @@
 
       <section class="section">
         <div class="container">
-          <div class="section-head">
+          <div class="section-head reveal">
             <p class="eyebrow" data-i18n="blog.eyebrow">travel tips</p>
             <h2 class="section-title" data-i18n="blog.title">Guides and stories from the Sacred Valley</h2>
           </div>
           <div class="card-grid card-grid-3">
-            <article class="blog-card"><img src="https://images.unsplash.com/photo-1587595431973-160fb0a0a0?auto=format&fit=crop&w=800&q=80" alt="" /><div style="padding:1.25rem"><small data-i18n="blog.b1d">Jul 10, 2026</small><h3 data-i18n="blog.b1t">Best time to visit Machu Picchu from Ollantaytambo</h3></div></article>
-            <article class="blog-card"><img src="https://images.unsplash.com/photo-1526392060635-9d5981266fe2?auto=format&fit=crop&w=800&q=80" alt="" /><div style="padding:1.25rem"><small data-i18n="blog.b2d">Jul 3, 2026</small><h3 data-i18n="blog.b2t">What to pack for Rainbow Mountain</h3></div></article>
-            <article class="blog-card"><img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a0?auto=format&fit=crop&w=800&q=80" alt="" /><div style="padding:1.25rem"><small data-i18n="blog.b3d">Jun 28, 2026</small><h3 data-i18n="blog.b3t">Mountain biking routes around the Inca Valley</h3></div></article>
+            <article class="blog-card reveal fx-zoom"><img src="assets/machu-picchu.png" alt="" /><div style="padding:1.25rem"><small data-i18n="blog.b1d">Jul 10, 2026</small><h3 data-i18n="blog.b1t">Best time to visit Machu Picchu from Ollantaytambo</h3></div></article>
+            <article class="blog-card reveal fx-zoom"><img src="assets/rainbow-mountain.png" alt="" /><div style="padding:1.25rem"><small data-i18n="blog.b2d">Jul 3, 2026</small><h3 data-i18n="blog.b2t">What to pack for Rainbow Mountain</h3></div></article>
+            <article class="blog-card reveal fx-zoom"><img src="assets/mountain-bike.png" alt="" /><div style="padding:1.25rem"><small data-i18n="blog.b3d">Jun 28, 2026</small><h3 data-i18n="blog.b3t">Mountain biking routes around the Inca Valley</h3></div></article>
           </div>
         </div>
       </section>
 
       <section class="section section-soft">
         <div class="container">
-          <div class="section-head">
+          <div class="section-head reveal">
             <h2 class="section-title" data-i18n="instagram.title">Ollanta Tours on Instagram</h2>
           </div>
           <div class="instagram-grid">
-            <img src="https://images.unsplash.com/photo-1587595431973-160fb0a0a0?auto=format&fit=crop&w=400&q=80" alt="" />
-            <img src="https://images.unsplash.com/photo-1526392060635-9d5981266fe2?auto=format&fit=crop&w=400&q=80" alt="" />
-            <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a0?auto=format&fit=crop&w=400&q=80" alt="" />
-            <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=400&q=80" alt="" />
-            <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=400&q=80" alt="" />
-            <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=400&q=80" alt="" />
+            <div class="instagram-item fx-shake reveal"><img src="assets/hero-main.png" alt="" /></div>
+            <div class="instagram-item fx-shake reveal"><img src="assets/machu-picchu.png" alt="" /></div>
+            <div class="instagram-item fx-shake reveal"><img src="assets/rainbow-mountain.png" alt="" /></div>
+            <div class="instagram-item fx-shake reveal"><img src="assets/mountain-bike.png" alt="" /></div>
+            <div class="instagram-item fx-shake reveal"><img src="assets/hero-main.png" alt="" /></div>
+            <div class="instagram-item fx-shake reveal"><img src="assets/rainbow-mountain.png" alt="" /></div>
           </div>
           <div class="load-more-wrap"><a class="btn btn-primary btn-pill" href="contact.html" data-i18n="instagram.button">Start your journey</a></div>
         </div>
@@ -289,5 +291,6 @@
     </footer>
 
     <script src="script.js"></script>
+    <script src="effects.js"></script>
   </body>
 </html>

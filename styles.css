@@ -28,7 +28,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 body {
@@ -292,6 +292,29 @@ body[data-page="home"] .site-header:not(.scrolled) .nav-toggle {
 .hero-media {
   position: absolute;
   inset: 0;
+  cursor: crosshair;
+}
+
+.hero-water-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.hero-water-source {
+  display: none;
+}
+
+.hero-media.is-static .hero-water-canvas {
+  display: none;
+}
+
+.hero-media.is-static .hero-water-source {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .hero-media img {
@@ -419,11 +442,6 @@ body[data-page="home"] .site-header:not(.scrolled) .nav-toggle {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.35s ease;
-}
-
-.tour-card:hover .tour-card-media img {
-  transform: scale(1.05);
 }
 
 .tour-card-body {
@@ -500,6 +518,12 @@ body[data-page="home"] .site-header:not(.scrolled) .nav-toggle {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transform: translate3d(var(--fx-x, 0), calc(var(--parallax-y, 0px) + var(--fx-y, 0)), 0) scale(1.04);
+  transition: transform 0.35s ease;
+}
+
+.feature-banner:hover img {
+  transform: translate3d(var(--fx-x, 0), calc(var(--parallax-y, 0px) + var(--fx-y, 0)), 0) scale(1.1);
 }
 
 .feature-banner-overlay {
@@ -657,10 +681,70 @@ body[data-page="home"] .site-header:not(.scrolled) .nav-toggle {
   gap: 0.75rem;
 }
 
+.instagram-item {
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+}
+
 .instagram-grid img {
   aspect-ratio: 1;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   border-radius: var(--radius-sm);
+  transition: transform 0.35s ease;
+}
+
+.fx-zoom img,
+.tour-card-media img,
+.blog-card img {
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translate3d(var(--fx-x, 0), var(--fx-y, 0), 0) scale(1.02);
+}
+
+.fx-zoom:hover img,
+.tour-card:hover .tour-card-media img,
+.blog-card:hover img {
+  transform: translate3d(var(--fx-x, 0), var(--fx-y, 0), 0) scale(1.1);
+}
+
+@keyframes photo-shake {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1.03); }
+  20% { transform: translate3d(-3px, 2px, 0) rotate(-0.6deg) scale(1.05); }
+  40% { transform: translate3d(3px, -2px, 0) rotate(0.6deg) scale(1.05); }
+  60% { transform: translate3d(-2px, -1px, 0) rotate(-0.4deg) scale(1.04); }
+  80% { transform: translate3d(2px, 1px, 0) rotate(0.4deg) scale(1.04); }
+  100% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1.03); }
+}
+
+.fx-shake.is-shaking img {
+  animation: photo-shake 0.45s ease;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .fx-zoom img,
+  .tour-card-media img,
+  .blog-card img,
+  .feature-banner img {
+    transform: none !important;
+    transition: none;
+  }
 }
 
 .page-hero {
