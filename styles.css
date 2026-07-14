@@ -142,6 +142,10 @@ textarea {
   box-shadow: 0 8px 30px rgba(33, 33, 33, 0.06);
 }
 
+body[data-page="home"] .site-header:not(.scrolled) {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.38) 0%, rgba(0, 0, 0, 0) 100%);
+}
+
 body[data-page="home"] .site-header:not(.scrolled) .nav-desktop a,
 body[data-page="home"] .site-header:not(.scrolled) .logo {
   color: var(--white);
@@ -149,6 +153,24 @@ body[data-page="home"] .site-header:not(.scrolled) .logo {
 
 body[data-page="home"] .site-header:not(.scrolled) .nav-desktop a {
   color: rgba(255, 255, 255, 0.82);
+}
+
+body[data-page="home"] .site-header:not(.scrolled) .nav-desktop a:hover,
+body[data-page="home"] .site-header:not(.scrolled) .nav-desktop a.active {
+  color: var(--white);
+}
+
+.site-header.scrolled .logo {
+  color: var(--text);
+}
+
+.site-header.scrolled .nav-desktop a {
+  color: var(--text-soft);
+}
+
+.site-header.scrolled .nav-desktop a:hover,
+.site-header.scrolled .nav-desktop a.active {
+  color: var(--text);
 }
 
 body[data-page="home"] .site-header:not(.scrolled) .lang-switch {
@@ -279,6 +301,34 @@ body[data-page="home"] .site-header:not(.scrolled) .nav-toggle {
 /* Hero */
 .hero {
   padding: calc(var(--header-h) + 1.5rem) 0 2rem;
+}
+
+body[data-page="home"] .hero {
+  padding: 0 0 2rem;
+}
+
+body[data-page="home"] .hero > .container {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+body[data-page="home"] .hero-shell {
+  min-height: max(720px, 100svh);
+  border-radius: 0;
+}
+
+body[data-page="home"] .hero-content {
+  padding-top: calc(var(--header-h) + 2rem);
+}
+
+body[data-page="home"] .hero-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.42) 0%,
+    rgba(0, 0, 0, 0.12) 24%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
 }
 
 .hero-shell {

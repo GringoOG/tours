@@ -517,8 +517,16 @@ function initHeader() {
   const header = document.querySelector(".site-header");
   const toggle = document.querySelector(".nav-toggle");
   const mobileNav = document.querySelector(".nav-mobile");
+  const isHome = document.body.dataset.page === "home";
 
-  const onScroll = () => header?.classList.toggle("scrolled", window.scrollY > 24);
+  const onScroll = () => {
+    if (!header) return;
+    if (isHome) {
+      header.classList.toggle("scrolled", window.scrollY > 24);
+      return;
+    }
+    header.classList.add("scrolled");
+  };
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
 
