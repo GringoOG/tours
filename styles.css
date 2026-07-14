@@ -85,6 +85,28 @@ textarea {
   padding: 5.5rem 0;
 }
 
+body[data-page="home"] .section {
+  padding: clamp(3rem, 5vw, 4.25rem) 0;
+}
+
+body[data-page="home"] .section-head {
+  margin-bottom: 1.75rem;
+}
+
+body[data-page="home"] .section-story {
+  margin-top: -4.5rem;
+  padding-top: 0;
+  position: relative;
+  z-index: 2;
+}
+
+body[data-page="home"] .section-story .story-panel {
+  padding: clamp(2rem, 4vw, 3rem);
+  border-radius: var(--radius-lg);
+  background: var(--bg);
+  box-shadow: 0 -24px 60px rgba(33, 33, 33, 0.08);
+}
+
 .section-soft {
   background: var(--bg-soft);
 }
@@ -304,7 +326,7 @@ body[data-page="home"] .site-header:not(.scrolled) .nav-toggle {
 }
 
 body[data-page="home"] .hero {
-  padding: 0 0 2rem;
+  padding: 0;
 }
 
 body[data-page="home"] .hero > .container {
@@ -314,7 +336,7 @@ body[data-page="home"] .hero > .container {
 }
 
 body[data-page="home"] .hero-shell {
-  min-height: max(720px, 100svh);
+  min-height: min(92svh, 860px);
   border-radius: 0;
 }
 
@@ -541,8 +563,40 @@ body[data-page="home"] .hero-overlay {
 .story-grid {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
-  gap: 2rem;
+  gap: clamp(1.25rem, 3vw, 2rem);
   align-items: start;
+}
+
+body[data-page="home"] .value-card {
+  padding: 1.1rem 1.2rem;
+}
+
+body[data-page="home"] .value-card h3 {
+  margin: 0 0 0.45rem;
+  font-size: 1rem;
+}
+
+body[data-page="home"] .value-card p {
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+body[data-page="home"] .featured-tours-grid {
+  display: flex;
+  gap: 1.1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 0.35rem;
+  scrollbar-width: none;
+}
+
+body[data-page="home"] .featured-tours-grid::-webkit-scrollbar {
+  display: none;
+}
+
+body[data-page="home"] .featured-tours-grid .tour-card {
+  flex: 0 0 min(320px, 78vw);
+  scroll-snap-align: start;
 }
 
 .story-quote {
@@ -777,8 +831,9 @@ body[data-page="home"] .hero-overlay {
   transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-html {
-  scroll-behavior: auto;
+.reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -981,6 +1036,15 @@ html {
 
   .hero-content {
     padding: 1.5rem;
+  }
+
+  body[data-page="home"] .section-story {
+    margin-top: -2.5rem;
+  }
+
+  body[data-page="home"] .section-story .story-panel {
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
   }
 
   .section {
