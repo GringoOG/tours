@@ -3,7 +3,7 @@ const STORAGE_KEY = "tours-lang";
 const tours = [
   {
     slug: "machu-picchu",
-    image: "assets/machu-picchu.png",
+    image: "assets/machu-picchu.jpg",
     price: 189,
   },
   {
