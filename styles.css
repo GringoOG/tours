@@ -155,13 +155,34 @@ body[data-page="home"] .section-story .story-panel {
   inset: 0 0 auto;
   z-index: 100;
   height: var(--header-h);
-  transition: background 0.25s ease, box-shadow 0.25s ease;
+  transition: background 0.25s ease, box-shadow 0.25s ease, height 0.25s ease;
 }
 
 .site-header.scrolled {
+  height: 60px;
   background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(12px);
   box-shadow: 0 8px 30px rgba(33, 33, 33, 0.06);
+}
+
+.site-header.scrolled .logo {
+  font-size: 1.15rem;
+}
+
+.site-header.scrolled .logo-mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  font-size: 0.72rem;
+}
+
+.site-header.scrolled .header-actions .btn {
+  padding: 0.55rem 1.05rem;
+  font-size: 0.88rem;
+}
+
+.site-header.scrolled .lang-switch button {
+  padding: 0.3rem 0.65rem;
 }
 
 body[data-page="home"] .site-header:not(.scrolled) {
@@ -248,9 +269,9 @@ body[data-page="home"] .site-header:not(.scrolled) .nav-toggle {
 }
 
 .nav-desktop a {
-  font-size: 0.95rem;
+  font-size: 1.08rem;
   color: var(--text-soft);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .nav-desktop a:hover,
@@ -309,6 +330,10 @@ body[data-page="home"] .site-header:not(.scrolled) .nav-toggle {
   z-index: 90;
 }
 
+.site-header.scrolled .nav-mobile {
+  top: 60px;
+}
+
 .nav-mobile.open {
   display: flex;
 }
@@ -341,7 +366,21 @@ body[data-page="home"] .hero-shell {
 }
 
 body[data-page="home"] .hero-content {
-  padding-top: calc(var(--header-h) + 2rem);
+  min-height: min(92svh, 860px);
+  justify-content: flex-end;
+  padding: calc(var(--header-h) + 1rem) 3rem 5.5rem;
+}
+
+body[data-page="home"] .hero-title {
+  max-width: 620px;
+  margin-top: 0.85rem;
+  font-size: clamp(2.1rem, 4.2vw, 3.15rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+
+body[data-page="home"] .hero-trust {
+  margin-top: 1.15rem;
 }
 
 body[data-page="home"] .hero-overlay {
@@ -1030,6 +1069,12 @@ body[data-page="home"] .featured-tours-grid .tour-card {
   .hero-content {
     min-height: auto;
     padding-bottom: 2rem;
+  }
+
+  body[data-page="home"] .hero-content {
+    min-height: auto;
+    justify-content: flex-end;
+    padding: calc(var(--header-h) + 1rem) 1.5rem 2rem;
   }
 }
 
