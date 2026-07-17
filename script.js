@@ -529,6 +529,16 @@ function t(path, lang = getLang()) {
   return path.split(".").reduce((acc, key) => acc?.[key], i18n[lang]) ?? path;
 }
 
+function getSortedTours(lang = getLang()) {
+  const collator = new Intl.Collator(lang, { sensitivity: "base" });
+  return [...tours].sort((a, b) =>
+    collator.compare(
+      t(`tours.${a.slug}.name`, lang),
+      t(`tours.${b.slug}.name`, lang)
+    )
+  );
+}
+
 function setLang(lang) {
   localStorage.setItem(STORAGE_KEY, lang);
   document.documentElement.lang = lang;
@@ -552,7 +562,7 @@ function applyTranslations(lang) {
     const current = select.value;
     select.innerHTML = `
       <option value="">${t("selects.chooseTour", lang)}</option>
-      ${tours
+      ${getSortedTours(lang)
         .map(
           (tour) =>
             `<option value="${tour.slug}">${t("tours." + tour.slug + ".name", lang)}</option>`
@@ -574,7 +584,7 @@ function applyTranslations(lang) {
   document.querySelectorAll(".site-footer [data-i18n='footer.destinations']").forEach((heading) => {
     const column = heading.parentElement;
     column.querySelectorAll("a").forEach((link) => link.remove());
-    tours.forEach((tour) => {
+    getSortedTours(lang).forEach((tour) => {
       const link = document.createElement("a");
       link.href = `destination-${tour.slug}.html`;
       link.textContent = t(`tours.${tour.slug}.name`, lang);
@@ -586,10 +596,11 @@ function applyTranslations(lang) {
 function renderTourCards(container) {
   if (!container) return;
   const lang = getLang();
+  const sortedTours = getSortedTours(lang);
   const visibleTours =
     document.body.dataset.page === "home"
-      ? tours.filter((tour) => tour.slug !== "moray")
-      : tours;
+      ? sortedTours.filter((tour) => tour.slug !== "moray")
+      : sortedTours;
 
   container.innerHTML = visibleTours
     .map((tour) => {
