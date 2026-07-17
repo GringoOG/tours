@@ -132,6 +132,60 @@ body[data-page="home"] .section-story {
   padding: 1.5rem 0 2.5rem;
 }
 
+.section-values {
+  padding-top: 0.5rem;
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.values-panel {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--white);
+  overflow: hidden;
+}
+
+.value-cell {
+  padding: clamp(1.35rem, 2.5vw, 1.85rem);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.value-cell:nth-child(3n) {
+  border-right: none;
+}
+
+.value-cell:nth-child(n + 4) {
+  border-bottom: none;
+}
+
+.value-icon {
+  display: inline-flex;
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: 0.85rem;
+  color: var(--text);
+}
+
+.value-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.value-cell h3 {
+  margin: 0 0 0.55rem;
+  font-size: 1.05rem;
+  line-height: 1.25;
+}
+
+.value-cell p {
+  margin: 0;
+  color: var(--text-soft);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
 .story-photo {
   margin: 0;
   transform: translate3d(0, 0, 0) rotate(0deg);
@@ -1163,8 +1217,30 @@ body[data-page="home"] .featured-tours-grid .tour-card {
   .contact-grid,
   .footer-grid,
   .detail-layout,
-  .story-grid {
+  .story-grid,
+  .values-panel {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .value-cell {
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .value-cell:nth-child(3n) {
+    border-right: 1px solid var(--border);
+  }
+
+  .value-cell:nth-child(2n) {
+    border-right: none;
+  }
+
+  .value-cell:nth-child(n + 4) {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .value-cell:nth-child(n + 5) {
+    border-bottom: none;
   }
 
   .instagram-grid {
@@ -1242,6 +1318,19 @@ body[data-page="home"] .featured-tours-grid .tour-card {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.85rem;
     padding-bottom: 1.5rem;
+  }
+
+  .values-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .value-cell {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .value-cell:last-child {
+    border-bottom: none;
   }
 
   body[data-page="home"] .story-photos.is-active .story-photo-lift:nth-child(2) {
