@@ -142,7 +142,7 @@ body[data-page="home"] .section-story {
 .values-panel {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  width: min(100%, 880px);
+  width: min(100%, 940px);
   margin-inline: auto;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
@@ -151,7 +151,7 @@ body[data-page="home"] .section-story {
 }
 
 .value-cell {
-  padding: 1.25rem 1.15rem 1.35rem;
+  padding: 1.4rem 1.3rem 1.5rem;
   border-right: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 }
@@ -166,9 +166,9 @@ body[data-page="home"] .section-story {
 
 .value-icon {
   display: inline-flex;
-  width: 1.85rem;
-  height: 1.85rem;
-  margin-bottom: 0.75rem;
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: 0.8rem;
   color: var(--text);
   transform-origin: center;
   will-change: transform;
@@ -194,14 +194,14 @@ body[data-page="home"] .section-story {
 
 .value-cell h3 {
   margin: 0 0 0.45rem;
-  font-size: 0.98rem;
+  font-size: 1.02rem;
   line-height: 1.25;
 }
 
 .value-cell p {
   margin: 0;
   color: var(--text-soft);
-  font-size: 0.86rem;
+  font-size: 0.89rem;
   line-height: 1.5;
 }
 
