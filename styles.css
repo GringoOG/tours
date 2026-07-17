@@ -94,7 +94,7 @@ body[data-page="home"] .section-head {
 }
 
 body[data-page="home"] .section-story {
-  margin-top: -4.5rem;
+  margin-top: -1rem;
   padding-top: 0;
   position: relative;
   z-index: 2;
@@ -368,7 +368,7 @@ body[data-page="home"] .hero-shell {
 body[data-page="home"] .hero-content {
   min-height: min(92svh, 860px);
   justify-content: flex-end;
-  padding: calc(var(--header-h) + 1rem) 3rem 5.5rem;
+  padding: calc(var(--header-h) + 1rem) 3rem 6.5rem;
 }
 
 body[data-page="home"] .hero-title {
@@ -475,9 +475,10 @@ body[data-page="home"] .hero-overlay {
 .hero-booking {
   position: absolute;
   right: 2rem;
-  bottom: 2rem;
-  width: min(620px, calc(100% - 4rem));
-  padding: 2rem;
+  bottom: 2.5rem;
+  z-index: 4;
+  width: min(360px, calc(100% - 3rem));
+  padding: 1.35rem;
   border-radius: var(--radius-md);
   border: 1px solid rgba(255, 255, 255, 0.2);
   background:
@@ -491,24 +492,24 @@ body[data-page="home"] .hero-overlay {
 
 .hero-booking label {
   display: block;
-  margin-bottom: 0.65rem;
-  font-size: 0.95rem;
+  margin-bottom: 0.45rem;
+  font-size: 0.88rem;
   color: rgba(255, 255, 255, 0.88);
 }
 
 .hero-booking-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.25rem 1rem;
+  grid-template-columns: 1fr;
+  gap: 0.9rem;
 }
 
 .hero-booking select,
 .hero-booking input {
   width: 100%;
-  min-height: 56px;
-  padding: 0.85rem 1rem;
+  min-height: 48px;
+  padding: 0.75rem 0.9rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 14px;
+  border-radius: 12px;
   background: rgba(8, 24, 24, 0.15);
   color: var(--white);
   color-scheme: dark;
@@ -523,10 +524,10 @@ body[data-page="home"] .hero-overlay {
 }
 
 .hero-booking > .btn {
-  width: auto;
-  min-width: 190px;
-  margin-top: 1.5rem;
-  padding: 1rem 1.4rem;
+  width: 100%;
+  min-width: 0;
+  margin-top: 1.1rem;
+  padding: 0.9rem 1.2rem;
 }
 
 .hero-trust {
@@ -1061,7 +1062,7 @@ body[data-page="home"] .featured-tours-grid .tour-card {
   .hero-booking {
     position: static;
     width: 100%;
-    max-width: 680px;
+    max-width: 360px;
     margin-left: auto;
     margin-top: 2rem;
   }
@@ -1120,7 +1121,7 @@ body[data-page="home"] .featured-tours-grid .tour-card {
   }
 
   body[data-page="home"] .section-story {
-    margin-top: -2.5rem;
+    margin-top: -0.5rem;
   }
 
   body[data-page="home"] .section-story .story-panel {
