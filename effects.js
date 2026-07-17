@@ -421,29 +421,38 @@ function initValueIconSpin() {
 
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-  let spun = false;
+  let inView = false;
+  let spinTimer = null;
+
   const spin = () => {
-    if (spun) return;
-    spun = true;
-    icons.forEach((icon, index) => {
-      window.setTimeout(() => {
-        icon.classList.remove("is-spinning");
-        void icon.offsetWidth;
-        icon.classList.add("is-spinning");
-      }, index * 40);
-    });
+    if (spinTimer) window.clearTimeout(spinTimer);
+    icons.forEach((icon) => icon.classList.remove("is-spinning"));
+    // Restart after a beat so the visitor is already looking at the section
+    spinTimer = window.setTimeout(() => {
+      icons.forEach((icon, index) => {
+        window.setTimeout(() => {
+          icon.classList.remove("is-spinning");
+          void icon.offsetWidth;
+          icon.classList.add("is-spinning");
+        }, index * 70);
+      });
+    }, 180);
   };
 
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
+        if (entry.isIntersecting && !inView) {
+          inView = true;
           spin();
-          observer.disconnect();
+        } else if (!entry.isIntersecting && inView) {
+          inView = false;
+          icons.forEach((icon) => icon.classList.remove("is-spinning"));
         }
       });
     },
-    { threshold: 0.35, rootMargin: "0px 0px -10% 0px" }
+    // Fire once the panel sits lower in the viewport (more noticeable)
+    { threshold: 0.45, rootMargin: "0px 0px -28% 0px" }
   );
 
   observer.observe(panel);
