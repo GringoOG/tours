@@ -3,62 +3,8 @@
  */
 
 function initSmoothScroll() {
-  if (!document.body.dataset.page || document.body.dataset.page !== "home") return;
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-  let target = window.scrollY;
-  let current = window.scrollY;
-  let rafId = null;
-
-  const smooth = 0.085;
-
-  const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
-
-  window.addEventListener(
-    "wheel",
-    (event) => {
-      if (event.ctrlKey) return;
-      event.preventDefault();
-      target = clamp(target + event.deltaY, 0, document.documentElement.scrollHeight - window.innerHeight);
-      if (!rafId) rafId = requestAnimationFrame(tick);
-    },
-    { passive: false }
-  );
-
-  let touchStart = 0;
-  window.addEventListener("touchstart", (e) => {
-    touchStart = e.touches[0].clientY;
-  }, { passive: true });
-
-  window.addEventListener(
-    "touchmove",
-    (e) => {
-      const delta = touchStart - e.touches[0].clientY;
-      touchStart = e.touches[0].clientY;
-      target = clamp(target + delta, 0, document.documentElement.scrollHeight - window.innerHeight);
-      if (!rafId) rafId = requestAnimationFrame(tick);
-    },
-    { passive: true }
-  );
-
-  function tick() {
-    current += (target - current) * smooth;
-    if (Math.abs(target - current) < 0.5) {
-      current = target;
-      window.scrollTo(0, current);
-      rafId = null;
-      return;
-    }
-    window.scrollTo(0, current);
-    rafId = requestAnimationFrame(tick);
-  }
-
-  window.addEventListener("scroll", () => {
-    if (!rafId) {
-      target = window.scrollY;
-      current = window.scrollY;
-    }
-  }, { passive: true });
+  // Native scrolling stays enabled — custom wheel hijacking caused page-wide jank.
+  return;
 }
 
 class HeroWaterRipple {
@@ -75,161 +21,278 @@ class HeroWaterRipple {
       return;
     }
 
-    this.ctx = this.canvas.getContext("2d", { willReadFrequently: true });
-    this.pointer = { x: 0.5, y: 0.5, active: false };
-    this.ripples = [];
+    this.gl = this.canvas.getContext("webgl", {
+      alpha: false,
+      antialias: false,
+      depth: false,
+      stencil: false,
+      powerPreference: "high-performance",
+    });
+
+    if (!this.gl) {
+      this.root.classList.add("is-static");
+      return;
+    }
+
+    this.pointer = { x: 0.5, y: 0.5, active: 0 };
+    this.ripples = new Float32Array(12); // 4 ripples * (x,y,born)
+    this.rippleCount = 0;
+    this.rippleWrite = 0;
     this.time = 0;
-    this.dpr = Math.min(window.devicePixelRatio || 1, 2);
-    this.scale = 0.72;
-    this.ready = false;
-    this.needsRender = true;
+    this.rafId = null;
+    this.running = false;
     this.lastRippleAt = 0;
+    this.visible = true;
 
     this.onResize = this.onResize.bind(this);
     this.onMove = this.onMove.bind(this);
     this.onLeave = this.onLeave.bind(this);
     this.tick = this.tick.bind(this);
 
+    if (!this.initGl()) {
+      this.root.classList.add("is-static");
+      return;
+    }
+
     const start = () => {
-      this.ready = true;
+      this.uploadTexture();
       this.onResize();
-      requestAnimationFrame(this.tick);
+      this.render(0);
     };
 
     if (this.img.complete && this.img.naturalWidth) start();
     else this.img.addEventListener("load", start, { once: true });
 
-    window.addEventListener("resize", this.onResize);
-    this.shell.addEventListener("pointermove", this.onMove);
-    this.shell.addEventListener("pointerleave", this.onLeave);
+    window.addEventListener("resize", this.onResize, { passive: true });
+    this.shell.addEventListener("pointermove", this.onMove, { passive: true });
+    this.shell.addEventListener("pointerleave", this.onLeave, { passive: true });
+
+    if ("IntersectionObserver" in window) {
+      this.io = new IntersectionObserver(
+        ([entry]) => {
+          this.visible = entry.isIntersecting;
+          if (!this.visible) this.stop();
+        },
+        { threshold: 0.05 }
+      );
+      this.io.observe(this.shell);
+    }
   }
 
-  drawCover(ctx, img, width, height) {
-    const iw = img.naturalWidth || img.width;
-    const ih = img.naturalHeight || img.height;
-    if (!iw || !ih) return;
-    const scale = Math.max(width / iw, height / ih);
+  initGl() {
+    const gl = this.gl;
+    const vsSource = `
+      attribute vec2 aPos;
+      varying vec2 vUv;
+      void main() {
+        vUv = aPos * 0.5 + 0.5;
+        vUv.y = 1.0 - vUv.y;
+        gl_Position = vec4(aPos, 0.0, 1.0);
+      }
+    `;
+    const fsSource = `
+      precision mediump float;
+      varying vec2 vUv;
+      uniform sampler2D uTex;
+      uniform vec2 uMouse;
+      uniform float uActive;
+      uniform float uTime;
+      uniform vec3 uRipples[4];
+
+      void main() {
+        vec2 uv = vUv;
+        vec2 offset = vec2(0.0);
+
+        for (int i = 0; i < 4; i++) {
+          vec3 r = uRipples[i];
+          float age = uTime - r.z;
+          if (age >= 0.0 && age <= 1.6 && r.z > 0.0) {
+            vec2 d = uv - r.xy;
+            float dist = length(d) + 0.0001;
+            float wave = sin(dist * 42.0 - age * 10.0) * exp(-dist * 5.5 - age * 1.4);
+            offset += (d / dist) * wave * 0.018;
+          }
+        }
+
+        if (uActive > 0.01) {
+          vec2 d = uv - uMouse;
+          float dist = length(d);
+          float lens = max(0.0, 1.0 - dist / 0.22);
+          offset += d * lens * lens * 0.035 * uActive;
+        }
+
+        gl_FragColor = texture2D(uTex, clamp(uv + offset, 0.001, 0.999));
+      }
+    `;
+
+    const compile = (type, source) => {
+      const shader = gl.createShader(type);
+      gl.shaderSource(shader, source);
+      gl.compileShader(shader);
+      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        gl.deleteShader(shader);
+        return null;
+      }
+      return shader;
+    };
+
+    const vs = compile(gl.VERTEX_SHADER, vsSource);
+    const fs = compile(gl.FRAGMENT_SHADER, fsSource);
+    if (!vs || !fs) return false;
+
+    const program = gl.createProgram();
+    gl.attachShader(program, vs);
+    gl.attachShader(program, fs);
+    gl.linkProgram(program);
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) return false;
+    gl.useProgram(program);
+    this.program = program;
+
+    const buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+    const aPos = gl.getAttribLocation(program, "aPos");
+    gl.enableVertexAttribArray(aPos);
+    gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+    this.uniforms = {
+      uTex: gl.getUniformLocation(program, "uTex"),
+      uMouse: gl.getUniformLocation(program, "uMouse"),
+      uActive: gl.getUniformLocation(program, "uActive"),
+      uTime: gl.getUniformLocation(program, "uTime"),
+      uRipples: [0, 1, 2, 3].map((i) => gl.getUniformLocation(program, `uRipples[${i}]`)),
+    };
+
+    this.texture = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, this.texture);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.uniform1i(this.uniforms.uTex, 0);
+    return true;
+  }
+
+  uploadTexture() {
+    const gl = this.gl;
+    const rect = this.root.getBoundingClientRect();
+    const aspect = Math.max(0.5, (rect.width || 16) / (rect.height || 9));
+    const max = Math.min(gl.getParameter(gl.MAX_TEXTURE_SIZE) || 2048, 1920);
+    const th = Math.min(max, 1080);
+    const tw = Math.min(max, Math.round(th * aspect));
+
+    const source = document.createElement("canvas");
+    source.width = tw;
+    source.height = th;
+    const ctx = source.getContext("2d");
+    const iw = this.img.naturalWidth;
+    const ih = this.img.naturalHeight;
+    const scale = Math.max(tw / iw, th / ih);
     const dw = iw * scale;
     const dh = ih * scale;
-    const dx = (width - dw) / 2;
-    const dy = (height - dh) / 2;
-    ctx.clearRect(0, 0, width, height);
-    ctx.drawImage(img, dx, dy, dw, dh);
+    ctx.fillStyle = "#111";
+    ctx.fillRect(0, 0, tw, th);
+    ctx.drawImage(this.img, (tw - dw) / 2, (th - dh) / 2, dw, dh);
+
+    gl.bindTexture(gl.TEXTURE_2D, this.texture);
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 0);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source);
   }
 
   onResize() {
     const rect = this.root.getBoundingClientRect();
-    this.width = Math.max(1, Math.floor(rect.width * this.dpr * this.scale));
-    this.height = Math.max(1, Math.floor(rect.height * this.dpr * this.scale));
-    this.canvas.width = this.width;
-    this.canvas.height = this.height;
-    this.offscreen = document.createElement("canvas");
-    this.offscreen.width = this.width;
-    this.offscreen.height = this.height;
-    this.offCtx = this.offscreen.getContext("2d");
-    this.drawCover(this.offCtx, this.img, this.width, this.height);
-    this.base = this.offCtx.getImageData(0, 0, this.width, this.height);
-    this.ctx.drawImage(this.offscreen, 0, 0);
-    this.needsRender = true;
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    const width = Math.max(1, Math.floor(rect.width * dpr));
+    const height = Math.max(1, Math.floor(rect.height * dpr));
+    if (this.canvas.width !== width || this.canvas.height !== height) {
+      this.canvas.width = width;
+      this.canvas.height = height;
+      this.gl.viewport(0, 0, width, height);
+      if (this.img.complete && this.img.naturalWidth) this.uploadTexture();
+    }
+    this.render(this.time);
   }
 
   onMove(event) {
+    if (!this.visible) return;
     if (event.target.closest(".hero-booking, a, button, select, input, label")) {
-      this.pointer.active = false;
-      this.needsRender = true;
+      this.pointer.active = 0;
+      this.start();
       return;
     }
 
     const rect = this.root.getBoundingClientRect();
-    const x = (event.clientX - rect.left) / rect.width;
-    const y = (event.clientY - rect.top) / rect.height;
-    this.pointer = { x, y, active: true };
+    this.pointer.x = (event.clientX - rect.left) / rect.width;
+    this.pointer.y = (event.clientY - rect.top) / rect.height;
+    this.pointer.active = 1;
 
     const now = performance.now();
-    if (now - this.lastRippleAt > 28) {
-      this.ripples.push({ x, y, born: this.time, strength: 1 });
-      if (this.ripples.length > 10) this.ripples.shift();
+    if (now - this.lastRippleAt > 55) {
+      const i = this.rippleWrite % 4;
+      this.ripples[i * 3] = this.pointer.x;
+      this.ripples[i * 3 + 1] = this.pointer.y;
+      this.ripples[i * 3 + 2] = this.time;
+      this.rippleWrite += 1;
+      this.rippleCount = Math.min(4, this.rippleCount + 1);
       this.lastRippleAt = now;
     }
-    this.needsRender = true;
+    this.start();
   }
 
   onLeave() {
-    this.pointer.active = false;
-    this.needsRender = true;
+    this.pointer.active = 0;
+    this.start();
+  }
+
+  start() {
+    if (this.running || !this.visible) return;
+    this.running = true;
+    this.rafId = requestAnimationFrame(this.tick);
+  }
+
+  stop() {
+    this.running = false;
+    if (this.rafId) {
+      cancelAnimationFrame(this.rafId);
+      this.rafId = null;
+    }
+  }
+
+  render(time) {
+    const gl = this.gl;
+    if (!gl || !this.program) return;
+    this.time = time;
+    gl.useProgram(this.program);
+    gl.uniform2f(this.uniforms.uMouse, this.pointer.x, this.pointer.y);
+    gl.uniform1f(this.uniforms.uActive, this.pointer.active);
+    gl.uniform1f(this.uniforms.uTime, time);
+
+    let live = 0;
+    for (let i = 0; i < 4; i++) {
+      const born = this.ripples[i * 3 + 2];
+      const age = time - born;
+      const active = born > 0 && age >= 0 && age < 1.6;
+      gl.uniform3f(
+        this.uniforms.uRipples[i],
+        this.ripples[i * 3],
+        this.ripples[i * 3 + 1],
+        born
+      );
+      if (active) live += 1;
+    }
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    return live > 0 || this.pointer.active > 0;
   }
 
   tick(now) {
-    if (!this.ready) {
-      requestAnimationFrame(this.tick);
+    if (!this.running) return;
+    const busy = this.render(now * 0.001);
+    if (busy) {
+      this.rafId = requestAnimationFrame(this.tick);
       return;
     }
-
-    this.time = now * 0.001;
-    this.ripples = this.ripples.filter((r) => this.time - r.born < 2.4);
-    const animating = this.pointer.active || this.ripples.length > 0;
-
-    if (!animating && !this.needsRender) {
-      requestAnimationFrame(this.tick);
-      return;
-    }
-
-    if (!animating) {
-      this.ctx.drawImage(this.offscreen, 0, 0);
-      this.needsRender = false;
-      requestAnimationFrame(this.tick);
-      return;
-    }
-
-    const { width, height, base, ctx, ripples } = this;
-    const out = ctx.createImageData(width, height);
-    const src = base.data;
-    const dst = out.data;
-
-    for (let y = 0; y < height; y++) {
-      for (let x = 0; x < width; x++) {
-        const nx = x / width;
-        const ny = y / height;
-        let ox = 0;
-        let oy = 0;
-
-        for (const ripple of ripples) {
-          const age = this.time - ripple.born;
-          const dx = nx - ripple.x;
-          const dy = ny - ripple.y;
-          const dist = Math.sqrt(dx * dx + dy * dy) + 0.0001;
-          const wave =
-            Math.sin(dist * 48 - age * 10) *
-            Math.exp(-dist * 4.2 - age * 1.15) *
-            ripple.strength;
-          ox += (wave * dx) / dist * 22;
-          oy += (wave * dy) / dist * 22;
-        }
-
-        if (this.pointer.active) {
-          const dx = nx - this.pointer.x;
-          const dy = ny - this.pointer.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          const lens = Math.max(0, 1 - dist / 0.2);
-          const bulge = lens * lens;
-          ox += dx * bulge * 18;
-          oy += dy * bulge * 18;
-        }
-
-        const sx = Math.min(width - 1, Math.max(0, Math.round(x + ox)));
-        const sy = Math.min(height - 1, Math.max(0, Math.round(y + oy)));
-        const si = (sy * width + sx) * 4;
-        const di = (y * width + x) * 4;
-        dst[di] = src[si];
-        dst[di + 1] = src[si + 1];
-        dst[di + 2] = src[si + 2];
-        dst[di + 3] = src[si + 3];
-      }
-    }
-
-    ctx.putImageData(out, 0, 0);
-    this.needsRender = false;
-    requestAnimationFrame(this.tick);
+    this.running = false;
+    this.rafId = null;
   }
 }
 
