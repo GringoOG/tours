@@ -34,7 +34,7 @@ class HeroWaterRipple {
       return;
     }
 
-    this.pointer = { x: 0.5, y: 0.5, active: 0 };
+    this.pointer = { x: 0.5, y: 0.5, active: 0, targetActive: 0 };
     this.ripples = new Float32Array(12); // 4 ripples * (x,y,born)
     this.rippleCount = 0;
     this.rippleWrite = 0;
@@ -109,16 +109,17 @@ class HeroWaterRipple {
           if (age >= 0.0 && age <= 1.6 && r.z > 0.0) {
             vec2 d = uv - r.xy;
             float dist = length(d) + 0.0001;
-            float wave = sin(dist * 42.0 - age * 10.0) * exp(-dist * 5.5 - age * 1.4);
-            offset += (d / dist) * wave * 0.0144;
+            float fadeIn = smoothstep(0.0, 0.35, age);
+            float wave = sin(dist * 36.0 - age * 8.0) * exp(-dist * 6.0 - age * 1.6) * fadeIn;
+            offset += (d / dist) * wave * 0.007;
           }
         }
 
         if (uActive > 0.01) {
           vec2 d = uv - uMouse;
           float dist = length(d);
-          float lens = max(0.0, 1.0 - dist / 0.22);
-          offset += d * lens * lens * 0.028 * uActive;
+          float lens = max(0.0, 1.0 - dist / 0.18);
+          offset += d * lens * lens * 0.012 * uActive;
         }
 
         gl_FragColor = texture2D(uTex, clamp(uv + offset, 0.001, 0.999));
@@ -216,7 +217,7 @@ class HeroWaterRipple {
   onMove(event) {
     if (!this.visible) return;
     if (event.target.closest(".hero-booking, a, button, select, input, label")) {
-      this.pointer.active = 0;
+      this.pointer.targetActive = 0;
       this.start();
       return;
     }
@@ -224,10 +225,11 @@ class HeroWaterRipple {
     const rect = this.root.getBoundingClientRect();
     this.pointer.x = (event.clientX - rect.left) / rect.width;
     this.pointer.y = (event.clientY - rect.top) / rect.height;
-    this.pointer.active = 1;
+    this.pointer.targetActive = 1;
 
     const now = performance.now();
-    if (now - this.lastRippleAt > 66) {
+    // Skip the first beat so entry doesn't spawn a hard splash
+    if (this.pointer.active > 0.35 && now - this.lastRippleAt > 100) {
       const i = this.rippleWrite % 4;
       this.ripples[i * 3] = this.pointer.x;
       this.ripples[i * 3 + 1] = this.pointer.y;
@@ -240,7 +242,7 @@ class HeroWaterRipple {
   }
 
   onLeave() {
-    this.pointer.active = 0;
+    this.pointer.targetActive = 0;
     this.start();
   }
 
@@ -262,6 +264,14 @@ class HeroWaterRipple {
     const gl = this.gl;
     if (!gl || !this.program) return;
     this.time = time;
+
+    // Ease lens in/out so the first hover doesn't punch hard
+    const ease = this.pointer.targetActive > this.pointer.active ? 0.045 : 0.08;
+    this.pointer.active += (this.pointer.targetActive - this.pointer.active) * ease;
+    if (Math.abs(this.pointer.active - this.pointer.targetActive) < 0.002) {
+      this.pointer.active = this.pointer.targetActive;
+    }
+
     gl.useProgram(this.program);
     gl.uniform2f(this.uniforms.uMouse, this.pointer.x, this.pointer.y);
     gl.uniform1f(this.uniforms.uActive, this.pointer.active);
@@ -281,7 +291,7 @@ class HeroWaterRipple {
       if (active) live += 1;
     }
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-    return live > 0 || this.pointer.active > 0;
+    return live > 0 || this.pointer.active > 0.002 || this.pointer.targetActive > 0;
   }
 
   tick(now) {
