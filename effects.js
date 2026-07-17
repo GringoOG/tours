@@ -412,12 +412,50 @@ function initParallax() {
   window.addEventListener("scroll", onScroll, { passive: true });
 }
 
+function initValueIconSpin() {
+  const panel = document.querySelector("[data-values-panel]");
+  if (!panel) return;
+
+  const icons = panel.querySelectorAll(".value-icon");
+  if (!icons.length) return;
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  let spun = false;
+  const spin = () => {
+    if (spun) return;
+    spun = true;
+    icons.forEach((icon, index) => {
+      window.setTimeout(() => {
+        icon.classList.remove("is-spinning");
+        void icon.offsetWidth;
+        icon.classList.add("is-spinning");
+      }, index * 40);
+    });
+  };
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          spin();
+          observer.disconnect();
+        }
+      });
+    },
+    { threshold: 0.35, rootMargin: "0px 0px -10% 0px" }
+  );
+
+  observer.observe(panel);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   initSmoothScroll();
   initHeroWater();
   initImageFx();
   initScrollReveal();
   initStoryPhotos();
+  initValueIconSpin();
   initParallax();
 });
 

@@ -140,6 +140,8 @@ body[data-page="home"] .section-story {
 .values-panel {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: min(100%, 880px);
+  margin-inline: auto;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   background: var(--white);
@@ -147,7 +149,7 @@ body[data-page="home"] .section-story {
 }
 
 .value-cell {
-  padding: clamp(1.35rem, 2.5vw, 1.85rem);
+  padding: 1.25rem 1.15rem 1.35rem;
   border-right: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 }
@@ -162,10 +164,12 @@ body[data-page="home"] .section-story {
 
 .value-icon {
   display: inline-flex;
-  width: 2rem;
-  height: 2rem;
-  margin-bottom: 0.85rem;
+  width: 1.85rem;
+  height: 1.85rem;
+  margin-bottom: 0.75rem;
   color: var(--text);
+  transform-origin: center;
+  will-change: transform;
 }
 
 .value-icon svg {
@@ -173,17 +177,30 @@ body[data-page="home"] .section-story {
   height: 100%;
 }
 
+.value-icon.is-spinning {
+  animation: value-icon-spin 0.72s cubic-bezier(0.15, 0.75, 0.25, 1);
+}
+
+@keyframes value-icon-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(1080deg);
+  }
+}
+
 .value-cell h3 {
-  margin: 0 0 0.55rem;
-  font-size: 1.05rem;
+  margin: 0 0 0.45rem;
+  font-size: 0.98rem;
   line-height: 1.25;
 }
 
 .value-cell p {
   margin: 0;
   color: var(--text-soft);
-  font-size: 0.92rem;
-  line-height: 1.55;
+  font-size: 0.86rem;
+  line-height: 1.5;
 }
 
 .story-photo {
@@ -1062,6 +1079,10 @@ body[data-page="home"] .featured-tours-grid .tour-card {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+
+  .value-icon.is-spinning {
+    animation: none;
   }
 
   .fx-zoom img,
