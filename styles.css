@@ -129,7 +129,7 @@ body[data-page="home"] .section-story {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: clamp(0.65rem, 1.6vw, 1.1rem);
   align-items: end;
-  width: min(100%, 1040px);
+  width: min(100%, 1080px);
   margin-inline: auto;
   padding: 1.5rem 0 2.5rem;
 }
