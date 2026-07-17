@@ -1136,6 +1136,7 @@ body[data-page="home"] .featured-tours-grid .tour-card {
   border-radius: var(--radius-md);
   border: 1px solid var(--border);
   background: var(--bg-soft);
+  overflow: visible;
 }
 
 .booking-panel label {
@@ -1158,6 +1159,158 @@ body[data-page="home"] .featured-tours-grid .tour-card {
 .booking-panel textarea {
   min-height: 110px;
   resize: vertical;
+}
+
+.phone-field-wrap {
+  margin: 0;
+}
+
+.phone-field {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.5rem;
+  align-items: stretch;
+}
+
+.phone-field .phone-number-input {
+  min-width: 0;
+}
+
+.phone-field .phone-number-input:focus {
+  outline: none;
+  border-color: #8ab4f8;
+  box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.18);
+}
+
+.phone-country {
+  position: relative;
+  z-index: 5;
+}
+
+.phone-country.is-open {
+  z-index: 30;
+}
+
+.phone-country-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  height: 100%;
+  min-height: 2.95rem;
+  padding: 0.7rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--white);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.phone-country-btn:focus {
+  outline: none;
+  border-color: #8ab4f8;
+  box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.18);
+}
+
+.phone-country-flag {
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.phone-country-caret {
+  font-size: 0.7rem;
+  opacity: 0.65;
+}
+
+.phone-country-menu {
+  position: absolute;
+  top: calc(100% + 0.35rem);
+  left: 0;
+  width: min(300px, 78vw);
+  max-height: 260px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--white);
+  box-shadow: 0 16px 40px rgba(33, 33, 33, 0.14);
+  overflow: hidden;
+}
+
+.phone-country-menu[hidden] {
+  display: none;
+}
+
+.phone-country-search {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  padding: 0.75rem 0.85rem;
+  font: inherit;
+  background: var(--bg-soft);
+}
+
+.phone-country-search:focus {
+  outline: none;
+}
+
+.phone-country-list {
+  list-style: none;
+  margin: 0;
+  padding: 0.25rem 0;
+  overflow: auto;
+  max-height: 210px;
+}
+
+.phone-country-list li {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.55rem;
+  align-items: center;
+  padding: 0.55rem 0.85rem;
+  cursor: pointer;
+  font-size: 0.88rem;
+}
+
+.phone-country-list li:hover,
+.phone-country-list li:focus {
+  background: rgba(33, 33, 33, 0.05);
+}
+
+.phone-country-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.phone-country-code {
+  color: var(--text-soft);
+  font-weight: 600;
+}
+
+.phone-country-empty {
+  justify-content: center;
+  color: var(--text-soft);
+  cursor: default;
+}
+
+.phone-number-input {
+  width: 100%;
+  padding: 0.85rem 0.95rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--white);
+  font: inherit;
+}
+
+.phone-number-input:focus {
+  outline: none;
+  border-color: #8ab4f8;
+  box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.18);
 }
 
 .contact-grid {

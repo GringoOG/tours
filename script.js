@@ -202,6 +202,9 @@ const i18n = {
     booking: {
       name: "Full name",
       email: "Email",
+      phone: "phone / WhatsApp",
+      phoneSearch: "Search country...",
+      phonePlaceholder: "Phone number",
       destination: "Tour",
       travelers: "Number of travelers",
       message: "Message",
@@ -394,6 +397,9 @@ const i18n = {
     booking: {
       name: "Nombre completo",
       email: "Correo electrónico",
+      phone: "teléfono / WhatsApp",
+      phoneSearch: "Buscar país...",
+      phonePlaceholder: "Número de teléfono",
       destination: "Tour",
       travelers: "Número de viajeros",
       message: "Mensaje",
@@ -482,6 +488,7 @@ function setLang(lang) {
   localStorage.setItem(STORAGE_KEY, lang);
   document.documentElement.lang = lang;
   applyTranslations(lang);
+  refreshPhoneFields(lang);
   document.querySelectorAll(".lang-switch button").forEach((btn) => {
     btn.classList.toggle("active", btn.dataset.lang === lang);
   });
@@ -583,6 +590,192 @@ function initFaq() {
   });
 }
 
+function flagEmoji(iso) {
+  return iso
+    .toUpperCase()
+    .replace(/./g, (char) => String.fromCodePoint(127397 + char.charCodeAt(0)));
+}
+
+function countryName(country, lang = getLang()) {
+  return lang === "es" ? country.es : country.en;
+}
+
+function findCountry(iso) {
+  return (window.PHONE_COUNTRIES || []).find((item) => item.iso === iso) || null;
+}
+
+function createPhoneField() {
+  const wrap = document.createElement("div");
+  wrap.className = "phone-field-wrap";
+  wrap.dataset.phoneField = "";
+  wrap.innerHTML = `
+    <label data-i18n="booking.phone">phone / WhatsApp</label>
+    <div class="phone-field">
+      <div class="phone-country" data-phone-country>
+        <button type="button" class="phone-country-btn" aria-haspopup="listbox" aria-expanded="false">
+          <span class="phone-country-flag" data-phone-flag></span>
+          <span class="phone-country-dial" data-phone-dial></span>
+          <span class="phone-country-caret" aria-hidden="true">▾</span>
+        </button>
+        <div class="phone-country-menu" hidden>
+          <input type="search" class="phone-country-search" data-i18n-placeholder="booking.phoneSearch" placeholder="Search country..." autocomplete="off" />
+          <ul class="phone-country-list" role="listbox"></ul>
+        </div>
+      </div>
+      <input class="phone-number-input" type="tel" name="phone" required inputmode="tel" autocomplete="tel-national" data-i18n-placeholder="booking.phonePlaceholder" placeholder="Phone number" />
+      <input type="hidden" name="phoneIso" value="PE" data-phone-iso />
+      <input type="hidden" name="phoneDial" value="+51" data-phone-dial-value />
+    </div>
+  `;
+  return wrap;
+}
+
+function renderPhoneCountryList(root, query = "") {
+  const list = root.querySelector(".phone-country-list");
+  if (!list) return;
+  const lang = getLang();
+  const q = query.trim().toLowerCase();
+  const countries = [...(window.PHONE_COUNTRIES || [])];
+
+  const filtered = countries
+    .filter((country) => {
+      if (!q) return true;
+      const en = country.en.toLowerCase();
+      const es = country.es.toLowerCase();
+      const iso = country.iso.toLowerCase();
+      const dial = `+${country.dial}`;
+      return (
+        en.startsWith(q) ||
+        es.startsWith(q) ||
+        en.includes(q) ||
+        es.includes(q) ||
+        iso.startsWith(q) ||
+        dial.includes(q) ||
+        country.dial.includes(q)
+      );
+    })
+    .sort((a, b) => {
+      if (!q) {
+        return countryName(a, lang).localeCompare(countryName(b, lang), lang);
+      }
+      const aName = countryName(a, lang).toLowerCase();
+      const bName = countryName(b, lang).toLowerCase();
+      const aScore = aName.startsWith(q) ? 0 : a.iso.toLowerCase().startsWith(q) ? 1 : 2;
+      const bScore = bName.startsWith(q) ? 0 : b.iso.toLowerCase().startsWith(q) ? 1 : 2;
+      if (aScore !== bScore) return aScore - bScore;
+      return aName.localeCompare(bName, lang);
+    });
+
+  list.innerHTML = filtered
+    .map(
+      (country) => `
+      <li role="option" tabindex="-1" data-iso="${country.iso}">
+        <span class="phone-country-flag">${flagEmoji(country.iso)}</span>
+        <span class="phone-country-name">${countryName(country, lang)}</span>
+        <span class="phone-country-code">+${country.dial}</span>
+      </li>`
+    )
+    .join("");
+
+  if (!filtered.length) {
+    list.innerHTML = `<li class="phone-country-empty">—</li>`;
+  }
+}
+
+function setPhoneCountry(root, iso) {
+  const country = findCountry(iso) || findCountry("PE");
+  if (!country) return;
+  root.querySelector("[data-phone-flag]").textContent = flagEmoji(country.iso);
+  root.querySelector("[data-phone-dial]").textContent = `+${country.dial}`;
+  root.querySelector("[data-phone-iso]").value = country.iso;
+  root.querySelector("[data-phone-dial-value]").value = `+${country.dial}`;
+}
+
+function bindPhoneField(wrap) {
+  const countryRoot = wrap.querySelector("[data-phone-country]");
+  const btn = wrap.querySelector(".phone-country-btn");
+  const menu = wrap.querySelector(".phone-country-menu");
+  const search = wrap.querySelector(".phone-country-search");
+  const list = wrap.querySelector(".phone-country-list");
+
+  setPhoneCountry(wrap, "PE");
+  renderPhoneCountryList(wrap);
+
+  const closeMenu = () => {
+    menu.hidden = true;
+    btn.setAttribute("aria-expanded", "false");
+    countryRoot.classList.remove("is-open");
+  };
+
+  const openMenu = () => {
+    renderPhoneCountryList(wrap, search.value);
+    menu.hidden = false;
+    btn.setAttribute("aria-expanded", "true");
+    countryRoot.classList.add("is-open");
+    search.focus();
+  };
+
+  btn.addEventListener("click", (event) => {
+    event.preventDefault();
+    if (menu.hidden) openMenu();
+    else closeMenu();
+  });
+
+  search.addEventListener("input", () => {
+    renderPhoneCountryList(wrap, search.value);
+  });
+
+  list.addEventListener("click", (event) => {
+    const item = event.target.closest("[data-iso]");
+    if (!item) return;
+    setPhoneCountry(wrap, item.dataset.iso);
+    search.value = "";
+    closeMenu();
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!countryRoot.contains(event.target)) closeMenu();
+  });
+
+  wrap.closest("form")?.addEventListener("reset", () => {
+    window.setTimeout(() => {
+      setPhoneCountry(wrap, "PE");
+      search.value = "";
+      closeMenu();
+    }, 0);
+  });
+}
+
+function initPhoneFields() {
+  if (!window.PHONE_COUNTRIES?.length) return;
+
+  document.querySelectorAll("[data-booking-form]").forEach((form) => {
+    if (form.classList.contains("hero-booking")) return;
+    if (form.querySelector("[data-phone-field]")) return;
+
+    const emailInput = form.querySelector('input[type="email"]');
+    if (!emailInput) return;
+
+    const wrap = createPhoneField();
+    emailInput.after(wrap);
+    bindPhoneField(wrap);
+  });
+}
+
+function refreshPhoneFields(lang = getLang()) {
+  document.querySelectorAll("[data-phone-field]").forEach((wrap) => {
+    const iso = wrap.querySelector("[data-phone-iso]")?.value || "PE";
+    setPhoneCountry(wrap, iso);
+    const search = wrap.querySelector(".phone-country-search");
+    renderPhoneCountryList(wrap, search?.value || "");
+    const label = wrap.querySelector("[data-i18n='booking.phone']");
+    if (label) label.textContent = t("booking.phone", lang);
+    if (search) search.placeholder = t("booking.phoneSearch", lang);
+    const number = wrap.querySelector(".phone-number-input");
+    if (number) number.placeholder = t("booking.phonePlaceholder", lang);
+  });
+}
+
 function initForms() {
   document.querySelectorAll("[data-booking-form]").forEach((form) => {
     form.addEventListener("submit", (event) => {
@@ -638,8 +831,10 @@ document.addEventListener("DOMContentLoaded", () => {
   renderTourCards(document.querySelector("[data-tour-grid]"));
   initHeader();
   initFaq();
+  initPhoneFields();
   initForms();
   initDetailPage();
+  refreshPhoneFields(lang);
 
   document.querySelectorAll(".lang-switch button").forEach((btn) => {
     btn.classList.toggle("active", btn.dataset.lang === lang);
