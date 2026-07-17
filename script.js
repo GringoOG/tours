@@ -81,8 +81,8 @@ const i18n = {
       f2d: "Reserve online in minutes with clear cancellation rules.",
       f3t: "Classy & expert guides",
       f3d: "Licensed local guides in English and Spanish.",
-      f4t: "Pickup in Ollantaytambo",
-      f4d: "Start right in town — no long transfers from Cusco needed.",
+      f4t: "Pickup anywhere",
+      f4d: "No stress about transport.",
     },
     plan: {
       eyebrow: "tour plans",
@@ -278,8 +278,8 @@ const i18n = {
       f2d: "Reserva online en minutos con reglas claras de cancelación.",
       f3t: "Guías expertos y profesionales",
       f3d: "Guías locales certificados en inglés y español.",
-      f4t: "Recogida en Ollantaytambo",
-      f4d: "Empieza en el pueblo — sin largos traslados desde Cusco.",
+      f4t: "Recogida en cualquier lugar",
+      f4d: "Sin estrés por el transporte.",
     },
     plan: {
       eyebrow: "planes de tour",
