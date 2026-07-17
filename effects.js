@@ -64,6 +64,7 @@ function initSmoothScroll() {
 class HeroWaterRipple {
   constructor(root) {
     this.root = root;
+    this.shell = root.closest(".hero-shell") || root;
     this.canvas = root.querySelector(".hero-water-canvas");
     this.img = root.querySelector(".hero-water-source");
     if (!this.canvas || !this.img) return;
@@ -79,9 +80,10 @@ class HeroWaterRipple {
     this.ripples = [];
     this.time = 0;
     this.dpr = Math.min(window.devicePixelRatio || 1, 2);
-    this.scale = 0.5;
+    this.scale = 0.72;
     this.ready = false;
     this.needsRender = true;
+    this.lastRippleAt = 0;
 
     this.onResize = this.onResize.bind(this);
     this.onMove = this.onMove.bind(this);
@@ -94,12 +96,25 @@ class HeroWaterRipple {
       requestAnimationFrame(this.tick);
     };
 
-    if (this.img.complete) start();
+    if (this.img.complete && this.img.naturalWidth) start();
     else this.img.addEventListener("load", start, { once: true });
 
     window.addEventListener("resize", this.onResize);
-    this.root.addEventListener("pointermove", this.onMove);
-    this.root.addEventListener("pointerleave", this.onLeave);
+    this.shell.addEventListener("pointermove", this.onMove);
+    this.shell.addEventListener("pointerleave", this.onLeave);
+  }
+
+  drawCover(ctx, img, width, height) {
+    const iw = img.naturalWidth || img.width;
+    const ih = img.naturalHeight || img.height;
+    if (!iw || !ih) return;
+    const scale = Math.max(width / iw, height / ih);
+    const dw = iw * scale;
+    const dh = ih * scale;
+    const dx = (width - dw) / 2;
+    const dy = (height - dh) / 2;
+    ctx.clearRect(0, 0, width, height);
+    ctx.drawImage(img, dx, dy, dw, dh);
   }
 
   onResize() {
@@ -112,18 +127,30 @@ class HeroWaterRipple {
     this.offscreen.width = this.width;
     this.offscreen.height = this.height;
     this.offCtx = this.offscreen.getContext("2d");
-    this.offCtx.drawImage(this.img, 0, 0, this.width, this.height);
+    this.drawCover(this.offCtx, this.img, this.width, this.height);
     this.base = this.offCtx.getImageData(0, 0, this.width, this.height);
+    this.ctx.drawImage(this.offscreen, 0, 0);
     this.needsRender = true;
   }
 
   onMove(event) {
+    if (event.target.closest(".hero-booking, a, button, select, input, label")) {
+      this.pointer.active = false;
+      this.needsRender = true;
+      return;
+    }
+
     const rect = this.root.getBoundingClientRect();
     const x = (event.clientX - rect.left) / rect.width;
     const y = (event.clientY - rect.top) / rect.height;
     this.pointer = { x, y, active: true };
-    this.ripples.push({ x, y, born: this.time, strength: 1 });
-    if (this.ripples.length > 6) this.ripples.shift();
+
+    const now = performance.now();
+    if (now - this.lastRippleAt > 28) {
+      this.ripples.push({ x, y, born: this.time, strength: 1 });
+      if (this.ripples.length > 10) this.ripples.shift();
+      this.lastRippleAt = now;
+    }
     this.needsRender = true;
   }
 
@@ -139,7 +166,7 @@ class HeroWaterRipple {
     }
 
     this.time = now * 0.001;
-    this.ripples = this.ripples.filter((r) => this.time - r.born < 2.2);
+    this.ripples = this.ripples.filter((r) => this.time - r.born < 2.4);
     const animating = this.pointer.active || this.ripples.length > 0;
 
     if (!animating && !this.needsRender) {
@@ -170,19 +197,23 @@ class HeroWaterRipple {
           const age = this.time - ripple.born;
           const dx = nx - ripple.x;
           const dy = ny - ripple.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          const wave = Math.sin(dist * 40 - age * 8.5) * Math.exp(-dist * 5.2 - age * 1.35);
-          ox += wave * dx * 16;
-          oy += wave * dy * 16;
+          const dist = Math.sqrt(dx * dx + dy * dy) + 0.0001;
+          const wave =
+            Math.sin(dist * 48 - age * 10) *
+            Math.exp(-dist * 4.2 - age * 1.15) *
+            ripple.strength;
+          ox += (wave * dx) / dist * 22;
+          oy += (wave * dy) / dist * 22;
         }
 
         if (this.pointer.active) {
           const dx = nx - this.pointer.x;
           const dy = ny - this.pointer.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          const lens = Math.max(0, 1 - dist / 0.24);
-          ox += dx * lens * 10;
-          oy += dy * lens * 10;
+          const lens = Math.max(0, 1 - dist / 0.2);
+          const bulge = lens * lens;
+          ox += dx * bulge * 18;
+          oy += dy * bulge * 18;
         }
 
         const sx = Math.min(width - 1, Math.max(0, Math.round(x + ox)));

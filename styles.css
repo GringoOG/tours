@@ -494,6 +494,7 @@ body[data-page="home"] .hero-overlay {
   position: absolute;
   inset: 0;
   cursor: crosshair;
+  z-index: 0;
 }
 
 .hero-water-canvas {
@@ -528,6 +529,8 @@ body[data-page="home"] .hero-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.55) 100%);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .hero-content {
@@ -538,6 +541,15 @@ body[data-page="home"] .hero-overlay {
   flex-direction: column;
   justify-content: center;
   padding: 3rem;
+  pointer-events: none;
+}
+
+.hero-content .hero-booking,
+.hero-content a,
+.hero-content button,
+.hero-content select,
+.hero-content input {
+  pointer-events: auto;
 }
 
 .hero-badge {
