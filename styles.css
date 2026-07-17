@@ -437,35 +437,57 @@ body[data-page="home"] .hero-overlay {
   position: absolute;
   right: 2rem;
   bottom: 2rem;
-  width: min(420px, calc(100% - 4rem));
-  padding: 1.25rem;
+  width: min(620px, calc(100% - 4rem));
+  padding: 2rem;
   border-radius: var(--radius-md);
-  background: rgba(18, 18, 18, 0.72);
-  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(8, 24, 24, 0.28)),
+    rgba(8, 20, 20, 0.16);
+  -webkit-backdrop-filter: blur(18px) saturate(125%);
+  backdrop-filter: blur(18px) saturate(125%);
   color: var(--white);
-  box-shadow: var(--shadow);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.2);
 }
 
 .hero-booking label {
   display: block;
-  margin-bottom: 0.35rem;
-  font-size: 0.78rem;
-  color: rgba(255, 255, 255, 0.72);
+  margin-bottom: 0.65rem;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.88);
 }
 
 .hero-booking-grid {
   display: grid;
-  gap: 0.85rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem 1rem;
 }
 
 .hero-booking select,
 .hero-booking input {
   width: 100%;
-  padding: 0.85rem 0.95rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.08);
+  min-height: 56px;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 14px;
+  background: rgba(8, 24, 24, 0.15);
   color: var(--white);
+  color-scheme: dark;
+  outline: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.hero-booking select:focus,
+.hero-booking input:focus {
+  border-color: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.hero-booking > .btn {
+  width: auto;
+  min-width: 190px;
+  margin-top: 1.5rem;
+  padding: 1rem 1.4rem;
 }
 
 .hero-trust {
@@ -1000,6 +1022,8 @@ body[data-page="home"] .featured-tours-grid .tour-card {
   .hero-booking {
     position: static;
     width: 100%;
+    max-width: 680px;
+    margin-left: auto;
     margin-top: 2rem;
   }
 
@@ -1036,6 +1060,18 @@ body[data-page="home"] .featured-tours-grid .tour-card {
 
   .hero-content {
     padding: 1.5rem;
+  }
+
+  .hero-booking {
+    padding: 1.25rem;
+  }
+
+  .hero-booking-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-booking > .btn {
+    width: 100%;
   }
 
   body[data-page="home"] .section-story {
