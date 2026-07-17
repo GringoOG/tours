@@ -2,6 +2,11 @@
  * Traveli-style interactions: hero water ripple, image hover FX, scroll reveals, smooth scroll.
  */
 
+function clamp01(value) {
+  if (Number.isNaN(value)) return 0.5;
+  return Math.min(1, Math.max(0, value));
+}
+
 function initSmoothScroll() {
   // Native scrolling stays enabled — custom wheel hijacking caused page-wide jank.
   return;
@@ -191,9 +196,13 @@ class HeroWaterRipple {
     const scale = Math.max(tw / iw, th / ih);
     const dw = iw * scale;
     const dh = ih * scale;
+    const posX = clamp01(parseFloat(this.root.dataset.waterPosX ?? "0.5"));
+    const posY = clamp01(parseFloat(this.root.dataset.waterPosY ?? "0.5"));
+    const ox = (tw - dw) * posX;
+    const oy = (th - dh) * posY;
     ctx.fillStyle = "#111";
     ctx.fillRect(0, 0, tw, th);
-    ctx.drawImage(this.img, (tw - dw) / 2, (th - dh) / 2, dw, dh);
+    ctx.drawImage(this.img, ox, oy, dw, dh);
 
     gl.bindTexture(gl.TEXTURE_2D, this.texture);
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 0);
@@ -347,7 +356,7 @@ function revealIfNearViewport(el) {
 }
 
 function initScrollReveal() {
-  const items = document.querySelectorAll(".reveal:not(.is-visible)");
+  const items = document.querySelectorAll(".reveal:not(.feature-item):not(.is-visible)");
   if (!items.length) return;
 
   const observer = new IntersectionObserver(
@@ -363,13 +372,55 @@ function initScrollReveal() {
   );
 
   items.forEach((el, index) => {
-    if (!el.classList.contains("feature-item")) {
-      el.style.transitionDelay = `${Math.min(index * 55, 320)}ms`;
-    }
+    el.style.transitionDelay = `${Math.min(index * 55, 320)}ms`;
     if (!revealIfNearViewport(el)) {
       observer.observe(el);
     }
   });
+}
+
+function initFeatureItemReveal() {
+  const grid = document.querySelector(".feature-banner .feature-grid");
+  if (!grid || grid.dataset.featureRevealBound) return;
+  grid.dataset.featureRevealBound = "1";
+
+  const items = grid.querySelectorAll(".feature-item.reveal");
+  if (!items.length) return;
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    items.forEach((el) => el.classList.add("is-visible"));
+    return;
+  }
+
+  let inView = false;
+  const show = () => {
+    items.forEach((el) => {
+      el.classList.remove("is-visible");
+      void el.offsetWidth;
+      el.classList.add("is-visible");
+    });
+  };
+
+  const hide = () => {
+    items.forEach((el) => el.classList.remove("is-visible"));
+  };
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !inView) {
+          inView = true;
+          show();
+        } else if (!entry.isIntersecting && inView) {
+          inView = false;
+          hide();
+        }
+      });
+    },
+    { threshold: 0.28, rootMargin: "0px 0px -12% 0px" }
+  );
+
+  observer.observe(grid);
 }
 
 function initStoryPhotos() {
@@ -465,6 +516,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initHeroWater();
   initImageFx();
   initScrollReveal();
+  initFeatureItemReveal();
   initStoryPhotos();
   initValueIconSpin();
   initParallax();
@@ -474,5 +526,6 @@ window.ToursEffects = {
   refresh() {
     initImageFx();
     initScrollReveal();
+    initFeatureItemReveal();
   },
 };

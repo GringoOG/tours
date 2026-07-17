@@ -854,26 +854,42 @@ body[data-page="home"] .featured-tours-grid .tour-card {
   overflow: hidden;
   display: grid;
   align-items: stretch;
+  background: #111;
+  cursor: crosshair;
 }
 
-.feature-banner img {
+.feature-banner > .hero-water-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.feature-banner > .hero-water-source {
+  display: none;
+}
+
+.feature-banner.is-static > .hero-water-canvas {
+  display: none;
+}
+
+.feature-banner.is-static > .hero-water-source {
+  display: block;
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: 68% 12%;
-  transform: translate3d(var(--fx-x, 0), calc(var(--parallax-y, 0px) + var(--fx-y, 0)), 0) scale(1.02);
-  transition: transform 0.35s ease;
-}
-
-.feature-banner:hover img {
-  transform: translate3d(var(--fx-x, 0), calc(var(--parallax-y, 0px) + var(--fx-y, 0)), 0) scale(1.06);
+  z-index: 0;
 }
 
 .feature-banner-overlay {
   position: absolute;
   inset: 0;
+  z-index: 1;
+  pointer-events: none;
   background:
     linear-gradient(225deg, rgba(0, 0, 0, 0.5) 0%, transparent 42%),
     linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.74));
@@ -884,26 +900,34 @@ body[data-page="home"] .featured-tours-grid .tour-card {
   z-index: 2;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 2rem;
   min-height: 500px;
-  padding: 2rem;
+  padding: 1.35rem 1.5rem 1.75rem;
   color: var(--white);
+  pointer-events: none;
 }
 
 .feature-banner-head {
-  align-self: flex-end;
+  position: absolute;
+  top: 1.1rem;
+  right: 1.35rem;
+  z-index: 3;
+  max-width: min(calc(100% - 2.5rem), 480px);
   text-align: right;
-  max-width: min(100%, 520px);
+  margin: 0;
 }
 
 .feature-banner-head .eyebrow {
   color: rgba(255, 255, 255, 0.82);
+  margin: 0 0 0.45rem;
 }
 
 .feature-banner-head .section-title {
   color: var(--white);
   margin: 0;
+  font-size: clamp(1.65rem, 3.2vw, 2.55rem);
+  line-height: 1.12;
 }
 
 .feature-grid {
@@ -1552,9 +1576,11 @@ body[data-page="home"] .featured-tours-grid .tour-card {
   }
 
   .feature-banner-head {
-    align-self: stretch;
-    text-align: right;
+    top: 0.9rem;
+    right: 1rem;
+    left: 1rem;
     max-width: none;
+    text-align: right;
   }
 
   body[data-page="home"] .section-story {
