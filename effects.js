@@ -110,7 +110,7 @@ class HeroWaterRipple {
             vec2 d = uv - r.xy;
             float dist = length(d) + 0.0001;
             float wave = sin(dist * 42.0 - age * 10.0) * exp(-dist * 5.5 - age * 1.4);
-            offset += (d / dist) * wave * 0.018;
+            offset += (d / dist) * wave * 0.0144;
           }
         }
 
@@ -118,7 +118,7 @@ class HeroWaterRipple {
           vec2 d = uv - uMouse;
           float dist = length(d);
           float lens = max(0.0, 1.0 - dist / 0.22);
-          offset += d * lens * lens * 0.035 * uActive;
+          offset += d * lens * lens * 0.028 * uActive;
         }
 
         gl_FragColor = texture2D(uTex, clamp(uv + offset, 0.001, 0.999));
@@ -227,7 +227,7 @@ class HeroWaterRipple {
     this.pointer.active = 1;
 
     const now = performance.now();
-    if (now - this.lastRippleAt > 55) {
+    if (now - this.lastRippleAt > 66) {
       const i = this.rippleWrite % 4;
       this.ripples[i * 3] = this.pointer.x;
       this.ripples[i * 3 + 1] = this.pointer.y;
