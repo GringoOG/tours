@@ -12,14 +12,19 @@ const tours = [
     price: 79,
   },
   {
-    slug: "mountain-bike",
-    image: "assets/mountain-bike.png",
-    price: 69,
-  },
-  {
     slug: "maras",
     image: "assets/maras.png",
     price: 59,
+  },
+  {
+    slug: "moray",
+    image: "assets/moray.jpg",
+    price: 59,
+  },
+  {
+    slug: "mountain-bike",
+    image: "assets/mountain-bike.png",
+    price: 69,
   },
 ];
 
@@ -87,6 +92,11 @@ const i18n = {
     plan: {
       eyebrow: "tour plans",
       title: "Top-notch tours for your next adventure",
+      t1: "Machu Picchu",
+      t2: "Rainbow Mountain",
+      t3: "Maras",
+      t4: "Moray",
+      t5: "Mountain Bike Adventure",
     },
     testimonials: {
       eyebrow: "happy travelers",
@@ -111,7 +121,7 @@ const i18n = {
       eyebrow: "how it works",
       title: "Three simple steps to your tour",
       s1t: "Choose your tour",
-      s1d: "Pick Machu Picchu, Rainbow Mountain, mountain bike, Maras, or ask for a custom route.",
+      s1d: "Pick Machu Picchu, Rainbow Mountain, Maras, Moray, Mountain Bike Adventure, or ask for a custom route.",
       s2t: "Confirm reservation",
       s2d: "Select date, group size, and pickup point in Ollantaytambo.",
       s3t: "Enjoy the journey",
@@ -127,7 +137,7 @@ const i18n = {
       eyebrow: "quick travel help",
       title: "Common travel questions with clear answers",
       q1: "What tours do you offer?",
-      a1: "We currently offer Machu Picchu, Rainbow Mountain, mountain bike, and Maras salt pond tours from Ollantaytambo, with more routes coming soon.",
+      a1: "We currently offer Machu Picchu, Rainbow Mountain, Maras, Moray, and Mountain Bike Adventure tours from Ollantaytambo.",
       q2: "Can I cancel my booking?",
       a2: "Yes. Free cancellation is available up to 48 hours before departure for most tours.",
       q3: "How long does a refund take?",
@@ -158,27 +168,33 @@ const i18n = {
     tours: {
       "machu-picchu": {
         location: "Machu Picchu",
-        name: "Machu Picchu Day Tour",
+        name: "Machu Picchu",
         per: "/ per person",
         short: "Full-day guided visit from Ollantaytambo with train connection and citadel tour.",
       },
       "rainbow-mountain": {
         location: "Vinicunca",
-        name: "Rainbow Mountain Trek",
+        name: "Rainbow Mountain",
         per: "/ per person",
         short: "Early-morning hike to the famous Rainbow Mountain with breakfast and guide.",
+      },
+      maras: {
+        location: "Maras Salt Ponds",
+        name: "Maras",
+        per: "/ per person",
+        short: "Visit the famous Maras salt ponds with a local guide from Ollantaytambo.",
+      },
+      moray: {
+        location: "Moray",
+        name: "Moray",
+        per: "/ per person",
+        short: "Explore the circular Inca terraces of Moray with a local guide from Ollantaytambo.",
       },
       "mountain-bike": {
         location: "Sacred Valley",
         name: "Mountain Bike Adventure",
         per: "/ per person",
         short: "Downhill and valley routes around Ollantaytambo with bike, gear, and support vehicle.",
-      },
-      maras: {
-        location: "Salt Ponds",
-        name: "Trip to Maras",
-        per: "/ per person",
-        short: "Visit the famous Maras salt ponds with a local guide from Ollantaytambo.",
       },
     },
     pages: {
@@ -284,6 +300,11 @@ const i18n = {
     plan: {
       eyebrow: "planes de tour",
       title: "Tours de primer nivel para tu próxima aventura",
+      t1: "Machu Picchu",
+      t2: "Montaña de Colores",
+      t3: "Maras",
+      t4: "Moray",
+      t5: "Aventura en bicicleta de montaña",
     },
     testimonials: {
       eyebrow: "viajeros felices",
@@ -308,7 +329,7 @@ const i18n = {
       eyebrow: "cómo funciona",
       title: "Tres pasos simples para tu tour",
       s1t: "Elige tu tour",
-      s1d: "Machu Picchu, Montaña de Colores, mountain bike, Maras o una ruta personalizada.",
+      s1d: "Elige Machu Picchu, Montaña de Colores, Maras, Moray, Aventura en bicicleta de montaña o una ruta personalizada.",
       s2t: "Confirma la reserva",
       s2d: "Selecciona fecha, tamaño del grupo y punto de recogida en Ollantaytambo.",
       s3t: "Disfruta el viaje",
@@ -324,7 +345,7 @@ const i18n = {
       eyebrow: "ayuda rápida",
       title: "Preguntas comunes con respuestas claras",
       q1: "¿Qué tours ofrecen?",
-      a1: "Actualmente ofrecemos Machu Picchu, Montaña de Colores, mountain bike y salineras de Maras desde Ollantaytambo, con más rutas próximamente.",
+      a1: "Actualmente ofrecemos Machu Picchu, Montaña de Colores, Maras, Moray y Aventura en bicicleta de montaña desde Ollantaytambo.",
       q2: "¿Puedo cancelar mi reserva?",
       a2: "Sí. La cancelación gratuita está disponible hasta 48 horas antes de la salida en la mayoría de tours.",
       q3: "¿Cuánto tarda un reembolso?",
@@ -355,27 +376,33 @@ const i18n = {
     tours: {
       "machu-picchu": {
         location: "Machu Picchu",
-        name: "Tour de un día a Machu Picchu",
+        name: "Machu Picchu",
         per: "/ por persona",
         short: "Visita guiada de día completo desde Ollantaytambo con tren y recorrido por la ciudadela.",
       },
       "rainbow-mountain": {
         location: "Vinicunca",
-        name: "Trek Montaña de Colores",
+        name: "Montaña de Colores",
         per: "/ por persona",
         short: "Caminata temprano a la famosa Montaña de Colores con desayuno y guía.",
       },
-      "mountain-bike": {
-        location: "Valle Sagrado",
-        name: "Aventura en Mountain Bike",
-        per: "/ por persona",
-        short: "Rutas de descenso y valle alrededor de Ollantaytambo con bici, equipo y vehículo de apoyo.",
-      },
       maras: {
         location: "Salineras de Maras",
-        name: "Excursión a Maras",
+        name: "Maras",
         per: "/ por persona",
         short: "Visita las famosas salineras de Maras con un guía local desde Ollantaytambo.",
+      },
+      moray: {
+        location: "Moray",
+        name: "Moray",
+        per: "/ por persona",
+        short: "Explora las terrazas incas circulares de Moray con un guía local desde Ollantaytambo.",
+      },
+      "mountain-bike": {
+        location: "Valle Sagrado",
+        name: "Aventura en bicicleta de montaña",
+        per: "/ por persona",
+        short: "Rutas de descenso y valle alrededor de Ollantaytambo con bicicleta, equipo y vehículo de apoyo.",
       },
     },
     pages: {
@@ -477,6 +504,20 @@ const itinerary = {
       "Traslado de regreso a Ollantaytambo.",
     ],
   },
+  moray: {
+    en: [
+      "Pickup in Ollantaytambo and scenic drive through the Sacred Valley.",
+      "Guided visit to Moray and its circular Inca terraces.",
+      "Time for photos and an explanation of the site's history.",
+      "Return transfer to Ollantaytambo.",
+    ],
+    es: [
+      "Recogida en Ollantaytambo y traslado panorámico por el Valle Sagrado.",
+      "Visita guiada a Moray y sus terrazas incas circulares.",
+      "Tiempo para fotos y explicación de la historia del sitio.",
+      "Traslado de regreso a Ollantaytambo.",
+    ],
+  },
 };
 
 function getLang() {
@@ -528,6 +569,17 @@ function applyTranslations(lang) {
       <option value="3">${t("selects.travelers3", lang)}</option>
       <option value="4">${t("selects.travelers4", lang)}</option>
     `;
+  });
+
+  document.querySelectorAll(".site-footer [data-i18n='footer.destinations']").forEach((heading) => {
+    const column = heading.parentElement;
+    column.querySelectorAll("a").forEach((link) => link.remove());
+    tours.forEach((tour) => {
+      const link = document.createElement("a");
+      link.href = `destination-${tour.slug}.html`;
+      link.textContent = t(`tours.${tour.slug}.name`, lang);
+      column.appendChild(link);
+    });
   });
 }
 
