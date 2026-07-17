@@ -363,7 +363,9 @@ function initScrollReveal() {
   );
 
   items.forEach((el, index) => {
-    el.style.transitionDelay = `${Math.min(index * 55, 320)}ms`;
+    if (!el.classList.contains("feature-item")) {
+      el.style.transitionDelay = `${Math.min(index * 55, 320)}ms`;
+    }
     if (!revealIfNearViewport(el)) {
       observer.observe(el);
     }
