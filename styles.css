@@ -1206,7 +1206,11 @@ body[data-page="home"] .featured-tours-grid .tour-card {
 }
 
 .page-hero {
-  padding: calc(var(--header-h) + 3rem) 0 2.5rem;
+  padding: calc(var(--header-h) + 3rem) 0 1.25rem;
+}
+
+.page-hero + .section {
+  padding-top: 1.5rem;
 }
 
 .page-hero h1 {
