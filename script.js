@@ -92,6 +92,7 @@ const i18n = {
     plan: {
       eyebrow: "tour plans",
       title: "Top-notch tours for your next adventure",
+      cardLabel: "Tour plan",
       t1: "Machu Picchu",
       t2: "Rainbow Mountain",
       t3: "Maras",
@@ -300,6 +301,7 @@ const i18n = {
     plan: {
       eyebrow: "planes de tour",
       title: "Tours de primer nivel para tu próxima aventura",
+      cardLabel: "Plan de tour",
       t1: "Machu Picchu",
       t2: "Montaña de Colores",
       t3: "Maras",
@@ -543,6 +545,7 @@ function setLang(lang) {
   localStorage.setItem(STORAGE_KEY, lang);
   document.documentElement.lang = lang;
   applyTranslations(lang);
+  renderTourPlans(document.querySelector("[data-tour-plans]"));
   refreshPhoneFields(lang);
   document.querySelectorAll(".lang-switch button").forEach((btn) => {
     btn.classList.toggle("active", btn.dataset.lang === lang);
@@ -621,6 +624,48 @@ function renderTourCards(container) {
     .join("");
 
   window.ToursEffects?.refresh();
+}
+
+function renderTourPlans(container) {
+  if (!container) return;
+  const lang = getLang();
+  const sortedTours = getSortedTours(lang);
+  container.setAttribute("aria-label", t("plan.eyebrow", lang));
+
+  const renderGroup = (duplicate = false) => `
+    <div class="tour-plans-group"${duplicate ? ' aria-hidden="true"' : ""}>
+      ${sortedTours
+        .map((tour, index) => {
+          const data = t(`tours.${tour.slug}`, lang);
+          return `
+            <a
+              class="tour-plan-card"
+              href="destination-${tour.slug}.html"
+              aria-label="${data.name}"
+              ${duplicate ? 'tabindex="-1"' : ""}
+            >
+              <img src="${tour.image}" alt="${duplicate ? "" : data.name}" loading="${duplicate ? "lazy" : "eager"}" />
+              <span class="tour-plan-card-shade" aria-hidden="true"></span>
+              <span class="tour-plan-card-label">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 21s7-6.1 7-12A7 7 0 0 0 5 9c0 5.9 7 12 7 12Zm0-9.4A2.6 2.6 0 1 1 12 6a2.6 2.6 0 0 1 0 5.2Z"/>
+                </svg>
+                ${String(index + 1).padStart(2, "0")} ${t("plan.cardLabel", lang)}
+              </span>
+              <strong>${data.name}</strong>
+            </a>
+          `;
+        })
+        .join("")}
+    </div>
+  `;
+
+  container.innerHTML = `
+    <div class="tour-plans-track">
+      ${renderGroup()}
+      ${renderGroup(true)}
+    </div>
+  `;
 }
 
 function initHeader() {
@@ -901,6 +946,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.documentElement.lang = lang;
   applyTranslations(lang);
   renderTourCards(document.querySelector("[data-tour-grid]"));
+  renderTourPlans(document.querySelector("[data-tour-plans]"));
   initHeader();
   initFaq();
   initPhoneFields();
