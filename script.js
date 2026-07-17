@@ -586,7 +586,12 @@ function applyTranslations(lang) {
 function renderTourCards(container) {
   if (!container) return;
   const lang = getLang();
-  container.innerHTML = tours
+  const visibleTours =
+    document.body.dataset.page === "home"
+      ? tours.filter((tour) => tour.slug !== "moray")
+      : tours;
+
+  container.innerHTML = visibleTours
     .map((tour) => {
       const data = t(`tours.${tour.slug}`, lang);
       return `
