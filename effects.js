@@ -182,10 +182,16 @@ class HeroWaterRipple {
   uploadTexture() {
     const gl = this.gl;
     const rect = this.root.getBoundingClientRect();
-    const aspect = Math.max(0.5, (rect.width || 16) / (rect.height || 9));
-    const max = Math.min(gl.getParameter(gl.MAX_TEXTURE_SIZE) || 2048, 1920);
-    const th = Math.min(max, 1080);
-    const tw = Math.min(max, Math.round(th * aspect));
+    const max = Math.min(gl.getParameter(gl.MAX_TEXTURE_SIZE) || 2048, 2048);
+    // Match the real banner/hero aspect so the texture never stretches
+    let tw = Math.max(1, Math.floor(rect.width));
+    let th = Math.max(1, Math.floor(rect.height));
+    const longest = Math.max(tw, th);
+    if (longest > max) {
+      const scaleDown = max / longest;
+      tw = Math.max(1, Math.floor(tw * scaleDown));
+      th = Math.max(1, Math.floor(th * scaleDown));
+    }
 
     const source = document.createElement("canvas");
     source.width = tw;
@@ -193,7 +199,8 @@ class HeroWaterRipple {
     const ctx = source.getContext("2d");
     const iw = this.img.naturalWidth;
     const ih = this.img.naturalHeight;
-    const scale = Math.max(tw / iw, th / ih);
+    const zoom = Math.max(1, parseFloat(this.root.dataset.waterZoom ?? "1") || 1);
+    const scale = Math.max(tw / iw, th / ih) * zoom;
     const dw = iw * scale;
     const dh = ih * scale;
     const posX = clamp01(parseFloat(this.root.dataset.waterPosX ?? "0.5"));
