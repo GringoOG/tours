@@ -1,0 +1,12 @@
+---
+description: All website copy must be English or Spanish only (EN/ES toggle)
+alwaysApply: true
+---
+
+# Language policy — Ollanta Tours
+
+- The site supports **only English (EN) and Spanish (ES)** via the header language switch.
+- **Never** put Czech (or any other language) into UI copy, tour names, locations, FAQs, footers, marquee text, alt text, or HTML placeholders.
+- When the user sends text in Czech (or another language), **translate it** into both EN and ES and store it in `script.js` i18n (`en` / `es`).
+- Default visible fallback text in HTML should be **English**.
+- Spanish keys live under `i18n.es`; English under `i18n.en`. Keep both in sync whenever adding or editing copy.

@@ -173,8 +173,8 @@ const i18n = {
         short: "Downhill and valley routes around Ollantaytambo with bike, gear, and support vehicle.",
       },
       maras: {
-        location: "Solné jezírka",
-        name: "Výlet do Maras",
+        location: "Salt Ponds",
+        name: "Trip to Maras",
         per: "/ per person",
         short: "Visit the famous Maras salt ponds with a local guide from Ollantaytambo.",
       },
@@ -365,7 +365,7 @@ const i18n = {
         short: "Rutas de descenso y valle alrededor de Ollantaytambo con bici, equipo y vehículo de apoyo.",
       },
       maras: {
-        location: "Salineras",
+        location: "Salineras de Maras",
         name: "Excursión a Maras",
         per: "/ por persona",
         short: "Visita las famosas salineras de Maras con un guía local desde Ollantaytambo.",
