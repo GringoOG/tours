@@ -16,6 +16,11 @@ const tours = [
     image: "assets/mountain-bike.png",
     price: 69,
   },
+  {
+    slug: "maras",
+    image: "assets/maras.png",
+    price: 59,
+  },
 ];
 
 const i18n = {
@@ -104,7 +109,7 @@ const i18n = {
       eyebrow: "how it works",
       title: "Three simple steps to your tour",
       s1t: "Choose your tour",
-      s1d: "Pick Machu Picchu, Rainbow Mountain, mountain bike, or ask for a custom route.",
+      s1d: "Pick Machu Picchu, Rainbow Mountain, mountain bike, Maras, or ask for a custom route.",
       s2t: "Confirm reservation",
       s2d: "Select date, group size, and pickup point in Ollantaytambo.",
       s3t: "Enjoy the journey",
@@ -120,7 +125,7 @@ const i18n = {
       eyebrow: "quick travel help",
       title: "Common travel questions with clear answers",
       q1: "What tours do you offer?",
-      a1: "We currently offer Machu Picchu, Rainbow Mountain, and mountain bike tours from Ollantaytambo, with more routes coming soon.",
+      a1: "We currently offer Machu Picchu, Rainbow Mountain, mountain bike, and Maras salt pond tours from Ollantaytambo, with more routes coming soon.",
       q2: "Can I cancel my booking?",
       a2: "Yes. Free cancellation is available up to 48 hours before departure for most tours.",
       q3: "How long does a refund take?",
@@ -166,6 +171,12 @@ const i18n = {
         name: "Mountain Bike Adventure",
         per: "/ per person",
         short: "Downhill and valley routes around Ollantaytambo with bike, gear, and support vehicle.",
+      },
+      maras: {
+        location: "Solné jezírka",
+        name: "Výlet do Maras",
+        per: "/ per person",
+        short: "Visit the famous Maras salt ponds with a local guide from Ollantaytambo.",
       },
     },
     pages: {
@@ -290,7 +301,7 @@ const i18n = {
       eyebrow: "cómo funciona",
       title: "Tres pasos simples para tu tour",
       s1t: "Elige tu tour",
-      s1d: "Machu Picchu, Montaña de Colores, mountain bike o una ruta personalizada.",
+      s1d: "Machu Picchu, Montaña de Colores, mountain bike, Maras o una ruta personalizada.",
       s2t: "Confirma la reserva",
       s2d: "Selecciona fecha, tamaño del grupo y punto de recogida en Ollantaytambo.",
       s3t: "Disfruta el viaje",
@@ -306,7 +317,7 @@ const i18n = {
       eyebrow: "ayuda rápida",
       title: "Preguntas comunes con respuestas claras",
       q1: "¿Qué tours ofrecen?",
-      a1: "Actualmente ofrecemos Machu Picchu, Montaña de Colores y mountain bike desde Ollantaytambo, con más rutas próximamente.",
+      a1: "Actualmente ofrecemos Machu Picchu, Montaña de Colores, mountain bike y salineras de Maras desde Ollantaytambo, con más rutas próximamente.",
       q2: "¿Puedo cancelar mi reserva?",
       a2: "Sí. La cancelación gratuita está disponible hasta 48 horas antes de la salida en la mayoría de tours.",
       q3: "¿Cuánto tarda un reembolso?",
@@ -352,6 +363,12 @@ const i18n = {
         name: "Aventura en Mountain Bike",
         per: "/ por persona",
         short: "Rutas de descenso y valle alrededor de Ollantaytambo con bici, equipo y vehículo de apoyo.",
+      },
+      maras: {
+        location: "Salineras",
+        name: "Excursión a Maras",
+        per: "/ por persona",
+        short: "Visita las famosas salineras de Maras con un guía local desde Ollantaytambo.",
       },
     },
     pages: {
@@ -434,6 +451,20 @@ const itinerary = {
       "Rodada guiada por senderos y miradores del Valle Sagrado.",
       "Vehículo de apoyo disponible durante la ruta.",
       "Regreso al pueblo con refrigerio.",
+    ],
+  },
+  maras: {
+    en: [
+      "Pickup in Ollantaytambo and scenic drive through the valley.",
+      "Guided visit of the Maras salt ponds with local history.",
+      "Time for photos among the white terraces.",
+      "Return transfer to Ollantaytambo.",
+    ],
+    es: [
+      "Recogida en Ollantaytambo y traslado panorámico por el valle.",
+      "Visita guiada a las salineras de Maras con historia local.",
+      "Tiempo para fotos entre las terrazas blancas.",
+      "Traslado de regreso a Ollantaytambo.",
     ],
   },
 };
