@@ -42,7 +42,7 @@ const i18n = {
       trust3: "Local expert guides",
     },
     story: {
-      eyebrow: "our story",
+      eyebrow: "Our History",
       title: "We don't sell trips. We craft journeys.",
       quote:
         "Every route starts in Ollantaytambo with local guides who know the valley, the history, and the rhythm of the mountains.",
@@ -228,7 +228,7 @@ const i18n = {
       trust3: "Guías locales expertos",
     },
     story: {
-      eyebrow: "nuestra historia",
+      eyebrow: "Nuestra historia",
       title: "No vendemos viajes. Creamos experiencias.",
       quote:
         "Cada ruta comienza en Ollantaytambo con guías locales que conocen el valle, la historia y el ritmo de la montaña.",

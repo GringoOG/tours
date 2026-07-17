@@ -266,6 +266,31 @@ function initScrollReveal() {
   });
 }
 
+function initStoryPhotos() {
+  const root = document.querySelector("[data-story-photos]");
+  if (!root) return;
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    root.classList.add("is-active");
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          root.classList.add("is-active");
+        } else if (entry.boundingClientRect.top > window.innerHeight * 0.2) {
+          root.classList.remove("is-active");
+        }
+      });
+    },
+    { threshold: 0.35, rootMargin: "0px 0px -10% 0px" }
+  );
+
+  observer.observe(root);
+}
+
 function initParallax() {
   const blocks = document.querySelectorAll("[data-parallax]");
   if (!blocks.length) return;
@@ -288,6 +313,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initHeroWater();
   initImageFx();
   initScrollReveal();
+  initStoryPhotos();
   initParallax();
 });
 
