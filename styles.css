@@ -1078,17 +1078,12 @@ body[data-page="home"] .featured-tours-grid .tour-card {
 
 .tour-plans-track {
   will-change: transform;
-  animation: tour-plans-marquee 38s linear infinite;
 }
 
 .tour-plans-group {
-  gap: clamp(1rem, 2.2vw, 2rem);
-  padding-right: clamp(1rem, 2.2vw, 2rem);
-}
-
-.tour-plans-marquee:hover .tour-plans-track,
-.tour-plans-marquee:focus-within .tour-plans-track {
-  animation-play-state: paused;
+  gap: clamp(1.5rem, 3vw, 2.75rem);
+  padding-right: clamp(1.5rem, 3vw, 2.75rem);
+  background: transparent;
 }
 
 .tour-plan-card {
@@ -1168,18 +1163,9 @@ body[data-page="home"] .featured-tours-grid .tour-card {
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.34);
 }
 
-@keyframes tour-plans-marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .tour-plans-track {
-    animation-play-state: paused;
+    transition: none !important;
   }
 }
 

@@ -628,6 +628,8 @@ function renderTourCards(container) {
 
 function renderTourPlans(container) {
   if (!container) return;
+  window.clearTimeout(container.tourPlansTimer);
+  container.tourPlansResizeObserver?.disconnect();
   const lang = getLang();
   const sortedTours = getSortedTours(lang);
   container.setAttribute("aria-label", t("plan.eyebrow", lang));
@@ -666,6 +668,58 @@ function renderTourPlans(container) {
       ${renderGroup(true)}
     </div>
   `;
+
+  initTourPlansCarousel(container);
+}
+
+function initTourPlansCarousel(container) {
+  const track = container.querySelector(".tour-plans-track");
+  const group = container.querySelector(".tour-plans-group");
+  const cards = group?.querySelectorAll(".tour-plan-card");
+  if (!track || !group || !cards?.length) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  let currentIndex = 0;
+  const transitionDuration = 700;
+
+  const getStepWidth = () => {
+    const groupStyles = window.getComputedStyle(group);
+    const gap = parseFloat(groupStyles.columnGap || groupStyles.gap) || 0;
+    return cards[0].getBoundingClientRect().width + gap;
+  };
+
+  const applyPosition = (animated = true) => {
+    track.style.transition = animated
+      ? `transform ${transitionDuration}ms cubic-bezier(0.22, 1, 0.36, 1)`
+      : "none";
+    track.style.transform = `translate3d(${-currentIndex * getStepWidth()}px, 0, 0)`;
+  };
+
+  const scheduleNext = () => {
+    container.tourPlansTimer = window.setTimeout(() => {
+      currentIndex += 1;
+      applyPosition();
+
+      if (currentIndex === cards.length) {
+        window.setTimeout(() => {
+          currentIndex = 0;
+          applyPosition(false);
+          void track.offsetWidth;
+          scheduleNext();
+        }, transitionDuration);
+        return;
+      }
+
+      scheduleNext();
+    }, 3500);
+  };
+
+  if ("ResizeObserver" in window) {
+    container.tourPlansResizeObserver = new ResizeObserver(() => applyPosition(false));
+    container.tourPlansResizeObserver.observe(container);
+  }
+
+  scheduleNext();
 }
 
 function initHeader() {
