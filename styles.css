@@ -90,7 +90,31 @@ body[data-page="home"] .section {
 }
 
 body[data-page="home"] .section-head {
+  margin-inline: auto;
   margin-bottom: 1.75rem;
+  text-align: center;
+}
+
+body[data-page="home"] .testimonials-badge {
+  margin-left: 0;
+}
+
+body[data-page="home"] .section-head .eyebrow,
+body[data-page="home"] .story-badge,
+body[data-page="home"] .feature-banner-head .eyebrow {
+  display: inline-flex;
+  margin-bottom: 0.65rem;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: var(--white);
+  color: var(--text);
+  box-shadow: 0 8px 20px rgba(33, 33, 33, 0.12);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: capitalize;
+  transform: rotate(-7deg);
 }
 
 body[data-page="home"] .section-story {
@@ -1298,7 +1322,7 @@ body[data-page="home"] .featured-tours-grid .tour-card {
 
 .tour-plans-marquee {
   --tour-plan-gap: clamp(1.5rem, 2.6vw, 2.5rem);
-  width: min(1040px, calc(100% - 2rem));
+  width: min(1240px, calc(100% - 2rem));
   margin-inline: auto;
   overflow: hidden;
   background: rgba(8, 12, 12, 0.14);
@@ -1319,7 +1343,7 @@ body[data-page="home"] .featured-tours-grid .tour-card {
 
 .tour-plan-card {
   position: relative;
-  flex: 0 0 calc((100% - (2 * var(--tour-plan-gap))) / 3);
+  flex: 0 0 calc((100% - (3 * var(--tour-plan-gap))) / 4);
   height: clamp(335px, 29vw, 400px);
   overflow: hidden;
   border-radius: 14px;
