@@ -694,7 +694,7 @@ function initTourPlansCarousel(container) {
         void track.offsetWidth;
         scheduleNext();
       }, transitionDuration);
-    }, 3500);
+    }, 2500);
   };
 
   scheduleNext();
