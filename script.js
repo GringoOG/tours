@@ -1,4 +1,5 @@
 const STORAGE_KEY = "tours-lang";
+const SUPPORTED_LOCALES = ["en", "es", "fr"];
 
 const tours = [
   {
@@ -31,6 +32,73 @@ const tours = [
 const i18n = {
   en: {
     brand: "Ollanta Tours",
+    meta: {
+      home: {
+        title: "Ollanta Tours — Sacred Valley Adventures",
+        description: "Discover Machu Picchu, Rainbow Mountain, Maras, Moray, and mountain bike tours from Ollantaytambo.",
+      },
+      about: {
+        title: "About — Ollanta Tours",
+        description: "Learn about Ollanta Tours, a trusted local tour agency serving Sacred Valley travelers from Ollantaytambo since 2016.",
+      },
+      destinations: {
+        title: "Tours — Ollanta Tours",
+        description: "Explore Machu Picchu, Rainbow Mountain, Maras, Moray, and mountain bike tours from Ollantaytambo.",
+      },
+      testimonials: {
+        title: "Reviews — Ollanta Tours",
+        description: "Read reviews from travelers who explored Machu Picchu, Rainbow Mountain, and the Sacred Valley with Ollanta Tours.",
+      },
+      contact: {
+        title: "Contact — Ollanta Tours",
+        description: "Contact Ollanta Tours for tour planning and travel support in Ollantaytambo and the Sacred Valley.",
+      },
+      machuPicchu: {
+        title: "Machu Picchu Tour — Ollanta Tours",
+        description: "Book a full-day Machu Picchu tour from Ollantaytambo with train connections, transfers, and a licensed local guide.",
+      },
+      rainbowMountain: {
+        title: "Rainbow Mountain Tour — Ollanta Tours",
+        description: "Book an early-morning Rainbow Mountain hike with breakfast, transport, altitude support, and a local guide.",
+      },
+      maras: {
+        title: "Maras Tour — Ollanta Tours",
+        description: "Visit the Maras salt ponds from Ollantaytambo with transport, scenic viewpoints, and a local guide.",
+      },
+      moray: {
+        title: "Moray Tour — Ollanta Tours",
+        description: "Explore Moray's circular Inca terraces from Ollantaytambo with transport and a local guide.",
+      },
+      mountainBike: {
+        title: "Mountain Bike Tour — Ollanta Tours",
+        description: "Ride Sacred Valley trails from Ollantaytambo with a guide, quality equipment, and a support vehicle.",
+      },
+    },
+    a11y: {
+      mainNavigation: "Main navigation",
+      mobileNavigation: "Mobile navigation",
+      language: "Language",
+      menu: "Menu",
+    },
+    images: {
+      hero: "Sacred Valley adventure in Ollantaytambo",
+      sacredValley: "Sacred Valley",
+      morayTerraces: "Moray terraces",
+    },
+    about: {
+      missionTitle: "Mission",
+      missionText: "Connect travelers with authentic Sacred Valley experiences through local expertise.",
+      visionTitle: "Vision",
+      visionText: "Become the most trusted tour operator based in Ollantaytambo.",
+      valuesTitle: "Values",
+      valuesText: "Safety, transparency, respect for local communities, and unforgettable service.",
+      timelineTitle: "Serving since 2016",
+      timelineLead: "From a small local team to thousands of travelers, our focus remains the same: real experiences, real guides, real Ollantaytambo.",
+      timeline2016: "First Machu Picchu day tours launched.",
+      timeline2019: "Rainbow Mountain and bike routes added.",
+      timeline2022: "Bilingual support expanded for international guests.",
+      timeline2026: "New custom itineraries and premium small-group tours.",
+    },
     nav: {
       home: "Home",
       about: "About",
@@ -112,6 +180,12 @@ const i18n = {
       t2q: "We were impressed by the level of professionalism and care shown by the travel team. They listened to our preferences and designed a trip that matched our interests perfectly.",
       t2n: "Oscar N. Winsley",
       t2r: "Travel photographer",
+      t3q: "The mountain bike tour was the highlight of our Peru trip. The team was professional from start to finish!",
+      t3n: "Sophie L.",
+      t3r: "Backpacker",
+      t4q: "Pickup was on time, our English-speaking guide was excellent, and the views were incredible.",
+      t4n: "James T.",
+      t4r: "Traveler",
     },
     steps: {
       eyebrow: "how it works",
@@ -170,30 +244,45 @@ const i18n = {
         name: "Machu Picchu",
         per: "/ per person",
         short: "Full-day guided visit from Ollantaytambo with train connection and citadel tour.",
+        benefit1: "Licensed local guide in English or Spanish",
+        benefit2: "Train tickets and transfers arranged for you",
+        benefit3: "Optimized schedule from Ollantaytambo",
       },
       "rainbow-mountain": {
         location: "Vinicunca",
         name: "Rainbow Mountain",
         per: "/ per person",
         short: "Early-morning hike to the famous Rainbow Mountain with breakfast and guide.",
+        benefit1: "Early departure to avoid crowds",
+        benefit2: "Altitude guidance and pacing support",
+        benefit3: "Breakfast and transport included",
       },
       maras: {
         location: "Maras Salt Ponds",
         name: "Maras",
         per: "/ per person",
         short: "Visit the famous Maras salt ponds with a local guide from Ollantaytambo.",
+        benefit1: "Local guide with salt pond history and culture",
+        benefit2: "Scenic viewpoints among the white terraces",
+        benefit3: "Pickup and return from Ollantaytambo",
       },
       moray: {
         location: "Moray",
         name: "Moray",
         per: "/ per person",
         short: "Explore the circular Inca terraces of Moray with a local guide from Ollantaytambo.",
+        benefit1: "Discover the remarkable circular Inca terraces",
+        benefit2: "Learn about Moray's history from a local guide",
+        benefit3: "Pickup and return from Ollantaytambo",
       },
       "mountain-bike": {
         location: "Sacred Valley",
         name: "Mountain Bike Adventure",
         per: "/ per person",
         short: "Downhill and valley routes around Ollantaytambo with bike, gear, and support vehicle.",
+        benefit1: "Quality bikes and safety equipment included",
+        benefit2: "Routes adapted to your skill level",
+        benefit3: "Support vehicle and guide throughout",
       },
     },
     pages: {
@@ -238,6 +327,73 @@ const i18n = {
   },
   es: {
     brand: "Ollanta Tours",
+    meta: {
+      home: {
+        title: "Ollanta Tours — Aventuras en el Valle Sagrado",
+        description: "Descubre tours a Machu Picchu, la Montaña de Colores, Maras, Moray y rutas en bicicleta de montaña desde Ollantaytambo.",
+      },
+      about: {
+        title: "Nosotros — Ollanta Tours",
+        description: "Conoce Ollanta Tours, una agencia local de confianza que atiende a viajeros del Valle Sagrado desde Ollantaytambo desde 2016.",
+      },
+      destinations: {
+        title: "Tours — Ollanta Tours",
+        description: "Explora tours a Machu Picchu, la Montaña de Colores, Maras, Moray y rutas en bicicleta de montaña desde Ollantaytambo.",
+      },
+      testimonials: {
+        title: "Reseñas — Ollanta Tours",
+        description: "Lee reseñas de viajeros que exploraron Machu Picchu, la Montaña de Colores y el Valle Sagrado con Ollanta Tours.",
+      },
+      contact: {
+        title: "Contacto — Ollanta Tours",
+        description: "Contacta con Ollanta Tours para planificar tu viaje y recibir asistencia en Ollantaytambo y el Valle Sagrado.",
+      },
+      machuPicchu: {
+        title: "Tour a Machu Picchu — Ollanta Tours",
+        description: "Reserva un tour de día completo a Machu Picchu desde Ollantaytambo con tren, traslados y un guía local certificado.",
+      },
+      rainbowMountain: {
+        title: "Tour a la Montaña de Colores — Ollanta Tours",
+        description: "Reserva una caminata matinal a la Montaña de Colores con desayuno, transporte, apoyo en altura y guía local.",
+      },
+      maras: {
+        title: "Tour a Maras — Ollanta Tours",
+        description: "Visita las salineras de Maras desde Ollantaytambo con transporte, miradores panorámicos y guía local.",
+      },
+      moray: {
+        title: "Tour a Moray — Ollanta Tours",
+        description: "Explora las terrazas incas circulares de Moray desde Ollantaytambo con transporte y guía local.",
+      },
+      mountainBike: {
+        title: "Tour en bicicleta de montaña — Ollanta Tours",
+        description: "Recorre los senderos del Valle Sagrado desde Ollantaytambo con guía, equipo de calidad y vehículo de apoyo.",
+      },
+    },
+    a11y: {
+      mainNavigation: "Navegación principal",
+      mobileNavigation: "Navegación móvil",
+      language: "Idioma",
+      menu: "Menú",
+    },
+    images: {
+      hero: "Aventura en el Valle Sagrado desde Ollantaytambo",
+      sacredValley: "Valle Sagrado",
+      morayTerraces: "Terrazas de Moray",
+    },
+    about: {
+      missionTitle: "Misión",
+      missionText: "Conectar a los viajeros con experiencias auténticas en el Valle Sagrado mediante el conocimiento local.",
+      visionTitle: "Visión",
+      visionText: "Convertirnos en el operador turístico de mayor confianza con sede en Ollantaytambo.",
+      valuesTitle: "Valores",
+      valuesText: "Seguridad, transparencia, respeto por las comunidades locales y un servicio inolvidable.",
+      timelineTitle: "A tu servicio desde 2016",
+      timelineLead: "De un pequeño equipo local a miles de viajeros, nuestro enfoque sigue siendo el mismo: experiencias reales, guías reales y el auténtico Ollantaytambo.",
+      timeline2016: "Lanzamiento de los primeros tours de un día a Machu Picchu.",
+      timeline2019: "Incorporación de la Montaña de Colores y las rutas en bicicleta.",
+      timeline2022: "Ampliación de la atención bilingüe para visitantes internacionales.",
+      timeline2026: "Nuevos itinerarios personalizados y tours prémium para grupos pequeños.",
+    },
     nav: {
       home: "Inicio",
       about: "Nosotros",
@@ -319,6 +475,12 @@ const i18n = {
       t2q: "Nos impresionó el nivel de profesionalismo y atención del equipo. Escucharon nuestras preferencias y diseñaron un viaje que encajó perfectamente con nuestros intereses.",
       t2n: "Oscar N. Winsley",
       t2r: "Fotógrafo de viajes",
+      t3q: "El tour en bicicleta de montaña fue lo mejor de nuestro viaje a Perú. ¡El equipo fue profesional de principio a fin!",
+      t3n: "Sophie L.",
+      t3r: "Mochilera",
+      t4q: "La recogida fue puntual, nuestro guía de habla inglesa fue excelente y las vistas fueron increíbles.",
+      t4n: "James T.",
+      t4r: "Viajero",
     },
     steps: {
       eyebrow: "cómo funciona",
@@ -377,30 +539,45 @@ const i18n = {
         name: "Machu Picchu",
         per: "/ por persona",
         short: "Visita guiada de día completo desde Ollantaytambo con tren y recorrido por la ciudadela.",
+        benefit1: "Guía local certificado en inglés o español",
+        benefit2: "Billetes de tren y traslados organizados para ti",
+        benefit3: "Horario optimizado desde Ollantaytambo",
       },
       "rainbow-mountain": {
         location: "Vinicunca",
         name: "Montaña de Colores",
         per: "/ por persona",
         short: "Caminata temprano a la famosa Montaña de Colores con desayuno y guía.",
+        benefit1: "Salida temprana para evitar las multitudes",
+        benefit2: "Orientación sobre la altura y apoyo para adaptar el ritmo",
+        benefit3: "Desayuno y transporte incluidos",
       },
       maras: {
         location: "Salineras de Maras",
         name: "Maras",
         per: "/ por persona",
         short: "Visita las famosas salineras de Maras con un guía local desde Ollantaytambo.",
+        benefit1: "Guía local experto en la historia y cultura de las salineras",
+        benefit2: "Miradores panorámicos entre las terrazas blancas",
+        benefit3: "Recogida y regreso a Ollantaytambo",
       },
       moray: {
         location: "Moray",
         name: "Moray",
         per: "/ por persona",
         short: "Explora las terrazas incas circulares de Moray con un guía local desde Ollantaytambo.",
+        benefit1: "Descubre las extraordinarias terrazas incas circulares",
+        benefit2: "Conoce la historia de Moray con un guía local",
+        benefit3: "Recogida y regreso a Ollantaytambo",
       },
       "mountain-bike": {
         location: "Valle Sagrado",
         name: "Aventura en bicicleta de montaña",
         per: "/ por persona",
         short: "Rutas de descenso y valle alrededor de Ollantaytambo con bicicleta, equipo y vehículo de apoyo.",
+        benefit1: "Bicicletas de calidad y equipo de seguridad incluidos",
+        benefit2: "Rutas adaptadas a tu nivel",
+        benefit3: "Vehículo de apoyo y guía durante todo el recorrido",
       },
     },
     pages: {
@@ -443,6 +620,301 @@ const i18n = {
       travelers4: "4+ viajeros",
     },
   },
+  fr: {
+    brand: "Ollanta Tours",
+    meta: {
+      home: {
+        title: "Ollanta Tours — Aventures dans la Vallée sacrée",
+        description: "Découvrez le Machu Picchu, la Montagne aux sept couleurs, Maras, Moray et nos circuits VTT au départ d'Ollantaytambo.",
+      },
+      about: {
+        title: "À propos — Ollanta Tours",
+        description: "Découvrez Ollanta Tours, une agence locale de confiance qui accompagne les voyageurs dans la Vallée sacrée depuis Ollantaytambo depuis 2016.",
+      },
+      destinations: {
+        title: "Circuits — Ollanta Tours",
+        description: "Explorez le Machu Picchu, la Montagne aux sept couleurs, Maras, Moray et nos circuits VTT au départ d'Ollantaytambo.",
+      },
+      testimonials: {
+        title: "Avis — Ollanta Tours",
+        description: "Lisez les avis de voyageurs ayant exploré le Machu Picchu, la Montagne aux sept couleurs et la Vallée sacrée avec Ollanta Tours.",
+      },
+      contact: {
+        title: "Contact — Ollanta Tours",
+        description: "Contactez Ollanta Tours pour organiser votre voyage et obtenir de l'aide à Ollantaytambo et dans la Vallée sacrée.",
+      },
+      machuPicchu: {
+        title: "Circuit au Machu Picchu — Ollanta Tours",
+        description: "Réservez une journée au Machu Picchu depuis Ollantaytambo, avec train, transferts et guide local agréé.",
+      },
+      rainbowMountain: {
+        title: "Circuit à la Montagne aux sept couleurs — Ollanta Tours",
+        description: "Réservez une randonnée matinale à la Montagne aux sept couleurs avec petit-déjeuner, transport, accompagnement en altitude et guide local.",
+      },
+      maras: {
+        title: "Circuit à Maras — Ollanta Tours",
+        description: "Visitez les salines de Maras depuis Ollantaytambo avec transport, points de vue panoramiques et guide local.",
+      },
+      moray: {
+        title: "Circuit à Moray — Ollanta Tours",
+        description: "Explorez les terrasses incas circulaires de Moray depuis Ollantaytambo avec transport et guide local.",
+      },
+      mountainBike: {
+        title: "Circuit en VTT — Ollanta Tours",
+        description: "Parcourez les sentiers de la Vallée sacrée depuis Ollantaytambo avec un guide, un équipement de qualité et un véhicule d'assistance.",
+      },
+    },
+    a11y: {
+      mainNavigation: "Navigation principale",
+      mobileNavigation: "Navigation mobile",
+      language: "Langue",
+      menu: "Menu",
+    },
+    images: {
+      hero: "Aventure dans la Vallée sacrée à Ollantaytambo",
+      sacredValley: "Vallée sacrée",
+      morayTerraces: "Terrasses de Moray",
+    },
+    about: {
+      missionTitle: "Mission",
+      missionText: "Faire découvrir aux voyageurs des expériences authentiques dans la Vallée sacrée grâce à notre expertise locale.",
+      visionTitle: "Vision",
+      visionText: "Devenir le voyagiste le plus digne de confiance établi à Ollantaytambo.",
+      valuesTitle: "Valeurs",
+      valuesText: "Sécurité, transparence, respect des communautés locales et qualité de service inoubliable.",
+      timelineTitle: "À votre service depuis 2016",
+      timelineLead: "D'une petite équipe locale à des milliers de voyageurs, notre priorité reste la même : des expériences authentiques, de vrais guides et le véritable Ollantaytambo.",
+      timeline2016: "Lancement des premières excursions d'une journée au Machu Picchu.",
+      timeline2019: "Ajout de la Montagne aux sept couleurs et des circuits VTT.",
+      timeline2022: "Développement de l'assistance bilingue pour les visiteurs internationaux.",
+      timeline2026: "Nouveaux itinéraires sur mesure et circuits haut de gamme en petits groupes.",
+    },
+    nav: {
+      home: "Accueil",
+      about: "À propos",
+      destinations: "Circuits",
+      testimonials: "Avis",
+      contact: "Contact",
+      book: "Réserver un circuit",
+    },
+    hero: {
+      badge: "4,9 étoiles attribuées par les voyageurs dans la Vallée sacrée",
+      title: "Votre prochaine aventure andine commence à Ollantaytambo",
+      whereTo: "Où aller",
+      tour: "Où aller",
+      date: "Date",
+      travelers: "Voyageurs",
+      explore: "Explorer maintenant",
+      trust1: "Annulation gratuite",
+      trust2: "Paiement sécurisé",
+      trust3: "Guides locaux experts",
+    },
+    story: {
+      eyebrow: "Notre histoire",
+      title: "Nous ne vendons pas des voyages. Nous créons des expériences.",
+      quote:
+        "Chaque itinéraire commence à Ollantaytambo avec des guides locaux qui connaissent la vallée, son histoire et le rythme des montagnes.",
+      author: "Équipe de la Vallée sacrée",
+      role: "Opérateurs touristiques locaux",
+      sponsors: "Plus de 2 500 voyageurs satisfaits",
+      v1t: "Soigneusement conçu, jamais bondé",
+      v1d: "De petits groupes pour une expérience personnalisée au Machu Picchu et au-delà.",
+      v2t: "Aucun frais caché. Jamais.",
+      v2d: "Des prix clairs, des prestations transparentes et des conseils honnêtes.",
+      v3t: "Voyagez de manière responsable",
+      v3d: "Nous respectons les communautés, les sentiers et l'environnement andin.",
+      v4t: "Une approche résolument locale",
+      v4d: "Vos guides vivent ici et partagent des récits authentiques d'Ollantaytambo.",
+      v5t: "Une équipe à votre écoute",
+      v5d: "Assistance WhatsApp avant, pendant et après votre circuit.",
+      v6t: "Réservez en toute confiance",
+      v6d: "Dates flexibles, modifications faciles et confirmation rapide.",
+    },
+    featured: {
+      eyebrow: "trouvez votre circuit",
+      title: "Les destinations préférées des voyageurs au départ d'Ollantaytambo",
+      more: "Plus de circuits",
+    },
+    why: {
+      eyebrow: "pourquoi nous choisir",
+      title: "Découvrez la Vallée sacrée en mouvement",
+      f1t: "Des lieux à explorer sans limites",
+      f1d: "Des ruines incas aux sentiers d'altitude et aux routes de village.",
+      f2t: "Réservation et remboursement faciles",
+      f2d: "Réservez en ligne en quelques minutes avec des conditions d'annulation claires.",
+      f3t: "Des guides professionnels et expérimentés",
+      f3d: "Guides locaux agréés en anglais et en espagnol.",
+      f4t: "Prise en charge où que vous soyez",
+      f4d: "Aucun souci de transport.",
+    },
+    plan: {
+      eyebrow: "formules de circuits",
+      title: "Des circuits d'exception pour votre prochaine aventure",
+      cardLabel: "Formule",
+      t1: "Machu Picchu",
+      t2: "Montagne aux sept couleurs",
+      t3: "Maras",
+      t4: "Moray",
+      t5: "Aventure en VTT",
+    },
+    testimonials: {
+      eyebrow: "voyageurs satisfaits",
+      title: "Des voyages inoubliables racontés par nos voyageurs",
+      titleLine1: "Des voyages inoubliables",
+      titleLine2: "racontés par nos voyageurs",
+      rating: "Basé sur plus de 650 avis",
+      more: "Lire tous les avis",
+      t1q: "La réservation de nos vacances a été incroyablement simple et chaque détail a été géré avec professionnalisme. L'itinéraire était parfaitement organisé, les hébergements excellents et toute l'expérience remarquable.",
+      t1n: "Sebastian T. Langston",
+      t1r: "Blogueur voyage",
+      t2q: "Nous avons été impressionnés par le professionnalisme et l'attention de l'équipe. Elle a écouté nos préférences et conçu un voyage parfaitement adapté à nos centres d'intérêt.",
+      t2n: "Oscar N. Winsley",
+      t2r: "Photographe de voyage",
+      t3q: "Le circuit en VTT a été le temps fort de notre voyage au Pérou. L'équipe s'est montrée professionnelle du début à la fin !",
+      t3n: "Sophie L.",
+      t3r: "Voyageuse en sac à dos",
+      t4q: "La prise en charge était ponctuelle, notre guide anglophone excellent et les paysages incroyables.",
+      t4n: "James T.",
+      t4r: "Voyageur",
+    },
+    steps: {
+      eyebrow: "comment ça marche",
+      title: "Votre circuit en trois étapes simples",
+      s1n: "Étape 01",
+      s1t: "Choisissez votre circuit",
+      s1d: "Choisissez le Machu Picchu, la Montagne aux sept couleurs, Maras, Moray, l'Aventure en VTT ou demandez un itinéraire sur mesure.",
+      s2n: "Étape 02",
+      s2t: "Confirmez votre réservation",
+      s2d: "Sélectionnez la date, la taille du groupe et le lieu de prise en charge à Ollantaytambo.",
+      s3n: "Étape 03",
+      s3t: "Profitez du voyage",
+      s3d: "Voyagez avec des experts locaux et savourez pleinement l'expérience.",
+    },
+    cta: {
+      eyebrow: "partez maintenant",
+      badge: "15 % DE RÉDUCTION",
+      title: "Commencez dès aujourd'hui votre voyage dans la Vallée sacrée",
+      button: "Nous contacter",
+    },
+    faq: {
+      eyebrow: "aide aux voyageurs",
+      title: "Des réponses claires aux questions les plus fréquentes",
+      q1: "Quels circuits proposez-vous ?",
+      a1: "Nous proposons actuellement des circuits au Machu Picchu, à la Montagne aux sept couleurs, à Maras et à Moray, ainsi qu'une Aventure en VTT au départ d'Ollantaytambo.",
+      q2: "Puis-je annuler ma réservation ?",
+      a2: "Oui. Pour la plupart des circuits, l'annulation est gratuite jusqu'à 48 heures avant le départ.",
+      q3: "Quel est le délai de remboursement ?",
+      a3: "Les remboursements approuvés sont généralement traités sous 5 à 7 jours ouvrés.",
+      q4: "Les guides sont-ils inclus ?",
+      a4: "Oui. Tous les circuits comprennent un guide local agréé parlant anglais ou espagnol.",
+    },
+    blog: {
+      eyebrow: "conseils de voyage",
+      title: "Guides et récits de la Vallée sacrée",
+      b1d: "10 juil. 2026",
+      b1t: "La meilleure période pour visiter le Machu Picchu depuis Ollantaytambo",
+      b2d: "3 juil. 2026",
+      b2t: "Que prévoir pour la Montagne aux sept couleurs",
+      b3d: "28 juin 2026",
+      b3t: "Itinéraires VTT dans la vallée des Incas",
+    },
+    instagram: {
+      title: "Ollanta Tours sur Instagram",
+      button: "Commencez votre voyage",
+    },
+    footer: {
+      tagline: "Chaque voyage que nous organisons repose sur la confiance, la sécurité et des panoramas andins inoubliables.",
+      essential: "Liens essentiels",
+      destinations: "Circuits",
+      rights: "© 2026 Ollanta Tours · Ollantaytambo, Pérou",
+    },
+    tours: {
+      "machu-picchu": {
+        location: "Machu Picchu",
+        name: "Machu Picchu",
+        per: "/ par personne",
+        short: "Visite guidée d'une journée au départ d'Ollantaytambo, avec trajet en train et découverte de la citadelle.",
+        benefit1: "Guide local agréé en anglais ou en espagnol",
+        benefit2: "Billets de train et transferts organisés pour vous",
+        benefit3: "Programme optimisé au départ d'Ollantaytambo",
+      },
+      "rainbow-mountain": {
+        location: "Vinicunca",
+        name: "Montagne aux sept couleurs",
+        per: "/ par personne",
+        short: "Randonnée matinale vers la célèbre Montagne aux sept couleurs, avec petit-déjeuner et guide.",
+        benefit1: "Départ matinal pour éviter la foule",
+        benefit2: "Conseils sur l'altitude et accompagnement adapté à votre rythme",
+        benefit3: "Petit-déjeuner et transport inclus",
+      },
+      maras: {
+        location: "Salines de Maras",
+        name: "Maras",
+        per: "/ par personne",
+        short: "Visitez les célèbres salines de Maras avec un guide local au départ d'Ollantaytambo.",
+        benefit1: "Guide local spécialiste de l'histoire et de la culture des salines",
+        benefit2: "Points de vue panoramiques au milieu des terrasses blanches",
+        benefit3: "Prise en charge et retour à Ollantaytambo",
+      },
+      moray: {
+        location: "Moray",
+        name: "Moray",
+        per: "/ par personne",
+        short: "Explorez les terrasses incas circulaires de Moray avec un guide local au départ d'Ollantaytambo.",
+        benefit1: "Découvrez les remarquables terrasses incas circulaires",
+        benefit2: "Découvrez l'histoire de Moray avec un guide local",
+        benefit3: "Prise en charge et retour à Ollantaytambo",
+      },
+      "mountain-bike": {
+        location: "Vallée sacrée",
+        name: "Aventure en VTT",
+        per: "/ par personne",
+        short: "Parcours de descente et itinéraires dans la vallée autour d'Ollantaytambo, avec vélo, équipement et véhicule d'assistance.",
+        benefit1: "Vélos de qualité et équipement de sécurité inclus",
+        benefit2: "Parcours adaptés à votre niveau",
+        benefit3: "Véhicule d'assistance et guide tout au long du circuit",
+      },
+    },
+    pages: {
+      aboutTitle: "Une agence locale de confiance à Ollantaytambo",
+      aboutLead: "Depuis 2016, nous faisons découvrir la Vallée sacrée à travers des expériences authentiques menées par des guides locaux experts.",
+      destinationsTitle: "Découvrez des circuits de rêve au départ d'Ollantaytambo",
+      destinationsLead: "Choisissez parmi nos aventures les plus populaires ou contactez-nous pour un itinéraire sur mesure.",
+      contactTitle: "Contactez-nous dès aujourd'hui",
+      contactLead: "Notre équipe est à votre écoute pour vous accompagner au mieux à Ollantaytambo.",
+      testimonialsTitle: "Découvrez les avis de nos voyageurs",
+      testimonialsLead: "Des récits authentiques de voyageurs ayant exploré la Vallée sacrée avec nous.",
+      loadMore: "Afficher plus",
+      bookNow: "Réserver",
+      phone: "Téléphone",
+      email: "E-mail",
+      office: "Agence",
+      address: "Plaza Principal, Ollantaytambo, Cusco, Pérou",
+      itinerary: "Itinéraire",
+      aboutTour: "À propos de ce circuit",
+      whyTour: "Pourquoi choisir ce circuit",
+      day: "Jour",
+    },
+    booking: {
+      name: "Nom complet",
+      email: "E-mail",
+      phone: "téléphone / WhatsApp",
+      phoneSearch: "Rechercher un pays...",
+      phonePlaceholder: "Numéro de téléphone",
+      destination: "Circuit",
+      travelers: "Nombre de voyageurs",
+      message: "Message",
+      submit: "Envoyer la demande",
+      success: "Merci ! Nous vous contacterons très bientôt.",
+    },
+    selects: {
+      chooseTour: "Choisissez un circuit",
+      travelers1: "1 voyageur",
+      travelers2: "2 voyageurs",
+      travelers3: "3 voyageurs",
+      travelers4: "4 voyageurs ou plus",
+    },
+  },
 };
 
 const itinerary = {
@@ -459,6 +931,12 @@ const itinerary = {
       "Visita guiada a Machu Picchu con explicaciones históricas.",
       "Tren de regreso y traslado a Ollantaytambo.",
     ],
+    fr: [
+      "Prise en charge à Ollantaytambo et transfert à la gare.",
+      "Trajet panoramique en train à travers la Vallée sacrée jusqu'à Aguas Calientes.",
+      "Visite guidée du Machu Picchu et découverte de son histoire.",
+      "Retour en train, puis transfert jusqu'à Ollantaytambo.",
+    ],
   },
   "rainbow-mountain": {
     en: [
@@ -472,6 +950,12 @@ const itinerary = {
       "Traslado al inicio del sendero con parada para desayuno.",
       "Caminata guiada al mirador de la Montaña de Colores.",
       "Regreso con paradas para fotos y descanso.",
+    ],
+    fr: [
+      "Prise en charge matinale à Ollantaytambo (vers 4 h 30).",
+      "Trajet jusqu'au départ du sentier avec un arrêt pour le petit-déjeuner.",
+      "Randonnée guidée jusqu'au belvédère de la Montagne aux sept couleurs.",
+      "Trajet retour avec des pauses pour prendre des photos et se reposer.",
     ],
   },
   "mountain-bike": {
@@ -487,6 +971,12 @@ const itinerary = {
       "Vehículo de apoyo disponible durante la ruta.",
       "Regreso al pueblo con refrigerio.",
     ],
+    fr: [
+      "Réglage du vélo et consignes de sécurité à Ollantaytambo.",
+      "Sortie guidée sur les sentiers et vers les belvédères de la Vallée sacrée.",
+      "Véhicule d'assistance disponible tout au long du parcours.",
+      "Retour en ville avec une collation.",
+    ],
   },
   maras: {
     en: [
@@ -500,6 +990,12 @@ const itinerary = {
       "Visita guiada a las salineras de Maras con historia local.",
       "Tiempo para fotos entre las terrazas blancas.",
       "Traslado de regreso a Ollantaytambo.",
+    ],
+    fr: [
+      "Prise en charge à Ollantaytambo et trajet panoramique à travers la vallée.",
+      "Visite guidée des salines de Maras et découverte de leur histoire locale.",
+      "Temps libre pour prendre des photos au milieu des terrasses blanches.",
+      "Transfert retour jusqu'à Ollantaytambo.",
     ],
   },
   moray: {
@@ -515,12 +1011,18 @@ const itinerary = {
       "Tiempo para fotos y explicación de la historia del sitio.",
       "Traslado de regreso a Ollantaytambo.",
     ],
+    fr: [
+      "Prise en charge à Ollantaytambo et trajet panoramique à travers la Vallée sacrée.",
+      "Visite guidée de Moray et de ses terrasses incas circulaires.",
+      "Temps libre pour prendre des photos et découvrir l'histoire du site.",
+      "Transfert retour jusqu'à Ollantaytambo.",
+    ],
   },
 };
 
 function getLang() {
   const saved = localStorage.getItem(STORAGE_KEY);
-  return saved === "es" ? "es" : "en";
+  return SUPPORTED_LOCALES.includes(saved) ? saved : "en";
 }
 
 function t(path, lang = getLang()) {
@@ -538,6 +1040,7 @@ function getSortedTours(lang = getLang()) {
 }
 
 function setLang(lang) {
+  if (!SUPPORTED_LOCALES.includes(lang)) lang = "en";
   localStorage.setItem(STORAGE_KEY, lang);
   document.documentElement.lang = lang;
   applyTranslations(lang);
@@ -551,6 +1054,18 @@ function setLang(lang) {
 function applyTranslations(lang) {
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     el.textContent = t(el.dataset.i18n, lang);
+  });
+
+  document.querySelectorAll("[data-i18n-content]").forEach((el) => {
+    el.setAttribute("content", t(el.dataset.i18nContent, lang));
+  });
+
+  document.querySelectorAll("[data-i18n-aria-label]").forEach((el) => {
+    el.setAttribute("aria-label", t(el.dataset.i18nAriaLabel, lang));
+  });
+
+  document.querySelectorAll("[data-i18n-alt]").forEach((el) => {
+    el.setAttribute("alt", t(el.dataset.i18nAlt, lang));
   });
 
   document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
@@ -754,7 +1269,14 @@ function flagEmoji(iso) {
 }
 
 function countryName(country, lang = getLang()) {
-  return lang === "es" ? country.es : country.en;
+  if (lang === "fr") {
+    try {
+      return new Intl.DisplayNames(["fr"], { type: "region" }).of(country.iso) || country.en;
+    } catch {
+      return country.en;
+    }
+  }
+  return country[lang] || country.en;
 }
 
 function findCountry(iso) {
@@ -797,15 +1319,13 @@ function renderPhoneCountryList(root, query = "") {
   const filtered = countries
     .filter((country) => {
       if (!q) return true;
-      const en = country.en.toLowerCase();
-      const es = country.es.toLowerCase();
+      const names = SUPPORTED_LOCALES.map((locale) =>
+        countryName(country, locale).toLocaleLowerCase(locale)
+      );
       const iso = country.iso.toLowerCase();
       const dial = `+${country.dial}`;
       return (
-        en.startsWith(q) ||
-        es.startsWith(q) ||
-        en.includes(q) ||
-        es.includes(q) ||
+        names.some((name) => name.startsWith(q) || name.includes(q)) ||
         iso.startsWith(q) ||
         dial.includes(q) ||
         country.dial.includes(q)

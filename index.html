@@ -6,9 +6,10 @@
     <meta name="theme-color" content="#ffffff" />
     <meta
       name="description"
+      data-i18n-content="meta.home.description"
       content="Ollanta Tours — Machu Picchu, Rainbow Mountain, and mountain bike adventures from Ollantaytambo, Peru."
     />
-    <title>Ollanta Tours — Sacred Valley Adventures</title>
+    <title data-i18n="meta.home.title">Ollanta Tours — Sacred Valley Adventures</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body data-page="home">
@@ -18,7 +19,7 @@
           <span class="logo-mark">OT</span>
           <span data-i18n="brand">Ollanta Tours</span>
         </a>
-        <nav class="nav-desktop" aria-label="Main">
+        <nav class="nav-desktop" aria-label="Main navigation" data-i18n-aria-label="a11y.mainNavigation">
           <a href="index.html" class="active" data-i18n="nav.home">Home</a>
           <a href="about.html" data-i18n="nav.about">About</a>
           <a href="destinations.html" data-i18n="nav.destinations">Tours</a>
@@ -26,15 +27,16 @@
           <a href="contact.html" data-i18n="nav.contact">Contact</a>
         </nav>
         <div class="header-actions">
-          <div class="lang-switch" aria-label="Language">
+          <div class="lang-switch" aria-label="Language" data-i18n-aria-label="a11y.language">
             <button type="button" data-lang="en">EN</button>
             <button type="button" data-lang="es">ES</button>
+            <button type="button" data-lang="fr">FR</button>
           </div>
           <a class="btn btn-primary btn-pill" href="destinations.html" data-i18n="nav.book">Book a tour</a>
-          <button class="nav-toggle" type="button" aria-label="Menu">☰</button>
+          <button class="nav-toggle" type="button" aria-label="Menu" data-i18n-aria-label="a11y.menu">☰</button>
         </div>
       </div>
-      <nav class="nav-mobile" aria-label="Mobile">
+      <nav class="nav-mobile" aria-label="Mobile navigation" data-i18n-aria-label="a11y.mobileNavigation">
         <a href="index.html" data-i18n="nav.home">Home</a>
         <a href="about.html" data-i18n="nav.about">About</a>
         <a href="destinations.html" data-i18n="nav.destinations">Tours</a>
@@ -53,6 +55,7 @@
                 class="hero-water-source"
                 src="assets/hero-main.png"
                 alt="Sacred Valley adventure in Ollantaytambo"
+                data-i18n-alt="images.hero"
               />
             </div>
             <div class="hero-overlay"></div>
@@ -97,22 +100,22 @@
           <div class="story-photos" data-story-photos>
             <figure class="story-photo" data-lift="0">
               <div class="story-photo-frame fx-shake">
-                <img src="assets/hero-main.png" alt="Sacred Valley" loading="lazy" />
+                <img src="assets/hero-main.png" alt="Sacred Valley" data-i18n-alt="images.sacredValley" loading="lazy" />
               </div>
             </figure>
             <figure class="story-photo story-photo-lift" data-lift="1">
               <div class="story-photo-frame fx-shake">
-                <img src="assets/machu-picchu.jpg" alt="Machu Picchu" loading="lazy" />
+                <img src="assets/machu-picchu.jpg" alt="Machu Picchu" data-i18n-alt="tours.machu-picchu.name" loading="lazy" />
               </div>
             </figure>
             <figure class="story-photo" data-lift="2">
               <div class="story-photo-frame fx-shake">
-                <img src="assets/rainbow-mountain.png" alt="Rainbow Mountain" loading="lazy" />
+                <img src="assets/rainbow-mountain.png" alt="Rainbow Mountain" data-i18n-alt="tours.rainbow-mountain.name" loading="lazy" />
               </div>
             </figure>
             <figure class="story-photo story-photo-lift" data-lift="3">
               <div class="story-photo-frame fx-shake">
-                <img class="story-photo-bike" src="assets/mountain-bike.png" alt="Mountain bike" loading="lazy" />
+                <img class="story-photo-bike" src="assets/mountain-bike.png" alt="Mountain bike" data-i18n-alt="tours.mountain-bike.name" loading="lazy" />
               </div>
             </figure>
           </div>
@@ -220,6 +223,7 @@
               class="hero-water-source"
               src="assets/moray.jpg"
               alt="Moray terraces"
+              data-i18n-alt="images.morayTerraces"
             />
             <div class="feature-banner-overlay"></div>
             <div class="feature-banner-content">
@@ -257,7 +261,7 @@
             <p class="tour-plans-badge" data-i18n="plan.eyebrow">tour plans</p>
             <h2 class="section-title" data-i18n="plan.title">Top-notch tours for your next adventure</h2>
           </div>
-          <div class="tour-plans-marquee" data-tour-plans aria-label="Tour plans"></div>
+          <div class="tour-plans-marquee" data-tour-plans aria-label="Tour plans" data-i18n-aria-label="plan.eyebrow"></div>
         </div>
       </section>
 
