@@ -1307,25 +1307,20 @@ body[data-page="home"] .featured-tours-grid .tour-card {
   width: max-content;
 }
 
-.tour-plans-track {
-  will-change: transform;
-}
-
 .tour-plans-group {
-  gap: clamp(1.5rem, 3vw, 2.75rem);
-  padding-right: clamp(1.5rem, 3vw, 2.75rem);
+  gap: clamp(2.25rem, 4vw, 4rem);
+  padding-right: clamp(2.25rem, 4vw, 4rem);
   background: transparent;
 }
 
 .tour-plan-card {
   position: relative;
-  flex: 0 0 clamp(255px, 22vw, 310px);
-  height: clamp(350px, 31vw, 420px);
+  flex: 0 0 clamp(245px, 20.5vw, 292px);
+  height: clamp(335px, 29vw, 400px);
   overflow: hidden;
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.1);
   box-shadow: 0 18px 48px rgba(0, 0, 0, 0.2);
-  transform: translateZ(0);
   transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
@@ -2029,8 +2024,8 @@ body[data-page="home"] .featured-tours-grid .tour-card {
   }
 
   .tour-plan-card {
-    flex-basis: 230px;
-    height: 320px;
+    flex-basis: 220px;
+    height: 305px;
   }
 
   .tour-plan-card strong {
