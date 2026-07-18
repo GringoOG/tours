@@ -629,44 +629,38 @@ function renderTourCards(container) {
 function renderTourPlans(container) {
   if (!container) return;
   window.clearTimeout(container.tourPlansTimer);
+  window.clearTimeout(container.tourPlansResetTimer);
   container.tourPlansResizeObserver?.disconnect();
   const lang = getLang();
   const sortedTours = getSortedTours(lang);
   container.setAttribute("aria-label", t("plan.eyebrow", lang));
 
-  const renderGroup = (duplicate = false) => `
-    <div class="tour-plans-group"${duplicate ? ' aria-hidden="true"' : ""}>
-      ${sortedTours
-        .map((tour, index) => {
-          const data = t(`tours.${tour.slug}`, lang);
-          return `
-            <a
-              class="tour-plan-card"
-              href="destination-${tour.slug}.html"
-              aria-label="${data.name}"
-              ${duplicate ? 'tabindex="-1"' : ""}
-            >
-              <img src="${tour.image}" alt="${duplicate ? "" : data.name}" loading="${duplicate ? "lazy" : "eager"}" />
-              <span class="tour-plan-card-shade" aria-hidden="true"></span>
-              <span class="tour-plan-card-label">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M12 21s7-6.1 7-12A7 7 0 0 0 5 9c0 5.9 7 12 7 12Zm0-9.4A2.6 2.6 0 1 1 12 6a2.6 2.6 0 0 1 0 5.2Z"/>
-                </svg>
-                ${String(index + 1).padStart(2, "0")} ${t("plan.cardLabel", lang)}
-              </span>
-              <strong>${data.name}</strong>
-            </a>
-          `;
-        })
-        .join("")}
-    </div>
-  `;
+  const cards = sortedTours
+    .map((tour, index) => {
+      const data = t(`tours.${tour.slug}`, lang);
+      return `
+        <a
+          class="tour-plan-card"
+          href="destination-${tour.slug}.html"
+          aria-label="${data.name}"
+        >
+          <img src="${tour.image}" alt="${data.name}" loading="eager" />
+          <span class="tour-plan-card-shade" aria-hidden="true"></span>
+          <span class="tour-plan-card-label">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 21s7-6.1 7-12A7 7 0 0 0 5 9c0 5.9 7 12 7 12Zm0-9.4A2.6 2.6 0 1 1 12 6a2.6 2.6 0 0 1 0 5.2Z"/>
+            </svg>
+            ${String(index + 1).padStart(2, "0")} ${t("plan.cardLabel", lang)}
+          </span>
+          <strong>${data.name}</strong>
+        </a>
+      `;
+    })
+    .join("");
 
   container.innerHTML = `
     <div class="tour-plans-track">
-      ${renderGroup()}
-      ${renderGroup(true)}
-      ${renderGroup(true)}
+      <div class="tour-plans-group">${cards}</div>
     </div>
   `;
 
@@ -676,49 +670,32 @@ function renderTourPlans(container) {
 function initTourPlansCarousel(container) {
   const track = container.querySelector(".tour-plans-track");
   const group = container.querySelector(".tour-plans-group");
-  const cards = group?.querySelectorAll(".tour-plan-card");
-  if (!track || !group || !cards?.length) return;
+  if (!track || !group || !group.children.length) return;
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-  let currentIndex = 0;
   const transitionDuration = 700;
 
   const getStepWidth = () => {
     const groupStyles = window.getComputedStyle(group);
     const gap = parseFloat(groupStyles.columnGap || groupStyles.gap) || 0;
-    return cards[0].getBoundingClientRect().width + gap;
-  };
-
-  const applyPosition = (animated = true) => {
-    track.style.transition = animated
-      ? `transform ${transitionDuration}ms cubic-bezier(0.22, 1, 0.36, 1)`
-      : "none";
-    track.style.transform = `translate3d(${-currentIndex * getStepWidth()}px, 0, 0)`;
+    return group.firstElementChild.getBoundingClientRect().width + gap;
   };
 
   const scheduleNext = () => {
     container.tourPlansTimer = window.setTimeout(() => {
-      currentIndex += 1;
-      applyPosition();
+      const firstCard = group.firstElementChild;
+      track.style.transition = `transform ${transitionDuration}ms cubic-bezier(0.22, 1, 0.36, 1)`;
+      track.style.transform = `translate3d(${-getStepWidth()}px, 0, 0)`;
 
-      if (currentIndex === cards.length) {
-        window.setTimeout(() => {
-          currentIndex = 0;
-          applyPosition(false);
-          void track.offsetWidth;
-          scheduleNext();
-        }, transitionDuration);
-        return;
-      }
-
-      scheduleNext();
+      container.tourPlansResetTimer = window.setTimeout(() => {
+        group.appendChild(firstCard);
+        track.style.transition = "none";
+        track.style.transform = "translate3d(0, 0, 0)";
+        void track.offsetWidth;
+        scheduleNext();
+      }, transitionDuration);
     }, 3500);
   };
-
-  if ("ResizeObserver" in window) {
-    container.tourPlansResizeObserver = new ResizeObserver(() => applyPosition(false));
-    container.tourPlansResizeObserver.observe(container);
-  }
 
   scheduleNext();
 }
