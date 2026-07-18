@@ -1306,6 +1306,8 @@ body[data-page="home"] .featured-tours-grid .tour-card {
 }
 
 .tour-plans-head {
+  position: relative;
+  top: -1rem;
   width: min(680px, calc(100% - 2rem));
   margin: 0 auto clamp(2.25rem, 4vw, 3.5rem);
   text-align: center;
