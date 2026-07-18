@@ -200,12 +200,6 @@ const i18n = {
       s3t: "Enjoy the journey",
       s3d: "Travel with local experts and focus on the experience.",
     },
-    cta: {
-      eyebrow: "travel now",
-      badge: "15% SALE OFF",
-      title: "Start your Sacred Valley journey with us today",
-      button: "Contact us",
-    },
     faq: {
       eyebrow: "quick travel help",
       title: "Common travel questions with clear answers",
@@ -495,12 +489,6 @@ const i18n = {
       s3t: "Disfruta el viaje",
       s3d: "Viaja con expertos locales y concéntrate en la experiencia.",
     },
-    cta: {
-      eyebrow: "viaja ahora",
-      badge: "15% DE DESCUENTO",
-      title: "Comienza hoy tu viaje por el Valle Sagrado",
-      button: "Contáctanos",
-    },
     faq: {
       eyebrow: "ayuda rápida",
       title: "Preguntas comunes con respuestas claras",
@@ -789,12 +777,6 @@ const i18n = {
       s3n: "Étape 03",
       s3t: "Profitez du voyage",
       s3d: "Voyagez avec des experts locaux et savourez pleinement l'expérience.",
-    },
-    cta: {
-      eyebrow: "partez maintenant",
-      badge: "15 % DE RÉDUCTION",
-      title: "Commencez dès aujourd'hui votre voyage dans la Vallée sacrée",
-      button: "Nous contacter",
     },
     faq: {
       eyebrow: "aide aux voyageurs",

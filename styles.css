@@ -1446,27 +1446,6 @@ body[data-page="home"] .featured-tours-grid .tour-card {
   }
 }
 
-.cta-banner {
-  border-radius: var(--radius-lg);
-  padding: 3rem;
-  background: linear-gradient(135deg, #212121, #3a3a3a);
-  color: var(--white);
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 2rem;
-  align-items: center;
-}
-
-.sale-badge {
-  display: inline-block;
-  padding: 0.45rem 0.8rem;
-  border-radius: var(--radius-pill);
-  background: var(--gold);
-  color: var(--text);
-  font-size: 0.82rem;
-  font-weight: 700;
-}
-
 .steps-section {
   background: var(--white);
 }
@@ -1544,7 +1523,7 @@ body[data-page="home"] .faq-head .section-title {
 .faq-list {
   display: grid;
   gap: 0.65rem;
-  width: min(100%, 75vw, 1400px);
+  width: min(50%, 700px);
   margin-inline: auto;
 }
 
@@ -2091,8 +2070,7 @@ body[data-page="home"] .faq-head .section-title {
   .contact-grid,
   .footer-grid,
   .detail-layout,
-  .story-grid,
-  .cta-banner {
+  .story-grid {
     grid-template-columns: 1fr;
   }
 
