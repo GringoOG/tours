@@ -90,9 +90,16 @@ body[data-page="home"] .section {
 }
 
 body[data-page="home"] .section-head {
+  width: min(100%, 1000px);
+  max-width: 1000px;
   margin-inline: auto;
   margin-bottom: 1.75rem;
   text-align: center;
+}
+
+body[data-page="home"] .section-head .section-title {
+  text-align: center;
+  text-wrap: balance;
 }
 
 body[data-page="home"] .testimonials-badge {
@@ -856,7 +863,7 @@ body[data-page="home"] .hero-overlay {
 }
 
 body[data-page="home"] .testimonials-head {
-  max-width: 620px;
+  max-width: 1000px;
   margin-bottom: clamp(2rem, 4vw, 3.25rem);
 }
 
