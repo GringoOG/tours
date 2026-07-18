@@ -1203,10 +1203,10 @@ body[data-page="home"] .featured-tours-grid .tour-card {
   position: absolute;
   top: 1rem;
   left: 1.25rem;
-  right: auto;
+  right: 1.25rem;
   z-index: 3;
-  max-width: min(calc(100% - 2.5rem), 480px);
-  text-align: left;
+  max-width: none;
+  text-align: center;
   margin: 0;
 }
 
@@ -2012,9 +2012,9 @@ body[data-page="home"] .featured-tours-grid .tour-card {
   .feature-banner-head {
     top: 0.85rem;
     left: 1rem;
-    right: auto;
+    right: 1rem;
     max-width: none;
-    text-align: left;
+    text-align: center;
   }
 
   body[data-page="home"] .section-story {
