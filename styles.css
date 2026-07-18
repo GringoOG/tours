@@ -868,7 +868,12 @@ body[data-page="home"] .testimonials-head {
 }
 
 .testimonials-head .section-title {
-  font-size: clamp(2.25rem, 4.5vw, 3.75rem);
+  font-size: clamp(1.5rem, 4.5vw, 3.75rem);
+}
+
+.testimonials-head .section-title span {
+  display: block;
+  white-space: nowrap;
 }
 
 .testimonials-badge {

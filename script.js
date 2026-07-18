@@ -102,6 +102,8 @@ const i18n = {
     testimonials: {
       eyebrow: "happy travelers",
       title: "Memorable journeys shared by travelers",
+      titleLine1: "Memorable journeys",
+      titleLine2: "shared by travelers",
       rating: "Based on 650+ reviews",
       more: "Read all reviews",
       t1q: "Booking our vacation was incredibly easy, and every detail was handled professionally. The itinerary was well organized, the accommodations were excellent, and the entire experience.",
@@ -311,6 +313,8 @@ const i18n = {
     testimonials: {
       eyebrow: "viajeros felices",
       title: "Experiencias memorables compartidas por viajeros",
+      titleLine1: "Experiencias memorables",
+      titleLine2: "compartidas por viajeros",
       rating: "Basado en más de 650 reseñas",
       more: "Ver todas las reseñas",
       t1q: "Reservar nuestras vacaciones fue increíblemente fácil y cada detalle se gestionó de forma profesional. El itinerario estuvo bien organizado, los alojamientos fueron excelentes y toda la experiencia fue excepcional.",
