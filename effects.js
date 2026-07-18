@@ -430,6 +430,35 @@ function initFeatureItemReveal() {
   observer.observe(grid);
 }
 
+function initTestimonialsReveal() {
+  const showcase = document.querySelector("[data-testimonials-showcase]");
+  if (!showcase || showcase.dataset.testimonialsRevealBound) return;
+  showcase.dataset.testimonialsRevealBound = "1";
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    showcase.classList.add("is-active");
+    return;
+  }
+
+  let inView = false;
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting && !inView) {
+        inView = true;
+        showcase.classList.remove("is-active");
+        void showcase.offsetWidth;
+        showcase.classList.add("is-active");
+      } else if (!entry.isIntersecting && inView) {
+        inView = false;
+        showcase.classList.remove("is-active");
+      }
+    },
+    { threshold: 0.18, rootMargin: "0px 0px -10% 0px" }
+  );
+
+  observer.observe(showcase);
+}
+
 function initStoryPhotos() {
   const root = document.querySelector("[data-story-photos]");
   if (!root) return;
@@ -473,35 +502,35 @@ function initParallax() {
 }
 
 function initValueIconSpin() {
-  const panel = document.querySelector("[data-values-panel]");
-  if (!panel) return;
-
-  const icons = panel.querySelectorAll(".value-icon");
-  if (!icons.length) return;
-
+  const panels = document.querySelectorAll("[data-values-panel], [data-step-icons]");
+  if (!panels.length) return;
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-  let inView = false;
-  let spinTimer = null;
+  panels.forEach((panel) => {
+    const icons = panel.querySelectorAll(".value-icon");
+    if (!icons.length || panel.dataset.iconSpinBound) return;
+    panel.dataset.iconSpinBound = "1";
 
-  const spin = () => {
-    if (spinTimer) window.clearTimeout(spinTimer);
-    icons.forEach((icon) => icon.classList.remove("is-spinning"));
-    // Restart after a beat so the visitor is already looking at the section
-    spinTimer = window.setTimeout(() => {
-      icons.forEach((icon, index) => {
-        window.setTimeout(() => {
-          icon.classList.remove("is-spinning");
-          void icon.offsetWidth;
-          icon.classList.add("is-spinning");
-        }, index * 70);
-      });
-    }, 180);
-  };
+    let inView = false;
+    let spinTimer = null;
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
+    const spin = () => {
+      if (spinTimer) window.clearTimeout(spinTimer);
+      icons.forEach((icon) => icon.classList.remove("is-spinning"));
+      // Restart after a beat so the visitor is already looking at the section
+      spinTimer = window.setTimeout(() => {
+        icons.forEach((icon, index) => {
+          window.setTimeout(() => {
+            icon.classList.remove("is-spinning");
+            void icon.offsetWidth;
+            icon.classList.add("is-spinning");
+          }, index * 70);
+        });
+      }, 180);
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
         if (entry.isIntersecting && !inView) {
           inView = true;
           spin();
@@ -509,13 +538,13 @@ function initValueIconSpin() {
           inView = false;
           icons.forEach((icon) => icon.classList.remove("is-spinning"));
         }
-      });
-    },
-    // Fire once the panel sits lower in the viewport (more noticeable)
-    { threshold: 0.45, rootMargin: "0px 0px -28% 0px" }
-  );
+      },
+      // Fire once the panel sits lower in the viewport (more noticeable)
+      { threshold: 0.45, rootMargin: "0px 0px -28% 0px" }
+    );
 
-  observer.observe(panel);
+    observer.observe(panel);
+  });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -524,6 +553,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initImageFx();
   initScrollReveal();
   initFeatureItemReveal();
+  initTestimonialsReveal();
   initStoryPhotos();
   initValueIconSpin();
   initParallax();

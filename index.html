@@ -270,25 +270,16 @@
               <span data-i18n="testimonials.titleLine2">shared by travelers</span>
             </h2>
           </div>
-          <div class="testimonials-showcase">
-            <article class="testimonial-rating-card reveal">
+          <div class="testimonials-showcase" data-testimonials-showcase>
+            <article class="testimonial-rating-card">
               <div class="testimonial-score">4.9<sup>★</sup></div>
               <p data-i18n="testimonials.rating">Based on 650+ reviews</p>
               <div class="testimonial-rating-photo">
                 <img src="assets/rainbow-mountain.png" alt="" loading="lazy" />
-                <span class="testimonial-passport" aria-hidden="true">
-                  <svg viewBox="0 0 64 64">
-                    <rect x="12" y="8" width="32" height="46" rx="2"></rect>
-                    <path d="M20 8v46M26 23h12M26 39h12"></path>
-                    <circle cx="32" cy="31" r="8"></circle>
-                    <path d="M32 23c3 3 3 13 0 16M32 23c-3 3-3 13 0 16M24 31h16"></path>
-                    <path d="M44 16h8v40H22v-2"></path>
-                  </svg>
-                </span>
               </div>
             </article>
 
-            <article class="testimonial-review-card reveal">
+            <article class="testimonial-review-card">
               <div class="testimonial-stars" aria-hidden="true">★★★★★</div>
               <blockquote><span aria-hidden="true">“</span><span data-i18n="testimonials.t1q">Booking our vacation was incredibly easy, and every detail was handled professionally. The itinerary was well organized, the accommodations were excellent, and the entire experience.</span><span aria-hidden="true">”</span></blockquote>
               <div class="traveler-profile">
@@ -301,7 +292,7 @@
               </div>
             </article>
 
-            <article class="testimonial-review-card reveal">
+            <article class="testimonial-review-card">
               <div class="testimonial-stars" aria-hidden="true">★★★★★</div>
               <blockquote><span aria-hidden="true">“</span><span data-i18n="testimonials.t2q">We were impressed by the level of professionalism and care shown by the travel team. They listened to our preferences and designed a trip that matched our interests perfectly.</span><span aria-hidden="true">”</span></blockquote>
               <div class="traveler-profile">
@@ -317,29 +308,56 @@
         </div>
       </section>
 
-      <section class="section">
-        <div class="container deal-banner">
-          <div>
-            <span class="deal-badge" data-i18n="deal.badge">15% OFF</span>
-            <h2 class="section-title" style="color: white; margin-top: 1rem" data-i18n="deal.title">Best travel deals for early bookings</h2>
-            <form class="subscribe-form" data-subscribe-form>
-              <input type="email" required data-i18n-placeholder="deal.placeholder" placeholder="Your email address" />
-              <button class="btn btn-light" type="submit" data-i18n="deal.button">Subscribe</button>
-            </form>
-          </div>
-        </div>
-      </section>
-
-      <section class="section section-soft">
+      <section class="section steps-section">
         <div class="container">
           <div class="section-head reveal">
             <p class="eyebrow" data-i18n="steps.eyebrow">how it works</p>
             <h2 class="section-title" data-i18n="steps.title">Three simple steps to your tour</h2>
           </div>
-          <div class="steps-grid">
-            <article class="step-card"><div class="step-number">01</div><h3 data-i18n="steps.s1t">Choose your tour</h3><p data-i18n="steps.s1d">Pick Machu Picchu, Rainbow Mountain, mountain bike, or ask for a custom route.</p></article>
-            <article class="step-card"><div class="step-number">02</div><h3 data-i18n="steps.s2t">Confirm reservation</h3><p data-i18n="steps.s2d">Select date, group size, and pickup point in Ollantaytambo.</p></article>
-            <article class="step-card"><div class="step-number">03</div><h3 data-i18n="steps.s3t">Enjoy the journey</h3><p data-i18n="steps.s3d">Travel with local experts and focus on the experience.</p></article>
+          <div class="steps-grid" data-step-icons>
+            <article class="step-card">
+              <div class="step-number" data-i18n="steps.s1n">Step 01</div>
+              <p data-i18n="steps.s1d">Pick Machu Picchu, Rainbow Mountain, mountain bike, or ask for a custom route.</p>
+              <div class="step-card-footer">
+                <h3 data-i18n="steps.s1t">Choose your tour</h3>
+                <span class="step-icon value-icon" aria-hidden="true">
+                  <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="19" cy="17" r="10"/>
+                    <path d="M9 17h20M19 7c3.4 3.2 5.2 6.5 5.2 10S22.4 23.8 19 27M19 7c-3.4 3.2-5.2 6.5-5.2 10S15.6 23.8 19 27"/>
+                    <path d="M31 22c3 0 5 2.2 5 5.2 0 4-5 7.8-5 7.8s-5-3.8-5-7.8c0-3 2-5.2 5-5.2z"/>
+                    <circle cx="31" cy="27.2" r="1.5"/>
+                  </svg>
+                </span>
+              </div>
+            </article>
+            <article class="step-card">
+              <div class="step-number" data-i18n="steps.s2n">Step 02</div>
+              <p data-i18n="steps.s2d">Select date, group size, and pickup point in Ollantaytambo.</p>
+              <div class="step-card-footer">
+                <h3 data-i18n="steps.s2t">Confirm reservation</h3>
+                <span class="step-icon value-icon" aria-hidden="true">
+                  <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="6" y="9" width="28" height="25" rx="3"/>
+                    <path d="M12 6v7M28 6v7M6 16h28"/>
+                    <path d="m13 25 4 4 9-9"/>
+                  </svg>
+                </span>
+              </div>
+            </article>
+            <article class="step-card">
+              <div class="step-number" data-i18n="steps.s3n">Step 03</div>
+              <p data-i18n="steps.s3d">Travel with local experts and focus on the experience.</p>
+              <div class="step-card-footer">
+                <h3 data-i18n="steps.s3t">Enjoy the journey</h3>
+                <span class="step-icon value-icon" aria-hidden="true">
+                  <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 31 13 18l6 8 5-7 12 12"/>
+                    <path d="m25 9 10 5-10 5v-3.5H14a5 5 0 0 0-5 5"/>
+                    <circle cx="9" cy="20.5" r="1.5"/>
+                  </svg>
+                </span>
+              </div>
+            </article>
           </div>
         </div>
       </section>
@@ -354,17 +372,41 @@
         </div>
       </section>
 
-      <section class="section section-soft">
+      <section class="section faq-section">
         <div class="container">
-          <div class="section-head reveal">
+          <div class="section-head faq-head reveal">
             <p class="eyebrow" data-i18n="faq.eyebrow">quick travel help</p>
             <h2 class="section-title" data-i18n="faq.title">Common travel questions with clear answers</h2>
           </div>
           <div class="faq-list">
-            <article class="faq-item"><button class="faq-question" type="button"><span data-i18n="faq.q1">What tours do you offer?</span><span>+</span></button><div class="faq-answer" data-i18n="faq.a1">We currently offer Machu Picchu, Rainbow Mountain, and mountain bike tours from Ollantaytambo, with more routes coming soon.</div></article>
-            <article class="faq-item"><button class="faq-question" type="button"><span data-i18n="faq.q2">Can I cancel my booking?</span><span>+</span></button><div class="faq-answer" data-i18n="faq.a2">Yes. Free cancellation is available up to 48 hours before departure for most tours.</div></article>
-            <article class="faq-item"><button class="faq-question" type="button"><span data-i18n="faq.q3">How long does a refund take?</span><span>+</span></button><div class="faq-answer" data-i18n="faq.a3">Approved refunds are usually processed within 5-7 business days.</div></article>
-            <article class="faq-item"><button class="faq-question" type="button"><span data-i18n="faq.q4">Are guides included?</span><span>+</span></button><div class="faq-answer" data-i18n="faq.a4">Yes. All tours include a licensed local guide in English or Spanish.</div></article>
+            <article class="faq-item open">
+              <button class="faq-question" type="button" aria-expanded="true">
+                <span data-i18n="faq.q1">What tours do you offer?</span>
+                <span class="faq-arrow" aria-hidden="true">↑</span>
+              </button>
+              <div class="faq-answer" data-i18n="faq.a1">We currently offer Machu Picchu, Rainbow Mountain, and mountain bike tours from Ollantaytambo, with more routes coming soon.</div>
+            </article>
+            <article class="faq-item">
+              <button class="faq-question" type="button" aria-expanded="false">
+                <span data-i18n="faq.q2">Can I cancel my booking?</span>
+                <span class="faq-arrow" aria-hidden="true">↑</span>
+              </button>
+              <div class="faq-answer" data-i18n="faq.a2">Yes. Free cancellation is available up to 48 hours before departure for most tours.</div>
+            </article>
+            <article class="faq-item">
+              <button class="faq-question" type="button" aria-expanded="false">
+                <span data-i18n="faq.q3">How long does a refund take?</span>
+                <span class="faq-arrow" aria-hidden="true">↑</span>
+              </button>
+              <div class="faq-answer" data-i18n="faq.a3">Approved refunds are usually processed within 5-7 business days.</div>
+            </article>
+            <article class="faq-item">
+              <button class="faq-question" type="button" aria-expanded="false">
+                <span data-i18n="faq.q4">Are guides included?</span>
+                <span class="faq-arrow" aria-hidden="true">↑</span>
+              </button>
+              <div class="faq-answer" data-i18n="faq.a4">Yes. All tours include a licensed local guide in English or Spanish.</div>
+            </article>
           </div>
         </div>
       </section>

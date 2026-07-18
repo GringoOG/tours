@@ -113,20 +113,16 @@ const i18n = {
       t2n: "Oscar N. Winsley",
       t2r: "Travel photographer",
     },
-    deal: {
-      eyebrow: "hot deals",
-      badge: "15% OFF",
-      title: "Best travel deals for early bookings",
-      placeholder: "Your email address",
-      button: "Subscribe",
-    },
     steps: {
       eyebrow: "how it works",
       title: "Three simple steps to your tour",
+      s1n: "Step 01",
       s1t: "Choose your tour",
       s1d: "Pick Machu Picchu, Rainbow Mountain, Maras, Moray, Mountain Bike Adventure, or ask for a custom route.",
+      s2n: "Step 02",
       s2t: "Confirm reservation",
       s2d: "Select date, group size, and pickup point in Ollantaytambo.",
+      s3n: "Step 03",
       s3t: "Enjoy the journey",
       s3d: "Travel with local experts and focus on the experience.",
     },
@@ -324,20 +320,16 @@ const i18n = {
       t2n: "Oscar N. Winsley",
       t2r: "Fotógrafo de viajes",
     },
-    deal: {
-      eyebrow: "ofertas",
-      badge: "15% DTO",
-      title: "Las mejores ofertas para reservas anticipadas",
-      placeholder: "Tu correo electrónico",
-      button: "Suscribirse",
-    },
     steps: {
       eyebrow: "cómo funciona",
       title: "Tres pasos simples para tu tour",
+      s1n: "Paso 01",
       s1t: "Elige tu tour",
       s1d: "Elige Machu Picchu, Montaña de Colores, Maras, Moray, Aventura en bicicleta de montaña o una ruta personalizada.",
+      s2n: "Paso 02",
       s2t: "Confirma la reserva",
       s2d: "Selecciona fecha, tamaño del grupo y punto de recogida en Ollantaytambo.",
+      s3n: "Paso 03",
       s3t: "Disfruta el viaje",
       s3d: "Viaja con expertos locales y concéntrate en la experiencia.",
     },
@@ -738,7 +730,19 @@ function initHeader() {
 function initFaq() {
   document.querySelectorAll(".faq-question").forEach((button) => {
     button.addEventListener("click", () => {
-      button.closest(".faq-item")?.classList.toggle("open");
+      const item = button.closest(".faq-item");
+      if (!item) return;
+      const willOpen = !item.classList.contains("open");
+
+      item.closest(".faq-list")?.querySelectorAll(".faq-item").forEach((faqItem) => {
+        faqItem.classList.remove("open");
+        faqItem.querySelector(".faq-question")?.setAttribute("aria-expanded", "false");
+      });
+
+      if (willOpen) {
+        item.classList.add("open");
+        button.setAttribute("aria-expanded", "true");
+      }
     });
   });
 }
@@ -938,13 +942,6 @@ function initForms() {
     });
   });
 
-  document.querySelectorAll("[data-subscribe-form]").forEach((form) => {
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
-      alert(t("booking.success"));
-      form.reset();
-    });
-  });
 }
 
 function initDetailPage() {
