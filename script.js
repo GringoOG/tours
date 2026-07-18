@@ -305,7 +305,13 @@ const i18n = {
       phone: "phone / WhatsApp",
       phoneSearch: "Search country...",
       phonePlaceholder: "Phone number",
-      destination: "Tour",
+      destination: "Tours",
+      chooseTours: "Choose one or more tours",
+      selectedTours: "{count} tours selected",
+      tourDate: "Date",
+      dateLater: "Arrange the date later",
+      tourTravelers: "Travelers",
+      requiredTours: "Select at least one tour.",
       travelers: "Number of travelers",
       message: "Message",
       submit: "Send request",
@@ -594,7 +600,13 @@ const i18n = {
       phone: "teléfono / WhatsApp",
       phoneSearch: "Buscar país...",
       phonePlaceholder: "Número de teléfono",
-      destination: "Tour",
+      destination: "Tours",
+      chooseTours: "Elige uno o más tours",
+      selectedTours: "{count} tours seleccionados",
+      tourDate: "Fecha",
+      dateLater: "Acordar la fecha más adelante",
+      tourTravelers: "Viajeros",
+      requiredTours: "Selecciona al menos un tour.",
       travelers: "Número de viajeros",
       message: "Mensaje",
       submit: "Enviar solicitud",
@@ -883,7 +895,13 @@ const i18n = {
       phone: "téléphone / WhatsApp",
       phoneSearch: "Rechercher un pays...",
       phonePlaceholder: "Numéro de téléphone",
-      destination: "Circuit",
+      destination: "Circuits",
+      chooseTours: "Choisissez un ou plusieurs circuits",
+      selectedTours: "{count} circuits sélectionnés",
+      tourDate: "Date",
+      dateLater: "Fixer la date plus tard",
+      tourTravelers: "Voyageurs",
+      requiredTours: "Sélectionnez au moins un circuit.",
       travelers: "Nombre de voyageurs",
       message: "Message",
       submit: "Envoyer la demande",
@@ -1055,17 +1073,22 @@ function applyTranslations(lang) {
   });
 
   document.querySelectorAll("[data-tour-select]").forEach((select) => {
-    const current = select.value;
-    select.innerHTML = `
-      <option value="">${t("selects.chooseTour", lang)}</option>
-      ${getSortedTours(lang)
-        .map(
-          (tour) =>
-            `<option value="${tour.slug}">${t("tours." + tour.slug + ".name", lang)}</option>`
-        )
-        .join("")}
-    `;
-    if (current) select.value = current;
+    const selected = new Set(
+      [...select.selectedOptions].map((option) => option.value).filter(Boolean)
+    );
+    const isMulti = select.multiple || select.hasAttribute("data-multi-tour");
+    const placeholder = isMulti
+      ? ""
+      : `<option value="">${t("selects.chooseTour", lang)}</option>`;
+    select.innerHTML = `${placeholder}${getSortedTours(lang)
+      .map(
+        (tour) =>
+          `<option value="${tour.slug}">${t("tours." + tour.slug + ".name", lang)}</option>`
+      )
+      .join("")}`;
+    [...select.options].forEach((option) => {
+      option.selected = selected.has(option.value);
+    });
   });
 
   document.querySelectorAll("[data-travelers-select]").forEach((select) => {
@@ -1087,6 +1110,8 @@ function applyTranslations(lang) {
       column.appendChild(link);
     });
   });
+
+  refreshTourMultiSelects(lang);
 }
 
 function renderTourCards(container) {
@@ -1435,12 +1460,266 @@ function refreshPhoneFields(lang = getLang()) {
   });
 }
 
+let tourMultiId = 0;
+
+function selectedTourSlugs(select) {
+  return [...select.selectedOptions]
+    .map((option) => option.value)
+    .filter(Boolean);
+}
+
+function captureTourDetailValues(picker) {
+  picker.querySelectorAll("[data-tour-booking-row]").forEach((row) => {
+    const slug = row.dataset.tourBookingRow;
+    picker.tourValues.set(slug, {
+      date: row.querySelector("[data-tour-date]")?.value || "",
+      dateLater: row.querySelector("[data-tour-date-later]")?.checked || false,
+      travelers: row.querySelector("[data-tour-travelers]")?.value || "1",
+    });
+  });
+}
+
+function tourTravelerOptions(lang, selected = "1") {
+  return [1, 2, 3, 4]
+    .map((count) => {
+      const value = String(count);
+      return `<option value="${value}"${value === selected ? " selected" : ""}>${t(
+        `selects.travelers${count}`,
+        lang
+      )}</option>`;
+    })
+    .join("");
+}
+
+function renderTourBookingDetails(picker, lang = getLang()) {
+  captureTourDetailValues(picker);
+  const select = picker.sourceSelect;
+  const details = picker.querySelector("[data-tour-booking-details]");
+  const selected = selectedTourSlugs(select);
+
+  details.innerHTML = selected
+    .map((slug) => {
+      const values = picker.tourValues.get(slug) || {
+        date: "",
+        dateLater: false,
+        travelers: "1",
+      };
+      const name = t(`tours.${slug}.name`, lang);
+      return `
+        <article class="tour-booking-row" data-tour-booking-row="${slug}">
+          <strong>${name}</strong>
+          <input type="hidden" name="tours[]" value="${slug}" />
+          <div class="tour-date-field">
+            <label>
+              <span>${t("booking.tourDate", lang)}</span>
+              <input
+                type="date"
+                name="tourDate[${slug}]"
+                value="${values.date}"
+                ${values.dateLater ? "disabled" : "required"}
+                data-tour-date
+              />
+            </label>
+            <label class="tour-date-later">
+              <input
+                type="checkbox"
+                name="tourDateLater[${slug}]"
+                value="yes"
+                ${values.dateLater ? "checked" : ""}
+                data-tour-date-later
+              />
+              <span>${t("booking.dateLater", lang)}</span>
+            </label>
+          </div>
+          <label>
+            <span>${t("booking.tourTravelers", lang)}</span>
+            <select name="tourTravelers[${slug}]" required data-tour-travelers>
+              ${tourTravelerOptions(lang, values.travelers)}
+            </select>
+          </label>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+function refreshTourMultiPicker(picker, lang = getLang()) {
+  const select = picker.sourceSelect;
+  const selected = new Set(selectedTourSlugs(select));
+  const options = picker.querySelector("[data-tour-multi-options]");
+  const summary = picker.querySelector("[data-tour-multi-summary]");
+
+  options.innerHTML = getSortedTours(lang)
+    .map((tour) => {
+      const checked = selected.has(tour.slug);
+      return `
+        <label class="tour-multi-option" role="option" aria-selected="${checked}">
+          <input type="checkbox" value="${tour.slug}"${checked ? " checked" : ""} />
+          <span>${t(`tours.${tour.slug}.name`, lang)}</span>
+        </label>
+      `;
+    })
+    .join("");
+
+  const selectedNames = selectedTourSlugs(select).map((slug) =>
+    t(`tours.${slug}.name`, lang)
+  );
+  summary.textContent =
+    selectedNames.length === 0
+      ? t("booking.chooseTours", lang)
+      : selectedNames.length <= 2
+        ? selectedNames.join(", ")
+        : t("booking.selectedTours", lang).replace("{count}", selectedNames.length);
+
+  picker
+    .querySelector("[data-tour-multi-button]")
+    .setAttribute("aria-label", summary.textContent);
+  picker.querySelector("[data-tour-multi-error]").textContent = t(
+    "booking.requiredTours",
+    lang
+  );
+  renderTourBookingDetails(picker, lang);
+}
+
+function refreshTourMultiSelects(lang = getLang()) {
+  document.querySelectorAll("[data-tour-multi-picker]").forEach((picker) => {
+    refreshTourMultiPicker(picker, lang);
+  });
+}
+
+function setTourMultiSelection(select, slugs) {
+  const selected = new Set(slugs);
+  [...select.options].forEach((option) => {
+    option.selected = selected.has(option.value);
+  });
+  const picker = select.tourMultiPicker;
+  if (picker) {
+    picker.querySelector("[data-tour-multi-error]").hidden = true;
+    picker
+      .querySelector("[data-tour-multi-button]")
+      .removeAttribute("aria-invalid");
+    refreshTourMultiPicker(picker);
+  }
+}
+
+function initTourMultiSelects() {
+  document.querySelectorAll("[data-tour-select][data-multi-tour]").forEach((select) => {
+    if (select.tourMultiPicker) return;
+
+    select.multiple = true;
+    select.hidden = true;
+    select.removeAttribute("name");
+    select.removeAttribute("required");
+    const id = `tour-multi-${++tourMultiId}`;
+    const picker = document.createElement("div");
+    picker.className = "tour-multi";
+    picker.dataset.tourMultiPicker = "";
+    picker.sourceSelect = select;
+    picker.tourValues = new Map();
+    picker.innerHTML = `
+      <button
+        class="tour-multi-button"
+        type="button"
+        aria-expanded="false"
+        aria-controls="${id}-menu"
+        data-tour-multi-button
+      >
+        <span data-tour-multi-summary></span>
+        <span aria-hidden="true">▾</span>
+      </button>
+      <div class="tour-multi-menu" id="${id}-menu" hidden data-tour-multi-menu>
+        <div class="tour-multi-options" role="listbox" aria-multiselectable="true" data-tour-multi-options></div>
+      </div>
+      <p class="tour-multi-error" id="${id}-error" hidden data-tour-multi-error></p>
+      <div class="tour-booking-details" data-tour-booking-details></div>
+    `;
+    select.after(picker);
+    select.tourMultiPicker = picker;
+
+    const button = picker.querySelector("[data-tour-multi-button]");
+    const menu = picker.querySelector("[data-tour-multi-menu]");
+    button.setAttribute("aria-describedby", `${id}-error`);
+
+    const close = () => {
+      menu.hidden = true;
+      button.setAttribute("aria-expanded", "false");
+    };
+
+    button.addEventListener("click", () => {
+      const willOpen = menu.hidden;
+      menu.hidden = !willOpen;
+      button.setAttribute("aria-expanded", String(willOpen));
+    });
+
+    picker.addEventListener("change", (event) => {
+      const dateLater = event.target.closest("[data-tour-date-later]");
+      if (dateLater) {
+        const row = dateLater.closest("[data-tour-booking-row]");
+        const date = row.querySelector("[data-tour-date]");
+        date.disabled = dateLater.checked;
+        date.required = !dateLater.checked;
+        captureTourDetailValues(picker);
+        return;
+      }
+
+      const checkbox = event.target.closest('.tour-multi-option input[type="checkbox"]');
+      if (!checkbox) return;
+      const option = [...select.options].find(
+        (item) => item.value === checkbox.value
+      );
+      if (option) option.selected = checkbox.checked;
+      picker.querySelector("[data-tour-multi-error]").hidden = true;
+      button.removeAttribute("aria-invalid");
+      refreshTourMultiPicker(picker);
+    });
+
+    picker.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        close();
+        button.focus();
+      }
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!picker.contains(event.target)) close();
+    });
+
+    refreshTourMultiPicker(picker);
+  });
+}
+
+function validateTourMultiSelects(form) {
+  let valid = true;
+  form.querySelectorAll("[data-tour-multi-picker]").forEach((picker) => {
+    const hasTours = selectedTourSlugs(picker.sourceSelect).length > 0;
+    const error = picker.querySelector("[data-tour-multi-error]");
+    const button = picker.querySelector("[data-tour-multi-button]");
+    error.hidden = hasTours;
+    button.toggleAttribute("aria-invalid", !hasTours);
+    if (!hasTours && valid) {
+      button.focus();
+      valid = false;
+    }
+  });
+  return valid;
+}
+
 function initForms() {
   document.querySelectorAll("[data-booking-form]").forEach((form) => {
     form.addEventListener("submit", (event) => {
       event.preventDefault();
+      if (!validateTourMultiSelects(form)) return;
       alert(t("booking.success"));
       form.reset();
+      window.setTimeout(() => {
+        form.querySelectorAll("[data-tour-select][data-multi-tour]").forEach((select) => {
+          const defaults = select.dataset.defaultTour
+            ? [select.dataset.defaultTour]
+            : [];
+          select.tourMultiPicker?.tourValues.clear();
+          setTourMultiSelection(select, defaults);
+        });
+      });
     });
   });
 
@@ -1473,7 +1752,12 @@ function initDetailPage() {
   }
 
   const bookingSelect = root.querySelector("[data-tour-select]");
-  if (bookingSelect) bookingSelect.value = slug;
+  if (bookingSelect) {
+    bookingSelect.dataset.defaultTour = slug;
+    if (!selectedTourSlugs(bookingSelect).length) {
+      setTourMultiSelection(bookingSelect, [slug]);
+    }
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -1484,6 +1768,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderTourPlans(document.querySelector("[data-tour-plans]"));
   initHeader();
   initFaq();
+  initTourMultiSelects();
   initPhoneFields();
   initForms();
   initDetailPage();

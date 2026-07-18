@@ -32,7 +32,7 @@
             <button type="button" data-lang="es">ES</button>
             <button type="button" data-lang="fr">FR</button>
           </div>
-          <a class="btn btn-primary btn-pill" href="destinations.html" data-i18n="nav.book">Book a tour</a>
+          <a class="btn btn-primary btn-pill" href="contact.html#booking" data-i18n="nav.book">Book a tour</a>
           <button class="nav-toggle" type="button" aria-label="Menu" data-i18n-aria-label="a11y.menu">☰</button>
         </div>
       </div>
@@ -71,15 +71,7 @@
                 <div class="hero-booking-grid">
                   <div>
                     <label for="hero-tour" data-i18n="hero.whereTo">Where to</label>
-                    <select id="hero-tour" data-tour-select name="tour"></select>
-                  </div>
-                  <div>
-                    <label for="hero-date" data-i18n="hero.date">Date</label>
-                    <input id="hero-date" type="date" name="date" required />
-                  </div>
-                  <div>
-                    <label for="hero-travelers" data-i18n="hero.travelers">Travelers</label>
-                    <select id="hero-travelers" data-travelers-select name="travelers"></select>
+                    <select id="hero-tour" data-tour-select data-multi-tour name="tours" multiple></select>
                   </div>
                 </div>
                 <button class="btn btn-light" type="submit" data-i18n="hero.explore">
