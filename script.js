@@ -666,6 +666,7 @@ function renderTourPlans(container) {
     <div class="tour-plans-track">
       ${renderGroup()}
       ${renderGroup(true)}
+      ${renderGroup(true)}
     </div>
   `;
 
