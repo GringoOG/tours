@@ -634,10 +634,11 @@ function initAboutTimelineScroll() {
 }
 
 function initAboutMotion() {
-  if (document.body.dataset.page !== "about") return;
+  const page = document.body.dataset.page;
+  if (page !== "about" && page !== "reviews") return;
 
   splitAboutWords();
-  initAboutTimelineScroll();
+  if (page === "about") initAboutTimelineScroll();
 
   const items = [...document.querySelectorAll("[data-about-fx]:not(.about-year-card)")];
   if (!items.length) return;

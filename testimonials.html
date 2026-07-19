@@ -3,23 +3,314 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" data-i18n-content="meta.testimonials.description" content="Read reviews from travelers who explored Machu Picchu, Rainbow Mountain, and the Sacred Valley with Ollanta Tours." />
+    <meta
+      name="description"
+      data-i18n-content="meta.testimonials.description"
+      content="Read reviews from travelers who explored Machu Picchu, Rainbow Mountain, and the Sacred Valley with Ollanta Tours."
+    />
     <title data-i18n="meta.testimonials.title">Reviews — Ollanta Tours</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
+  <body data-page="reviews">
     <header class="site-header scrolled">
       <div class="container header-inner">
-        <a class="logo" href="index.html"><span class="logo-mark">OT</span><span data-i18n="brand">Ollanta Tours</span></a>
-        <nav class="nav-desktop" aria-label="Main navigation" data-i18n-aria-label="a11y.mainNavigation"><a href="index.html" data-i18n="nav.home">Home</a><a href="about.html" data-i18n="nav.about">About</a><a href="destinations.html" data-i18n="nav.destinations">Tours</a><a href="testimonials.html" class="active" data-i18n="nav.testimonials">Reviews</a><a href="contact.html" data-i18n="nav.contact">Contact</a></nav>
-        <div class="header-actions"><div class="lang-switch" aria-label="Language" data-i18n-aria-label="a11y.language"><button type="button" data-lang="en">EN</button><button type="button" data-lang="es">ES</button><button type="button" data-lang="fr">FR</button></div><a class="btn btn-primary btn-pill" href="booking.html" data-i18n="nav.book">Book a tour</a><button class="nav-toggle" type="button" aria-label="Menu" data-i18n-aria-label="a11y.menu">☰</button></div>
+        <a class="logo" href="index.html">
+          <span class="logo-mark">OT</span>
+          <span data-i18n="brand">Ollanta Tours</span>
+        </a>
+        <nav
+          class="nav-desktop"
+          aria-label="Main navigation"
+          data-i18n-aria-label="a11y.mainNavigation"
+        >
+          <a href="index.html" data-i18n="nav.home">Home</a>
+          <a href="about.html" data-i18n="nav.about">About</a>
+          <a href="destinations.html" data-i18n="nav.destinations">Tours</a>
+          <a href="testimonials.html" class="active" data-i18n="nav.testimonials">Reviews</a>
+          <a href="contact.html" data-i18n="nav.contact">Contact</a>
+        </nav>
+        <div class="header-actions">
+          <div class="lang-switch" aria-label="Language" data-i18n-aria-label="a11y.language">
+            <button type="button" data-lang="en">EN</button>
+            <button type="button" data-lang="es">ES</button>
+            <button type="button" data-lang="fr">FR</button>
+          </div>
+          <a class="btn btn-primary btn-pill" href="booking.html" data-i18n="nav.book">Book a tour</a>
+          <button
+            class="nav-toggle"
+            type="button"
+            aria-label="Menu"
+            data-i18n-aria-label="a11y.menu"
+          >
+            ☰
+          </button>
+        </div>
       </div>
-      <nav class="nav-mobile" aria-label="Mobile navigation" data-i18n-aria-label="a11y.mobileNavigation"><a href="index.html" data-i18n="nav.home">Home</a><a href="about.html" data-i18n="nav.about">About</a><a href="destinations.html" data-i18n="nav.destinations">Tours</a><a href="testimonials.html" data-i18n="nav.testimonials">Reviews</a><a href="contact.html" data-i18n="nav.contact">Contact</a></nav>
+      <nav
+        class="nav-mobile"
+        aria-label="Mobile navigation"
+        data-i18n-aria-label="a11y.mobileNavigation"
+      >
+        <a href="index.html" data-i18n="nav.home">Home</a>
+        <a href="about.html" data-i18n="nav.about">About</a>
+        <a href="destinations.html" data-i18n="nav.destinations">Tours</a>
+        <a href="testimonials.html" data-i18n="nav.testimonials">Reviews</a>
+        <a href="contact.html" data-i18n="nav.contact">Contact</a>
+      </nav>
     </header>
+
     <main>
-      <section class="page-hero"><div class="container"><h1 data-i18n="pages.testimonialsTitle">Read reviews from happy guests</h1><p data-i18n="pages.testimonialsLead">Real stories from travelers who explored the Sacred Valley with us.</p></div></section>
-      <section class="section"><div class="container card-grid card-grid-2"><article class="testimonial-card"><p data-i18n="testimonials.t1q">Booking our vacation was incredibly easy, and every detail was handled professionally. The itinerary was well organized, the accommodations were excellent, and the entire experience.</p><h3 data-i18n="testimonials.t1n">Sebastian T. Langston</h3><p data-i18n="testimonials.t1r">Travel blogger</p></article><article class="testimonial-card"><p data-i18n="testimonials.t2q">We were impressed by the level of professionalism and care shown by the travel team. They listened to our preferences and designed a trip that matched our interests perfectly.</p><h3 data-i18n="testimonials.t2n">Oscar N. Winsley</h3><p data-i18n="testimonials.t2r">Travel photographer</p></article><article class="testimonial-card"><p data-i18n="testimonials.t3q">The mountain bike tour was the highlight of our Peru trip. The team was professional from start to finish!</p><h3 data-i18n="testimonials.t3n">Sophie L.</h3><p data-i18n="testimonials.t3r">Backpacker</p></article><article class="testimonial-card"><p data-i18n="testimonials.t4q">Pickup was on time, our English-speaking guide was excellent, and the views were incredible.</p><h3 data-i18n="testimonials.t4n">James T.</h3><p data-i18n="testimonials.t4r">Traveler</p></article></div></section>
+      <section class="reviews-hero">
+        <div class="container">
+          <div class="reviews-hero-panel about-fx about-fx-fade-up" data-about-fx>
+            <img
+              class="reviews-hero-bg"
+              src="assets/about-hero.jpg"
+              alt=""
+              aria-hidden="true"
+            />
+            <div class="reviews-hero-shade" aria-hidden="true"></div>
+            <h1 data-i18n="pages.testimonialsTitle" data-about-words>
+              Read reviews from happy guests
+            </h1>
+            <div class="reviews-hero-photo about-fx about-fx-media" data-about-fx>
+              <img
+                src="assets/hero-main.png"
+                alt="Sacred Valley adventure in Ollantaytambo"
+                data-i18n-alt="images.hero"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section reviews-carousel-section" aria-label="Guest reviews">
+        <div class="reviews-marquee">
+          <div class="reviews-track">
+            <div class="reviews-group">
+              <article class="reviews-card">
+                <div class="reviews-card-stars" aria-hidden="true">★★★★★</div>
+                <blockquote>
+                  <span aria-hidden="true">“</span>
+                  <span data-i18n="testimonials.t1q"
+                    >Booking our vacation was incredibly easy, and every detail was handled professionally. The itinerary was well organized, the accommodations were excellent, and the entire experience.</span
+                  >
+                  <span aria-hidden="true">”</span>
+                </blockquote>
+                <div class="reviews-card-footer" style="--reviews-footer-image: url('assets/machu-picchu.jpg')">
+                  <div>
+                    <strong data-i18n="testimonials.t1n">Sebastian T. Langston</strong>
+                    <span data-i18n="testimonials.t1r">Travel blogger</span>
+                  </div>
+                  <img src="assets/machu-picchu.jpg" alt="" />
+                </div>
+              </article>
+
+              <article class="reviews-card">
+                <div class="reviews-card-stars" aria-hidden="true">★★★★★</div>
+                <blockquote>
+                  <span aria-hidden="true">“</span>
+                  <span data-i18n="testimonials.t5q"
+                    >Our trip was perfectly organized from beginning to end. Every detail was carefully planned, making the entire experience stress-free and enjoyable.</span
+                  >
+                  <span aria-hidden="true">”</span>
+                </blockquote>
+                <div class="reviews-card-footer" style="--reviews-footer-image: url('assets/moray.jpg')">
+                  <div>
+                    <strong data-i18n="testimonials.t5n">Alexander D. Lane</strong>
+                    <span data-i18n="testimonials.t5r">Travel coordinator</span>
+                  </div>
+                  <img src="assets/moray.jpg" alt="" />
+                </div>
+              </article>
+
+              <article class="reviews-card">
+                <div class="reviews-card-stars" aria-hidden="true">★★★★★</div>
+                <blockquote>
+                  <span aria-hidden="true">“</span>
+                  <span data-i18n="testimonials.t6q"
+                    >This was one of the best travel experiences we have ever had. Everything was arranged professionally, from transportation to accommodations.</span
+                  >
+                  <span aria-hidden="true">”</span>
+                </blockquote>
+                <div class="reviews-card-footer" style="--reviews-footer-image: url('assets/maras.png')">
+                  <div>
+                    <strong data-i18n="testimonials.t6n">Sophia G. Turner</strong>
+                    <span data-i18n="testimonials.t6r">Tourism specialist</span>
+                  </div>
+                  <img src="assets/maras.png" alt="" />
+                </div>
+              </article>
+
+              <article class="reviews-card">
+                <div class="reviews-card-stars" aria-hidden="true">★★★★★</div>
+                <blockquote>
+                  <span aria-hidden="true">“</span>
+                  <span data-i18n="testimonials.t2q"
+                    >We were impressed by the level of professionalism and care shown by the travel team. They listened to our preferences and designed a trip that matched our interests perfectly.</span
+                  >
+                  <span aria-hidden="true">”</span>
+                </blockquote>
+                <div class="reviews-card-footer" style="--reviews-footer-image: url('assets/rainbow-mountain.png')">
+                  <div>
+                    <strong data-i18n="testimonials.t2n">Oscar N. Winsley</strong>
+                    <span data-i18n="testimonials.t2r">Travel photographer</span>
+                  </div>
+                  <img src="assets/rainbow-mountain.png" alt="" />
+                </div>
+              </article>
+
+              <article class="reviews-card">
+                <div class="reviews-card-stars" aria-hidden="true">★★★★★</div>
+                <blockquote>
+                  <span aria-hidden="true">“</span>
+                  <span data-i18n="testimonials.t7q"
+                    >From the moment we booked until we returned home, everything was handled efficiently. The recommendations and local guides were excellent.</span
+                  >
+                  <span aria-hidden="true">”</span>
+                </blockquote>
+                <div class="reviews-card-footer" style="--reviews-footer-image: url('assets/about-story.jpg')">
+                  <div>
+                    <strong data-i18n="testimonials.t7n">Luna C. Reeves</strong>
+                    <span data-i18n="testimonials.t7r">Vacation planner</span>
+                  </div>
+                  <img src="assets/about-story.jpg" alt="" />
+                </div>
+              </article>
+
+              <article class="reviews-card">
+                <div class="reviews-card-stars" aria-hidden="true">★★★★★</div>
+                <blockquote>
+                  <span aria-hidden="true">“</span>
+                  <span data-i18n="testimonials.t3q"
+                    >The mountain bike tour was the highlight of our Peru trip. The team was professional from start to finish!</span
+                  >
+                  <span aria-hidden="true">”</span>
+                </blockquote>
+                <div class="reviews-card-footer" style="--reviews-footer-image: url('assets/mountain-bike.png')">
+                  <div>
+                    <strong data-i18n="testimonials.t3n">Sophie L.</strong>
+                    <span data-i18n="testimonials.t3r">Backpacker</span>
+                  </div>
+                  <img src="assets/mountain-bike.png" alt="" />
+                </div>
+              </article>
+            </div>
+
+            <div class="reviews-group" aria-hidden="true">
+              <article class="reviews-card">
+                <div class="reviews-card-stars" aria-hidden="true">★★★★★</div>
+                <blockquote>
+                  <span aria-hidden="true">“</span>
+                  <span data-i18n="testimonials.t1q"
+                    >Booking our vacation was incredibly easy, and every detail was handled professionally. The itinerary was well organized, the accommodations were excellent, and the entire experience.</span
+                  >
+                  <span aria-hidden="true">”</span>
+                </blockquote>
+                <div class="reviews-card-footer" style="--reviews-footer-image: url('assets/machu-picchu.jpg')">
+                  <div>
+                    <strong data-i18n="testimonials.t1n">Sebastian T. Langston</strong>
+                    <span data-i18n="testimonials.t1r">Travel blogger</span>
+                  </div>
+                  <img src="assets/machu-picchu.jpg" alt="" />
+                </div>
+              </article>
+
+              <article class="reviews-card">
+                <div class="reviews-card-stars" aria-hidden="true">★★★★★</div>
+                <blockquote>
+                  <span aria-hidden="true">“</span>
+                  <span data-i18n="testimonials.t5q"
+                    >Our trip was perfectly organized from beginning to end. Every detail was carefully planned, making the entire experience stress-free and enjoyable.</span
+                  >
+                  <span aria-hidden="true">”</span>
+                </blockquote>
+                <div class="reviews-card-footer" style="--reviews-footer-image: url('assets/moray.jpg')">
+                  <div>
+                    <strong data-i18n="testimonials.t5n">Alexander D. Lane</strong>
+                    <span data-i18n="testimonials.t5r">Travel coordinator</span>
+                  </div>
+                  <img src="assets/moray.jpg" alt="" />
+                </div>
+              </article>
+
+              <article class="reviews-card">
+                <div class="reviews-card-stars" aria-hidden="true">★★★★★</div>
+                <blockquote>
+                  <span aria-hidden="true">“</span>
+                  <span data-i18n="testimonials.t6q"
+                    >This was one of the best travel experiences we have ever had. Everything was arranged professionally, from transportation to accommodations.</span
+                  >
+                  <span aria-hidden="true">”</span>
+                </blockquote>
+                <div class="reviews-card-footer" style="--reviews-footer-image: url('assets/maras.png')">
+                  <div>
+                    <strong data-i18n="testimonials.t6n">Sophia G. Turner</strong>
+                    <span data-i18n="testimonials.t6r">Tourism specialist</span>
+                  </div>
+                  <img src="assets/maras.png" alt="" />
+                </div>
+              </article>
+
+              <article class="reviews-card">
+                <div class="reviews-card-stars" aria-hidden="true">★★★★★</div>
+                <blockquote>
+                  <span aria-hidden="true">“</span>
+                  <span data-i18n="testimonials.t2q"
+                    >We were impressed by the level of professionalism and care shown by the travel team. They listened to our preferences and designed a trip that matched our interests perfectly.</span
+                  >
+                  <span aria-hidden="true">”</span>
+                </blockquote>
+                <div class="reviews-card-footer" style="--reviews-footer-image: url('assets/rainbow-mountain.png')">
+                  <div>
+                    <strong data-i18n="testimonials.t2n">Oscar N. Winsley</strong>
+                    <span data-i18n="testimonials.t2r">Travel photographer</span>
+                  </div>
+                  <img src="assets/rainbow-mountain.png" alt="" />
+                </div>
+              </article>
+
+              <article class="reviews-card">
+                <div class="reviews-card-stars" aria-hidden="true">★★★★★</div>
+                <blockquote>
+                  <span aria-hidden="true">“</span>
+                  <span data-i18n="testimonials.t7q"
+                    >From the moment we booked until we returned home, everything was handled efficiently. The recommendations and local guides were excellent.</span
+                  >
+                  <span aria-hidden="true">”</span>
+                </blockquote>
+                <div class="reviews-card-footer" style="--reviews-footer-image: url('assets/about-story.jpg')">
+                  <div>
+                    <strong data-i18n="testimonials.t7n">Luna C. Reeves</strong>
+                    <span data-i18n="testimonials.t7r">Vacation planner</span>
+                  </div>
+                  <img src="assets/about-story.jpg" alt="" />
+                </div>
+              </article>
+
+              <article class="reviews-card">
+                <div class="reviews-card-stars" aria-hidden="true">★★★★★</div>
+                <blockquote>
+                  <span aria-hidden="true">“</span>
+                  <span data-i18n="testimonials.t3q"
+                    >The mountain bike tour was the highlight of our Peru trip. The team was professional from start to finish!</span
+                  >
+                  <span aria-hidden="true">”</span>
+                </blockquote>
+                <div class="reviews-card-footer" style="--reviews-footer-image: url('assets/mountain-bike.png')">
+                  <div>
+                    <strong data-i18n="testimonials.t3n">Sophie L.</strong>
+                    <span data-i18n="testimonials.t3r">Backpacker</span>
+                  </div>
+                  <img src="assets/mountain-bike.png" alt="" />
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
+
     <footer class="site-footer" data-footer-stage>
       <div class="footer-backdrop" aria-hidden="true"></div>
       <div class="container footer-stage">
@@ -90,7 +381,9 @@
         <p class="footer-watermark" aria-hidden="true" data-i18n="brand">Ollanta Tours</p>
       </div>
     </footer>
+
     <script src="phone-countries.js"></script>
     <script src="script.js"></script>
+    <script src="effects.js"></script>
   </body>
 </html>
