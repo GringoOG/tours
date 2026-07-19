@@ -547,6 +547,59 @@ function initValueIconSpin() {
   });
 }
 
+let aboutMotionObserver = null;
+
+function splitAboutWords() {
+  document.querySelectorAll("[data-about-words]").forEach((el) => {
+    const text = (el.textContent || "").trim().replace(/\s+/g, " ");
+    if (!text) return;
+    const words = text.split(" ");
+    el.innerHTML = words
+      .map(
+        (word, index) =>
+          `<span class="about-word" style="--word-i:${index}">${word}</span>`
+      )
+      .join(" ");
+  });
+}
+
+function initAboutMotion() {
+  if (document.body.dataset.page !== "about") return;
+
+  splitAboutWords();
+
+  const items = [...document.querySelectorAll("[data-about-fx]")];
+  if (!items.length) return;
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    items.forEach((el) => el.classList.add("is-visible"));
+    return;
+  }
+
+  if (aboutMotionObserver) aboutMotionObserver.disconnect();
+
+  aboutMotionObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+        } else {
+          entry.target.classList.remove("is-visible");
+        }
+      });
+    },
+    { threshold: 0.16, rootMargin: "0px 0px -10% 0px" }
+  );
+
+  items.forEach((el) => {
+    aboutMotionObserver.observe(el);
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.9 && rect.bottom > 40) {
+      el.classList.add("is-visible");
+    }
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   initSmoothScroll();
   initHeroWater();
@@ -557,6 +610,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initStoryPhotos();
   initValueIconSpin();
   initParallax();
+  initAboutMotion();
 });
 
 window.ToursEffects = {
@@ -564,5 +618,6 @@ window.ToursEffects = {
     initImageFx();
     initScrollReveal();
     initFeatureItemReveal();
+    initAboutMotion();
   },
 };

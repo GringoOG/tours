@@ -92,18 +92,42 @@ const i18n = {
       morayTerraces: "Moray terraces",
     },
     about: {
-      missionTitle: "Mission",
-      missionText: "Connect travelers with authentic Sacred Valley experiences through local expertise.",
-      visionTitle: "Vision",
-      visionText: "Become the most trusted tour operator based in Ollantaytambo.",
-      valuesTitle: "Values",
-      valuesText: "Safety, transparency, respect for local communities, and unforgettable service.",
+      heroTitle: "Trusted travel agency about us",
+      servingSince: "Serving since 2016",
+      storyTitle: "About our travel agency journey and mission story today",
+      missionTitle: "Our mission",
+      missionText:
+        "Our mission is to make Sacred Valley travel simple, accessible, and memorable through carefully planned local journeys.",
+      visionTitle: "Our vision",
+      visionText:
+        "Our vision is to become the most trusted tour operator in Ollantaytambo by helping travelers explore with confidence.",
+      valuesTitle: "Our value",
+      valuesText:
+        "Our values are built on trust, safety, and respect for local communities. We focus on clear service and unforgettable experiences.",
+      getInTouch: "Get in touch",
+      historyBadge: "Read our history",
+      historyTitle: "Our journey through travel excellence and success",
       timelineTitle: "Serving since 2016",
-      timelineLead: "From a small local team to thousands of travelers, our focus remains the same: real experiences, real guides, real Ollantaytambo.",
-      timeline2016: "First Machu Picchu day tours launched.",
-      timeline2019: "Rainbow Mountain and bike routes added.",
-      timeline2022: "Bilingual support expanded for international guests.",
-      timeline2026: "New custom itineraries and premium small-group tours.",
+      timelineLead:
+        "From a small local team to thousands of travelers, our focus remains the same: real experiences, real guides, real Ollantaytambo.",
+      timeline2016: "We started our journey in Ollantaytambo with the first Machu Picchu day tours.",
+      timeline2019: "A growing local team added Rainbow Mountain and mountain bike routes.",
+      timeline2022: "Stronger guest relationships and bilingual support for international travelers.",
+      timeline2026: "Expanded custom itineraries and premium small-group service across the Sacred Valley.",
+      awardsBadge: "Travel awards",
+      awardsTitle: "Celebrating excellence in travel and service awards",
+      award1Title: "Excellence travel award",
+      award1Text:
+        "Recognition for carefully planned Sacred Valley journeys with a strong focus on outstanding local service.",
+      award2Title: "Trusted travel service",
+      award2Text:
+        "Recognition for reliable planning, safety, and consistent customer care before, during, and after every tour.",
+      award3Title: "Customer choice award",
+      award3Text:
+        "Chosen by travelers who value personal attention, flexible dates, and authentic Andean experiences.",
+      award4Title: "Service excellence award",
+      award4Text:
+        "Honoring fast support, transparent communication, and tours crafted with local expertise.",
     },
     nav: {
       home: "Home",
@@ -409,18 +433,42 @@ const i18n = {
       morayTerraces: "Terrazas de Moray",
     },
     about: {
-      missionTitle: "Misión",
-      missionText: "Conectar a los viajeros con experiencias auténticas en el Valle Sagrado mediante el conocimiento local.",
-      visionTitle: "Visión",
-      visionText: "Convertirnos en el operador turístico de mayor confianza con sede en Ollantaytambo.",
-      valuesTitle: "Valores",
-      valuesText: "Seguridad, transparencia, respeto por las comunidades locales y un servicio inolvidable.",
+      heroTitle: "Una agencia de viajes de confianza",
+      servingSince: "A tu servicio desde 2016",
+      storyTitle: "La historia, el camino y la misión de nuestra agencia hoy",
+      missionTitle: "Nuestra misión",
+      missionText:
+        "Nuestra misión es hacer que viajar por el Valle Sagrado sea simple, accesible e inolvidable con itinerarios locales bien planificados.",
+      visionTitle: "Nuestra visión",
+      visionText:
+        "Nuestra visión es convertirnos en el operador turístico de mayor confianza en Ollantaytambo, inspirando a explorar con seguridad.",
+      valuesTitle: "Nuestro valor",
+      valuesText:
+        "Nuestros valores se basan en la confianza, la seguridad y el respeto por las comunidades locales. Priorizamos un servicio claro y experiencias memorables.",
+      getInTouch: "Contáctanos",
+      historyBadge: "Lee nuestra historia",
+      historyTitle: "Nuestro camino de excelencia y éxito en los viajes",
       timelineTitle: "A tu servicio desde 2016",
-      timelineLead: "De un pequeño equipo local a miles de viajeros, nuestro enfoque sigue siendo el mismo: experiencias reales, guías reales y el auténtico Ollantaytambo.",
-      timeline2016: "Lanzamiento de los primeros tours de un día a Machu Picchu.",
-      timeline2019: "Incorporación de la Montaña de Colores y las rutas en bicicleta.",
-      timeline2022: "Ampliación de la atención bilingüe para visitantes internacionales.",
-      timeline2026: "Nuevos itinerarios personalizados y tours prémium para grupos pequeños.",
+      timelineLead:
+        "De un pequeño equipo local a miles de viajeros, nuestro enfoque sigue siendo el mismo: experiencias reales, guías reales y el auténtico Ollantaytambo.",
+      timeline2016: "Comenzamos en Ollantaytambo con los primeros tours de un día a Machu Picchu.",
+      timeline2019: "Un equipo local en crecimiento sumó la Montaña de Colores y rutas en bicicleta.",
+      timeline2022: "Más cercanía con los viajeros y atención bilingüe para huéspedes internacionales.",
+      timeline2026: "Ampliamos itinerarios a medida y un servicio prémium para grupos pequeños en el Valle Sagrado.",
+      awardsBadge: "Premios de viaje",
+      awardsTitle: "Celebramos la excelencia en viajes y en el servicio",
+      award1Title: "Premio a la excelencia en viajes",
+      award1Text:
+        "Reconocimiento por viajes bien planificados en el Valle Sagrado con un fuerte enfoque en un servicio local excepcional.",
+      award2Title: "Servicio de viaje de confianza",
+      award2Text:
+        "Reconocimiento por planificación fiable, seguridad y atención constante antes, durante y después de cada tour.",
+      award3Title: "Premio a la elección del cliente",
+      award3Text:
+        "Elegidos por viajeros que valoran la atención personal, fechas flexibles y experiencias andinas auténticas.",
+      award4Title: "Premio a la excelencia en el servicio",
+      award4Text:
+        "Honramos el soporte rápido, la comunicación transparente y tours creados con experiencia local.",
     },
     nav: {
       home: "Inicio",
@@ -726,18 +774,42 @@ const i18n = {
       morayTerraces: "Terrasses de Moray",
     },
     about: {
-      missionTitle: "Mission",
-      missionText: "Faire découvrir aux voyageurs des expériences authentiques dans la Vallée sacrée grâce à notre expertise locale.",
-      visionTitle: "Vision",
-      visionText: "Devenir le voyagiste le plus digne de confiance établi à Ollantaytambo.",
-      valuesTitle: "Valeurs",
-      valuesText: "Sécurité, transparence, respect des communautés locales et qualité de service inoubliable.",
+      heroTitle: "Une agence de voyage digne de confiance",
+      servingSince: "À votre service depuis 2016",
+      storyTitle: "L'histoire, le parcours et la mission de notre agence aujourd'hui",
+      missionTitle: "Notre mission",
+      missionText:
+        "Notre mission est de rendre les voyages dans la Vallée sacrée simples, accessibles et mémorables grâce à des itinéraires locaux bien préparés.",
+      visionTitle: "Notre vision",
+      visionText:
+        "Notre vision est de devenir le voyagiste le plus digne de confiance à Ollantaytambo, en aidant les voyageurs à explorer en toute confiance.",
+      valuesTitle: "Nos valeurs",
+      valuesText:
+        "Nos valeurs reposent sur la confiance, la sécurité et le respect des communautés locales. Nous privilégions un service clair et des expériences inoubliables.",
+      getInTouch: "Nous contacter",
+      historyBadge: "Lire notre histoire",
+      historyTitle: "Notre parcours d'excellence et de réussite dans le voyage",
       timelineTitle: "À votre service depuis 2016",
-      timelineLead: "D'une petite équipe locale à des milliers de voyageurs, notre priorité reste la même : des expériences authentiques, de vrais guides et le véritable Ollantaytambo.",
-      timeline2016: "Lancement des premières excursions d'une journée au Machu Picchu.",
-      timeline2019: "Ajout de la Montagne aux sept couleurs et des circuits VTT.",
-      timeline2022: "Développement de l'assistance bilingue pour les visiteurs internationaux.",
-      timeline2026: "Nouveaux itinéraires sur mesure et circuits haut de gamme en petits groupes.",
+      timelineLead:
+        "D'une petite équipe locale à des milliers de voyageurs, notre priorité reste la même : des expériences authentiques, de vrais guides et le véritable Ollantaytambo.",
+      timeline2016: "Nous avons commencé à Ollantaytambo avec les premières excursions d'une journée au Machu Picchu.",
+      timeline2019: "Une équipe locale grandissante a ajouté la Montagne aux sept couleurs et des circuits VTT.",
+      timeline2022: "Des liens plus forts avec les voyageurs et une assistance bilingue pour les visiteurs internationaux.",
+      timeline2026: "Développement d'itinéraires sur mesure et d'un service premium en petits groupes dans la Vallée sacrée.",
+      awardsBadge: "Récompenses voyage",
+      awardsTitle: "Célébrer l'excellence dans le voyage et le service",
+      award1Title: "Prix d'excellence voyage",
+      award1Text:
+        "Une reconnaissance pour des voyages soigneusement organisés dans la Vallée sacrée, avec un fort souci de qualité de service.",
+      award2Title: "Service de voyage de confiance",
+      award2Text:
+        "Une reconnaissance pour une organisation fiable, la sécurité et une attention constante avant, pendant et après chaque circuit.",
+      award3Title: "Prix du choix des voyageurs",
+      award3Text:
+        "Choisis par des voyageurs qui apprécient l'attention personnelle, des dates flexibles et des expériences andines authentiques.",
+      award4Title: "Prix d'excellence du service",
+      award4Text:
+        "Une distinction pour un accompagnement rapide, une communication transparente et des circuits conçus avec une expertise locale.",
     },
     nav: {
       home: "Accueil",
