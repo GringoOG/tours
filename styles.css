@@ -1970,6 +1970,14 @@ body[data-page="home"] .faq-head .section-title {
   min-height: 330px;
 }
 
+.order-page-hero .container {
+  text-align: center;
+}
+
+.order-page-hero p {
+  margin-inline: auto;
+}
+
 .order-section {
   padding-top: clamp(2rem, 4vw, 4rem);
 }
