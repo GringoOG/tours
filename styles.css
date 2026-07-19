@@ -1893,6 +1893,14 @@ body[data-page="home"] .faq-head .section-title {
   height: 0.95rem;
 }
 
+.about-history {
+  padding-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.about-awards {
+  padding-top: clamp(2rem, 4vw, 3rem);
+}
+
 .about-history-head,
 .about-awards-head {
   position: relative;
@@ -2084,7 +2092,8 @@ body[data-page="home"] .faq-head .section-title {
 }
 
 .about-gallery {
-  padding-top: 0;
+  padding-top: clamp(1.5rem, 3vw, 2.5rem);
+  padding-bottom: clamp(2rem, 4vw, 3.5rem);
   overflow: hidden;
 }
 
@@ -2110,22 +2119,23 @@ body[data-page="home"] .faq-head .section-title {
   flex-shrink: 0;
   align-items: stretch;
   gap: var(--about-gallery-gap);
-  /* Same trailing gap as between images → seamless -50% loop */
   padding-right: var(--about-gallery-gap);
 }
 
 .about-gallery-frame {
   flex: 0 0 clamp(220px, 26vw, 360px);
+  width: clamp(220px, 26vw, 360px);
   margin: 0;
   overflow: hidden;
   border-radius: clamp(18px, 2.5vw, 28px);
+  aspect-ratio: 4 / 5;
+  background: #e8e8e8;
 }
 
 .about-gallery-frame img {
   display: block;
   width: 100%;
   height: 100%;
-  aspect-ratio: 4 / 5;
   object-fit: cover;
 }
 
@@ -2134,7 +2144,6 @@ body[data-page="home"] .faq-head .section-title {
     transform: translate3d(0, 0, 0);
   }
   to {
-    /* Exactly one group width (content + trailing gap) */
     transform: translate3d(-50%, 0, 0);
   }
 }
