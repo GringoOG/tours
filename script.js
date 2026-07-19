@@ -321,6 +321,7 @@ const i18n = {
     pages: {
       aboutTitle: "Trusted local tour agency in Ollantaytambo",
       aboutLead: "Serving travelers in the Sacred Valley since 2016 with authentic experiences and expert local guides.",
+      destinationsBadge: "Our Tours",
       destinationsTitle: "Explore dream tours from Ollantaytambo",
       destinationsLead: "Choose from our most popular adventures or contact us for a custom itinerary.",
       contactTitle: "Reach out for help today",
@@ -672,6 +673,7 @@ const i18n = {
     pages: {
       aboutTitle: "Agencia local de confianza en Ollantaytambo",
       aboutLead: "Atendiendo viajeros en el Valle Sagrado desde 2016 con experiencias auténticas y guías expertos.",
+      destinationsBadge: "Nuestros tours",
       destinationsTitle: "Explora tours soñados desde Ollantaytambo",
       destinationsLead: "Elige entre nuestras aventuras más populares o contáctanos para un itinerario personalizado.",
       contactTitle: "Contáctanos hoy",
@@ -1023,6 +1025,7 @@ const i18n = {
     pages: {
       aboutTitle: "Une agence locale de confiance à Ollantaytambo",
       aboutLead: "Depuis 2016, nous faisons découvrir la Vallée sacrée à travers des expériences authentiques menées par des guides locaux experts.",
+      destinationsBadge: "Nos circuits",
       destinationsTitle: "Découvrez des circuits de rêve au départ d'Ollantaytambo",
       destinationsLead: "Choisissez parmi nos aventures les plus populaires ou contactez-nous pour un itinéraire sur mesure.",
       contactTitle: "Contactez-nous dès aujourd'hui",
@@ -2173,7 +2176,8 @@ function initDetailPage() {
 
 function initFooterReveal() {
   const footer = document.querySelector("[data-footer-stage]");
-  if (!footer || footer.dataset.footerBound) return;
+  const watermark = footer?.querySelector(".footer-watermark");
+  if (!footer || !watermark || footer.dataset.footerBound) return;
   footer.dataset.footerBound = "1";
 
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -2183,16 +2187,19 @@ function initFooterReveal() {
 
   const observer = new IntersectionObserver(
     ([entry]) => {
-      if (entry.isIntersecting) {
+      if (entry.isIntersecting && entry.intersectionRatio >= 0.55) {
         footer.classList.add("is-revealed");
-      } else if (entry.boundingClientRect.top > window.innerHeight * 0.15) {
+      } else if (entry.boundingClientRect.top > window.innerHeight * 0.55) {
         footer.classList.remove("is-revealed");
       }
     },
-    { threshold: 0.2, rootMargin: "0px 0px -6% 0px" }
+    {
+      threshold: [0, 0.35, 0.55, 0.75],
+      rootMargin: "0px 0px -28% 0px",
+    }
   );
 
-  observer.observe(footer);
+  observer.observe(watermark);
 }
 
 document.addEventListener("DOMContentLoaded", () => {

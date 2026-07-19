@@ -682,7 +682,8 @@ function initAboutMotion() {
 
 function initFooterReveal() {
   const footer = document.querySelector("[data-footer-stage]");
-  if (!footer || footer.dataset.footerBound) return;
+  const watermark = footer?.querySelector(".footer-watermark");
+  if (!footer || !watermark || footer.dataset.footerBound) return;
   footer.dataset.footerBound = "1";
 
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -692,16 +693,20 @@ function initFooterReveal() {
 
   const observer = new IntersectionObserver(
     ([entry]) => {
-      if (entry.isIntersecting) {
+      // Reveal only once the watermark sits well into the viewport.
+      if (entry.isIntersecting && entry.intersectionRatio >= 0.55) {
         footer.classList.add("is-revealed");
-      } else if (entry.boundingClientRect.top > window.innerHeight * 0.15) {
+      } else if (entry.boundingClientRect.top > window.innerHeight * 0.55) {
         footer.classList.remove("is-revealed");
       }
     },
-    { threshold: 0.2, rootMargin: "0px 0px -6% 0px" }
+    {
+      threshold: [0, 0.35, 0.55, 0.75],
+      rootMargin: "0px 0px -28% 0px",
+    }
   );
 
-  observer.observe(footer);
+  observer.observe(watermark);
 }
 
 function initReviewsMarquee() {
