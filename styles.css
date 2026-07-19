@@ -2180,10 +2180,8 @@ body[data-page="home"] .faq-head .section-title {
   position: relative;
   overflow: hidden;
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(220px, 0.72fr);
-  align-items: end;
-  gap: clamp(1rem, 3vw, 2.5rem);
-  min-height: clamp(320px, 46vw, 520px);
+  place-items: center;
+  min-height: clamp(300px, 42vw, 480px);
   padding: clamp(1.4rem, 3.5vw, 2.75rem);
   border-radius: clamp(22px, 3vw, 36px);
   background: #111;
@@ -2196,7 +2194,7 @@ body[data-page="home"] .faq-head .section-title {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: center 42%;
   z-index: 0;
 }
 
@@ -2206,41 +2204,18 @@ body[data-page="home"] .faq-head .section-title {
   z-index: 1;
   pointer-events: none;
   background:
-    linear-gradient(105deg, rgba(6, 10, 12, 0.82) 0%, rgba(6, 10, 12, 0.45) 48%, rgba(6, 10, 12, 0.58) 100%),
-    linear-gradient(180deg, rgba(6, 10, 12, 0.2) 20%, rgba(6, 10, 12, 0.62) 100%);
+    linear-gradient(180deg, rgba(6, 10, 12, 0.28) 0%, rgba(6, 10, 12, 0.55) 55%, rgba(6, 10, 12, 0.72) 100%);
 }
 
 .reviews-hero-panel h1 {
   position: relative;
   z-index: 2;
-  align-self: end;
   margin: 0;
-  max-width: 11.5em;
+  max-width: 12em;
+  text-align: center;
   font-size: var(--hero-display-size);
   line-height: 1.08;
   letter-spacing: -0.04em;
-}
-
-.reviews-hero-photo {
-  position: relative;
-  z-index: 2;
-  align-self: start;
-  justify-self: end;
-  width: min(100%, 360px);
-  margin-top: clamp(0.5rem, 2vw, 1.25rem);
-  aspect-ratio: 0.86 / 1;
-  overflow: hidden;
-  border-radius: clamp(18px, 2.4vw, 28px);
-  background: #1a1a1a;
-  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.35);
-}
-
-.reviews-hero-photo img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
 }
 
 .reviews-carousel-section {
@@ -2253,19 +2228,28 @@ body[data-page="home"] .faq-head .section-title {
   --reviews-gap: clamp(1rem, 2vw, 1.5rem);
   width: 100%;
   overflow: hidden;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
   mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+}
+
+.reviews-marquee.is-dragging {
+  cursor: grabbing;
+}
+
+.reviews-marquee img {
+  -webkit-user-drag: none;
+  pointer-events: none;
 }
 
 .reviews-track {
   display: flex;
   width: max-content;
-  animation: reviews-marquee-scroll 78s linear infinite;
   will-change: transform;
-}
-
-.reviews-marquee:hover .reviews-track {
-  animation-play-state: paused;
+  transform: translate3d(0, 0, 0);
 }
 
 .reviews-group {
@@ -2364,20 +2348,15 @@ body[data-page="home"] .faq-head .section-title {
   border: 2px solid rgba(255, 255, 255, 0.55);
 }
 
-@keyframes reviews-marquee-scroll {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
+  .reviews-marquee {
+    cursor: default;
+  }
+
   .reviews-track {
-    animation: none;
     width: 100%;
     justify-content: center;
+    transform: none !important;
   }
 
   .reviews-group[aria-hidden="true"] {
@@ -2405,23 +2384,13 @@ body[data-page="home"] .faq-head .section-title {
 
 @media (max-width: 800px) {
   .reviews-hero-panel {
-    grid-template-columns: 1fr;
-    align-items: stretch;
-    min-height: 0;
+    min-height: clamp(240px, 58vw, 340px);
     padding: 1.1rem;
   }
 
   .reviews-hero-panel h1 {
-    order: 2;
-    max-width: 11.5em;
+    max-width: 12em;
     font-size: var(--hero-display-size);
-  }
-
-  .reviews-hero-photo {
-    order: 1;
-    width: min(58%, 240px);
-    justify-self: end;
-    aspect-ratio: 0.9 / 1;
   }
 }
 

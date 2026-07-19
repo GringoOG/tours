@@ -704,6 +704,127 @@ function initFooterReveal() {
   observer.observe(footer);
 }
 
+function initReviewsMarquee() {
+  const marquee = document.querySelector(".reviews-marquee");
+  const track = marquee?.querySelector(".reviews-track");
+  if (!marquee || !track || marquee.dataset.bound === "1") return;
+  marquee.dataset.bound = "1";
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const SPEED = 0.45; // px per frame at ~60fps
+  let offset = 0;
+  let loopWidth = 0;
+  let paused = false;
+  let dragging = false;
+  let dragStartX = 0;
+  let dragStartOffset = 0;
+  let lastX = 0;
+  let velocity = 0;
+  let rafId = 0;
+  let resumeTimer = 0;
+
+  const measure = () => {
+    const group = track.querySelector(".reviews-group");
+    loopWidth = group ? group.getBoundingClientRect().width : track.scrollWidth / 2;
+    if (loopWidth > 0) {
+      offset = ((offset % loopWidth) + loopWidth) % loopWidth;
+      apply();
+    }
+  };
+
+  const apply = () => {
+    track.style.transform = `translate3d(${-offset}px, 0, 0)`;
+  };
+
+  const wrap = () => {
+    if (loopWidth <= 0) return;
+    while (offset >= loopWidth) offset -= loopWidth;
+    while (offset < 0) offset += loopWidth;
+  };
+
+  const tick = () => {
+    if (!paused && !dragging && loopWidth > 0) {
+      offset += SPEED;
+      wrap();
+      apply();
+    } else if (dragging === false && Math.abs(velocity) > 0.05) {
+      offset -= velocity;
+      velocity *= 0.95;
+      wrap();
+      apply();
+    }
+    rafId = requestAnimationFrame(tick);
+  };
+
+  const pause = () => {
+    paused = true;
+    velocity = 0;
+  };
+
+  const resumeSoon = () => {
+    window.clearTimeout(resumeTimer);
+    resumeTimer = window.setTimeout(() => {
+      if (!dragging && !marquee.matches(":hover")) paused = false;
+    }, 120);
+  };
+
+  marquee.addEventListener("mouseenter", pause);
+  marquee.addEventListener("mouseleave", () => {
+    if (!dragging) resumeSoon();
+  });
+
+  marquee.addEventListener("pointerdown", (event) => {
+    if (event.button !== 0) return;
+    dragging = true;
+    paused = true;
+    velocity = 0;
+    dragStartX = event.clientX;
+    lastX = event.clientX;
+    dragStartOffset = offset;
+    marquee.classList.add("is-dragging");
+    marquee.setPointerCapture(event.pointerId);
+    event.preventDefault();
+  });
+
+  marquee.addEventListener("pointermove", (event) => {
+    if (!dragging) return;
+    const dx = event.clientX - dragStartX;
+    velocity = event.clientX - lastX;
+    lastX = event.clientX;
+    offset = dragStartOffset - dx;
+    wrap();
+    apply();
+  });
+
+  const endDrag = (event) => {
+    if (!dragging) return;
+    dragging = false;
+    marquee.classList.remove("is-dragging");
+    try {
+      marquee.releasePointerCapture(event.pointerId);
+    } catch (_) {
+      /* already released */
+    }
+    if (!marquee.matches(":hover")) resumeSoon();
+  };
+
+  marquee.addEventListener("pointerup", endDrag);
+  marquee.addEventListener("pointercancel", endDrag);
+
+  measure();
+  window.addEventListener("resize", measure, { passive: true });
+  rafId = requestAnimationFrame(tick);
+
+  marquee.addEventListener(
+    "dragstart",
+    (event) => {
+      event.preventDefault();
+    },
+    true
+  );
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   initSmoothScroll();
   initHeroWater();
@@ -716,6 +837,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initParallax();
   initAboutMotion();
   initFooterReveal();
+  initReviewsMarquee();
 });
 
 window.ToursEffects = {
