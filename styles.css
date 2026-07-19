@@ -1702,10 +1702,9 @@ body[data-page="home"] .faq-head .section-title {
 .about-hero-media {
   position: relative;
   overflow: hidden;
-  width: min(100%, 50%);
-  max-width: 620px;
-  margin-inline: auto;
-  min-height: clamp(320px, 58vw, 560px);
+  width: 100%;
+  aspect-ratio: 2.35 / 1;
+  min-height: clamp(260px, 36vw, 520px);
   border-radius: clamp(22px, 3vw, 36px);
   background: #111;
   cursor: crosshair;
@@ -1731,7 +1730,6 @@ body[data-page="home"] .faq-head .section-title {
   display: block;
   width: 100%;
   height: 100%;
-  min-height: clamp(320px, 58vw, 560px);
   object-fit: cover;
   object-position: center;
 }
@@ -1756,10 +1754,10 @@ body[data-page="home"] .faq-head .section-title {
   align-items: center;
   gap: 0.12em 0.28em;
   margin: 0;
-  padding: 1.5rem;
+  padding: clamp(1.25rem, 4vw, 2.5rem);
   color: var(--white);
   text-align: center;
-  font-size: clamp(1.85rem, 4.2vw, 3.1rem);
+  font-size: clamp(2.1rem, 5.2vw, 4.2rem);
   line-height: 1.05;
   letter-spacing: -0.04em;
   text-wrap: balance;
@@ -1921,8 +1919,7 @@ body[data-page="home"] .faq-head .section-title {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.25rem;
   align-items: start;
-  overflow: clip;
-  padding-block: 0.5rem;
+  overflow: visible;
 }
 
 .about-year-card {
@@ -1973,10 +1970,10 @@ body[data-page="home"] .faq-head .section-title {
 
 .about-award-row {
   display: grid;
-  grid-template-columns: minmax(180px, 0.9fr) 110px minmax(0, 1.4fr);
-  gap: 1.25rem 1.5rem;
+  grid-template-columns: minmax(220px, 1fr) 118px minmax(0, 1.7fr);
+  gap: clamp(1.25rem, 3vw, 2rem) clamp(1.25rem, 3vw, 2.25rem);
   align-items: center;
-  padding: clamp(1.25rem, 3vw, 1.75rem);
+  padding: clamp(1.5rem, 3.5vw, 2.35rem);
   border-bottom: 1px solid var(--border);
 }
 
@@ -1984,16 +1981,24 @@ body[data-page="home"] .faq-head .section-title {
   border-bottom: 0;
 }
 
+.about-award-meta {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: stretch;
+  gap: 1.75rem;
+  min-height: 148px;
+}
+
 .about-award-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
-  margin-bottom: 0.85rem;
 }
 
 .about-award-tags span {
-  padding: 0.28rem 0.55rem;
-  border-radius: 6px;
+  padding: 0.32rem 0.6rem;
+  border-radius: 8px;
   background: #f0f0f0;
   color: var(--text-soft);
   font-size: 0.68rem;
@@ -2002,60 +2007,122 @@ body[data-page="home"] .faq-head .section-title {
 }
 
 .about-award-mark {
-  display: inline-grid;
-  width: 2.4rem;
-  height: 2.4rem;
-  place-items: center;
-  border-radius: 10px;
-  background: var(--text);
-  color: var(--white);
-  font-size: 0.75rem;
+  display: block;
+  width: fit-content;
+  color: var(--text);
+  font-size: clamp(2.4rem, 4.5vw, 3.6rem);
   font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.06em;
 }
 
 .about-award-image {
-  width: 110px;
-  height: 110px;
-  border-radius: 16px;
+  width: 118px;
+  height: 148px;
+  border-radius: 18px;
   object-fit: cover;
 }
 
-.about-award-copy h3 {
-  margin: 0 0 0.45rem;
-  font-size: clamp(1.2rem, 2.4vw, 1.55rem);
+.about-award-copy {
+  min-width: 0;
+}
+
+.about-award-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+  margin-bottom: 0.55rem;
+}
+
+.about-award-heading h3 {
+  margin: 0;
+  font-size: clamp(1.25rem, 2.5vw, 1.7rem);
   letter-spacing: -0.02em;
+}
+
+.about-award-year {
+  flex-shrink: 0;
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  font-weight: 500;
 }
 
 .about-award-copy p {
   margin: 0;
+  max-width: 42ch;
   color: var(--text-soft);
+  line-height: 1.55;
 }
 
 .about-gallery {
   padding-top: 0;
+  overflow: hidden;
 }
 
-.about-gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
+.about-gallery-marquee {
+  --about-gallery-gap: clamp(0.85rem, 1.8vw, 1.25rem);
+  width: 100%;
+  overflow: hidden;
+}
+
+.about-gallery-track {
+  display: flex;
+  width: max-content;
+  animation: about-gallery-scroll 42s linear infinite;
+}
+
+.about-gallery-marquee:hover .about-gallery-track {
+  animation-play-state: paused;
+}
+
+.about-gallery-group {
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--about-gallery-gap);
+  padding-inline: calc(var(--about-gallery-gap) / 2);
 }
 
 .about-gallery-frame {
+  flex: 0 0 clamp(220px, 26vw, 360px);
+  margin: 0;
   overflow: hidden;
   border-radius: clamp(18px, 2.5vw, 28px);
 }
 
-.about-gallery-grid img {
+.about-gallery-frame img {
+  display: block;
   width: 100%;
   aspect-ratio: 4 / 5;
   object-fit: cover;
-  transform: scale(1.12);
-  transition: transform 1.15s cubic-bezier(0.22, 1, 0.36, 1) var(--about-delay, 0ms);
 }
 
-.about-gallery-frame.is-visible img {
-  transform: scale(1);
+@keyframes about-gallery-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-gallery-track {
+    animation: none;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .about-gallery-group[aria-hidden="true"] {
+    display: none;
+  }
+
+  .about-gallery-group {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    padding-inline: 1rem;
+  }
 }
 
 /* About scroll motion — Traveli-style reveals */
@@ -2094,11 +2161,21 @@ body[data-page="home"] .faq-head .section-title {
 }
 
 .about-year-card.about-fx-from-bottom {
-  transform: translate3d(0, 72px, 0);
+  transform: translate3d(0, 56px, 0);
 }
 
 .about-year-card.about-fx-from-top {
-  transform: translate3d(0, -72px, 0);
+  transform: translate3d(0, 40px, 0);
+}
+
+.about-year-card.about-fx-from-bottom.is-visible,
+.about-year-card.about-fx-from-top.is-visible,
+.about-fx-from-bottom.is-visible,
+.about-fx-from-top.is-visible,
+.about-fx-fade-up.is-visible,
+.about-fx-slide-right.is-visible,
+.about-fx-slide-left.is-visible {
+  transform: none;
 }
 
 .about-fx-pop {
@@ -2134,8 +2211,7 @@ body[data-page="home"] .faq-head .section-title {
   .about-fx-pop,
   .about-word,
   .about-hero-media.is-static > .hero-water-source,
-  .about-story-media img,
-  .about-gallery-grid img {
+  .about-story-media img {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
@@ -2161,7 +2237,18 @@ body[data-page="home"] .faq-head .section-title {
   }
 
   .about-award-row {
-    grid-template-columns: 1fr 96px;
+    grid-template-columns: minmax(0, 1fr) 100px;
+    align-items: start;
+  }
+
+  .about-award-meta {
+    min-height: 0;
+    gap: 1.1rem;
+  }
+
+  .about-award-image {
+    width: 100px;
+    height: 126px;
   }
 
   .about-award-copy {
@@ -2171,8 +2258,8 @@ body[data-page="home"] .faq-head .section-title {
 
 @media (max-width: 900px) {
   .about-hero-media {
-    width: 100%;
-    max-width: none;
+    aspect-ratio: 16 / 10;
+    min-height: 240px;
   }
 
   .about-story-grid {
@@ -2196,24 +2283,20 @@ body[data-page="home"] .faq-head .section-title {
     gap: 0.45rem;
   }
 
-  .about-gallery-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .about-gallery-grid img {
-    aspect-ratio: 16 / 11;
-  }
-
   .about-fx-slide-right {
     transform: translate3d(48px, 0, 0);
   }
 
   .about-fx-from-bottom {
-    transform: translate3d(0, 72px, 0);
+    transform: translate3d(0, 56px, 0);
   }
 
   .about-fx-from-top {
-    transform: translate3d(0, -72px, 0);
+    transform: translate3d(0, 40px, 0);
+  }
+
+  .about-year-card.about-fx-from-top {
+    transform: translate3d(0, 40px, 0);
   }
 }
 
@@ -2869,30 +2952,117 @@ body[data-page="home"] .faq-head .section-title {
 }
 
 .site-footer {
-  padding: 4rem 0 2rem;
-  background: #111;
-  color: rgba(255, 255, 255, 0.82);
+  --footer-pad: clamp(1.25rem, 4vw, 2.5rem);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(3rem, 7vw, 5.5rem) 0 clamp(1.5rem, 4vw, 2.5rem);
+  color: rgba(255, 255, 255, 0.88);
+  background: #1a2420;
+}
+
+.footer-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(180deg, rgba(8, 16, 14, 0.28) 0%, rgba(8, 16, 14, 0.45) 100%),
+    url("assets/footer-bg.jpg") center / cover no-repeat;
+  transform: scale(1.04);
+}
+
+.footer-stage {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 2.75rem);
+}
+
+.footer-panel {
+  padding: clamp(1.5rem, 3.5vw, 2.5rem);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: clamp(22px, 3vw, 32px);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 24px 60px rgba(8, 16, 14, 0.22);
+  backdrop-filter: blur(18px) saturate(1.2);
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
 }
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.2fr repeat(3, minmax(0, 1fr));
-  gap: 2rem;
+  grid-template-columns: minmax(0, 1.45fr) repeat(2, minmax(0, 1fr));
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.footer-brand .logo {
+  color: var(--white);
+}
+
+.footer-brand .logo-mark {
+  background: var(--white);
+  color: var(--text);
+}
+
+.footer-brand > p {
+  max-width: 34ch;
+  margin: 1rem 0 1.35rem;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.55;
+}
+
+.footer-contacts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.footer-contacts li,
+.footer-contacts a {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.84);
+  text-decoration: none;
+}
+
+.footer-contacts a:hover,
+.footer-contacts a:focus-visible {
+  color: var(--white);
+}
+
+.footer-contact-icon {
+  flex-shrink: 0;
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-top: 0.15rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.footer-contact-icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .footer-grid h4 {
   margin: 0 0 1rem;
-  color: var(--white);
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-.footer-grid a,
-.footer-grid p {
-  display: block;
-  margin: 0 0 0.65rem;
-  color: rgba(255, 255, 255, 0.72);
+.footer-grid nav {
+  display: grid;
+  gap: 0.55rem;
 }
 
 .footer-grid a {
+  color: rgba(255, 255, 255, 0.88);
   text-decoration: underline;
   text-decoration-color: transparent;
   text-decoration-thickness: 1px;
@@ -2907,14 +3077,77 @@ body[data-page="home"] .faq-head .section-title {
 }
 
 .footer-bottom {
-  margin-top: 2.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  margin-top: clamp(1.5rem, 3vw, 2.25rem);
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.footer-social a {
+  display: grid;
+  place-items: center;
+  width: 2.35rem;
+  height: 2.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  color: var(--white);
+  text-decoration: none;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.footer-social a:hover,
+.footer-social a:focus-visible {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.footer-social svg {
+  width: 0.95rem;
+  height: 0.95rem;
+}
+
+.footer-watermark {
+  margin: 0;
+  padding-inline: 0.25rem;
+  color: rgba(255, 255, 255, 0.42);
+  font-size: clamp(3.4rem, 14vw, 10.5rem);
+  font-weight: 800;
+  line-height: 0.85;
+  letter-spacing: -0.06em;
+  text-align: center;
+  text-wrap: balance;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0;
+  transform: translate3d(0, 48px, 0);
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.site-footer.is-revealed .footer-watermark {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-watermark {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 .rating-pill {
@@ -2972,11 +3205,18 @@ body[data-page="home"] .faq-head .section-title {
   .feature-grid,
   .steps-grid,
   .contact-grid,
-  .footer-grid,
   .detail-layout,
   .story-grid,
   .values-panel {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
   }
 
   .value-cell {

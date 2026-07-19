@@ -583,9 +583,11 @@ function initAboutMotion() {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("is-visible");
-        } else {
-          entry.target.classList.remove("is-visible");
+          return;
         }
+        // Keep timeline cards visible once revealed so they don't clip/rejump.
+        if (entry.target.classList.contains("about-year-card")) return;
+        entry.target.classList.remove("is-visible");
       });
     },
     { threshold: 0.16, rootMargin: "0px 0px -10% 0px" }
@@ -600,6 +602,30 @@ function initAboutMotion() {
   });
 }
 
+function initFooterReveal() {
+  const footer = document.querySelector("[data-footer-stage]");
+  if (!footer || footer.dataset.footerBound) return;
+  footer.dataset.footerBound = "1";
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    footer.classList.add("is-revealed");
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) {
+        footer.classList.add("is-revealed");
+      } else if (entry.boundingClientRect.top > window.innerHeight * 0.15) {
+        footer.classList.remove("is-revealed");
+      }
+    },
+    { threshold: 0.2, rootMargin: "0px 0px -6% 0px" }
+  );
+
+  observer.observe(footer);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   initSmoothScroll();
   initHeroWater();
@@ -611,6 +637,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initValueIconSpin();
   initParallax();
   initAboutMotion();
+  initFooterReveal();
 });
 
 window.ToursEffects = {

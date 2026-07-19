@@ -1242,12 +1242,13 @@ function applyTranslations(lang) {
 
   document.querySelectorAll(".site-footer [data-i18n='footer.destinations']").forEach((heading) => {
     const column = heading.parentElement;
-    column.querySelectorAll("a").forEach((link) => link.remove());
+    const nav = column.querySelector("nav") || column;
+    nav.querySelectorAll("a").forEach((link) => link.remove());
     getSortedTours(lang).forEach((tour) => {
       const link = document.createElement("a");
       link.href = `destination-${tour.slug}.html`;
       link.textContent = t(`tours.${tour.slug}.name`, lang);
-      column.appendChild(link);
+      nav.appendChild(link);
     });
   });
 
@@ -2139,6 +2140,30 @@ function initDetailPage() {
   }
 }
 
+function initFooterReveal() {
+  const footer = document.querySelector("[data-footer-stage]");
+  if (!footer || footer.dataset.footerBound) return;
+  footer.dataset.footerBound = "1";
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    footer.classList.add("is-revealed");
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) {
+        footer.classList.add("is-revealed");
+      } else if (entry.boundingClientRect.top > window.innerHeight * 0.15) {
+        footer.classList.remove("is-revealed");
+      }
+    },
+    { threshold: 0.2, rootMargin: "0px 0px -6% 0px" }
+  );
+
+  observer.observe(footer);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const lang = getLang();
   document.documentElement.lang = lang;
@@ -2153,6 +2178,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initForms();
   initDetailPage();
   refreshPhoneFields(lang);
+  initFooterReveal();
 
   document.querySelectorAll(".lang-switch button").forEach((btn) => {
     btn.classList.toggle("active", btn.dataset.lang === lang);
