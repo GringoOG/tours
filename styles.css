@@ -1785,41 +1785,54 @@ body[data-page="home"] .faq-head .section-title {
 
 .about-story-grid {
   display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: clamp(1.5rem, 4vw, 3.5rem);
+  grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+  grid-template-areas:
+    "pill title"
+    "media body";
+  column-gap: clamp(1.75rem, 4.5vw, 4rem);
+  row-gap: 1.15rem;
   align-items: start;
 }
 
-.about-story-visual {
-  display: grid;
-  gap: 1rem;
-  justify-items: end;
-}
-
 .about-pill {
+  grid-area: pill;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: fit-content;
-  min-height: 2.4rem;
-  padding: 0.45rem 0.95rem;
+  min-height: 2.35rem;
+  padding: 0.42rem 0.95rem;
   border-radius: 999px;
   background: var(--white);
   box-shadow: 0 10px 28px rgba(33, 33, 33, 0.1);
   color: var(--text);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   font-weight: 600;
+  justify-self: start;
+  align-self: start;
+}
+
+.about-story-title {
+  grid-area: title;
+  max-width: 13ch;
+  margin: 0;
+  font-size: clamp(2.35rem, 4.8vw, 3.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
 }
 
 .about-story-media {
-  width: 100%;
+  grid-area: media;
+  width: min(100%, 480px);
   overflow: hidden;
-  border-radius: clamp(20px, 2.5vw, 28px);
+  border-radius: clamp(18px, 2.5vw, 26px);
 }
 
 .about-story-media img {
   width: 100%;
-  aspect-ratio: 5 / 4;
+  aspect-ratio: 16 / 10;
+  max-height: 280px;
   object-fit: cover;
   transform: scale(1.1);
   transition: transform 1.15s cubic-bezier(0.22, 1, 0.36, 1);
@@ -1829,11 +1842,9 @@ body[data-page="home"] .faq-head .section-title {
   transform: scale(1);
 }
 
-.about-story-title {
-  max-width: 14ch;
-  margin: 0 0 1.5rem;
-  font-size: clamp(2.2rem, 4.5vw, 3.6rem);
-  text-wrap: balance;
+.about-story-content {
+  grid-area: body;
+  padding-top: 0.35rem;
 }
 
 .about-principle {
@@ -1917,9 +1928,11 @@ body[data-page="home"] .faq-head .section-title {
   z-index: 1;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.25rem;
+  grid-template-rows: auto auto;
+  gap: 1.35rem 1.5rem;
   align-items: start;
   overflow: visible;
+  padding-bottom: 0.5rem;
 }
 
 .about-year-card {
@@ -1928,6 +1941,12 @@ body[data-page="home"] .faq-head .section-title {
   border-radius: var(--radius-md);
   background: var(--white);
   text-align: center;
+  will-change: transform, opacity;
+}
+
+.about-year-card.about-fx {
+  opacity: 0;
+  transition: none;
 }
 
 .about-year-card strong {
@@ -1943,22 +1962,31 @@ body[data-page="home"] .faq-head .section-title {
   color: var(--text-soft);
 }
 
+/* Traveli layout: 2016 | 2019 | 2026
+                         2022          */
 .about-year-card-1 {
-  margin-top: 4.5rem;
+  grid-column: 1;
+  grid-row: 1;
+  margin-top: 0;
 }
 
 .about-year-card-2 {
+  grid-column: 2;
+  grid-row: 1;
   margin-top: 0;
 }
 
 .about-year-card-3 {
   grid-column: 2;
+  grid-row: 2;
   margin-top: 0;
 }
 
 .about-year-card-4 {
   grid-column: 3;
-  margin-top: 7rem;
+  grid-row: 1 / span 2;
+  margin-top: clamp(3.5rem, 8vw, 6.5rem);
+  align-self: start;
 }
 
 .about-awards-list {
@@ -2069,7 +2097,8 @@ body[data-page="home"] .faq-head .section-title {
 .about-gallery-track {
   display: flex;
   width: max-content;
-  animation: about-gallery-scroll 42s linear infinite;
+  animation: about-gallery-scroll 84s linear infinite;
+  will-change: transform;
 }
 
 .about-gallery-marquee:hover .about-gallery-track {
@@ -2079,8 +2108,10 @@ body[data-page="home"] .faq-head .section-title {
 .about-gallery-group {
   display: flex;
   flex-shrink: 0;
+  align-items: stretch;
   gap: var(--about-gallery-gap);
-  padding-inline: calc(var(--about-gallery-gap) / 2);
+  /* Same trailing gap as between images → seamless -50% loop */
+  padding-right: var(--about-gallery-gap);
 }
 
 .about-gallery-frame {
@@ -2093,6 +2124,7 @@ body[data-page="home"] .faq-head .section-title {
 .about-gallery-frame img {
   display: block;
   width: 100%;
+  height: 100%;
   aspect-ratio: 4 / 5;
   object-fit: cover;
 }
@@ -2102,6 +2134,7 @@ body[data-page="home"] .faq-head .section-title {
     transform: translate3d(0, 0, 0);
   }
   to {
+    /* Exactly one group width (content + trailing gap) */
     transform: translate3d(-50%, 0, 0);
   }
 }
@@ -2121,7 +2154,9 @@ body[data-page="home"] .faq-head .section-title {
     flex-wrap: wrap;
     justify-content: center;
     width: 100%;
+    padding-right: 0;
     padding-inline: 1rem;
+    gap: var(--about-gallery-gap);
   }
 }
 
@@ -2160,16 +2195,16 @@ body[data-page="home"] .faq-head .section-title {
   transform: translate3d(0, calc(min(120px, 18vh) * -1), 0);
 }
 
-.about-year-card.about-fx-from-bottom {
-  transform: translate3d(0, 56px, 0);
-}
-
+.about-year-card.about-fx-from-bottom,
 .about-year-card.about-fx-from-top {
-  transform: translate3d(0, 40px, 0);
+  transform: none;
 }
 
 .about-year-card.about-fx-from-bottom.is-visible,
-.about-year-card.about-fx-from-top.is-visible,
+.about-year-card.about-fx-from-top.is-visible {
+  transform: none;
+}
+
 .about-fx-from-bottom.is-visible,
 .about-fx-from-top.is-visible,
 .about-fx-fade-up.is-visible,
@@ -2221,19 +2256,31 @@ body[data-page="home"] .faq-head .section-title {
 @media (max-width: 1100px) {
   .about-timeline {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: auto;
   }
 
-  .about-year-card-1,
-  .about-year-card-2,
-  .about-year-card-3,
-  .about-year-card-4 {
-    grid-column: auto;
+  .about-year-card-1 {
+    grid-column: 1;
+    grid-row: auto;
+    margin-top: 2.5rem;
+  }
+
+  .about-year-card-2 {
+    grid-column: 2;
+    grid-row: auto;
     margin-top: 0;
   }
 
-  .about-year-card-2,
+  .about-year-card-3 {
+    grid-column: 1;
+    grid-row: auto;
+    margin-top: 0;
+  }
+
   .about-year-card-4 {
-    margin-top: 2rem;
+    grid-column: 2;
+    grid-row: auto;
+    margin-top: 3rem;
   }
 
   .about-award-row {
@@ -2264,18 +2311,29 @@ body[data-page="home"] .faq-head .section-title {
 
   .about-story-grid {
     grid-template-columns: 1fr;
-  }
-
-  .about-story-visual {
-    justify-items: start;
+    grid-template-areas:
+      "pill"
+      "title"
+      "media"
+      "body";
+    row-gap: 1rem;
   }
 
   .about-story-title {
     max-width: none;
   }
 
+  .about-story-media {
+    width: 100%;
+  }
+
   .about-story-media img {
-    aspect-ratio: 16 / 11;
+    aspect-ratio: 16 / 10;
+    max-height: none;
+  }
+
+  .about-story-content {
+    padding-top: 0;
   }
 
   .about-principle {
@@ -2305,8 +2363,11 @@ body[data-page="home"] .faq-head .section-title {
     grid-template-columns: 1fr;
   }
 
+  .about-year-card-1,
   .about-year-card-2,
+  .about-year-card-3,
   .about-year-card-4 {
+    grid-column: 1;
     margin-top: 0;
   }
 

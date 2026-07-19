@@ -563,12 +563,83 @@ function splitAboutWords() {
   });
 }
 
+function initAboutTimelineScroll() {
+  const cards = [...document.querySelectorAll(".about-year-card[data-about-fx]")];
+  if (!cards.length) return;
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    cards.forEach((card) => {
+      card.style.opacity = "1";
+      card.style.transform = "none";
+      card.classList.add("is-visible");
+    });
+    return;
+  }
+
+  const naturalY = new Map();
+  let ticking = false;
+
+  const measure = () => {
+    cards.forEach((card) => {
+      const prevTransform = card.style.transform;
+      const prevOpacity = card.style.opacity;
+      card.style.transform = "none";
+      card.style.opacity = "0";
+      naturalY.set(card, card.getBoundingClientRect().top + window.scrollY);
+      card.style.transform = prevTransform;
+      card.style.opacity = prevOpacity;
+    });
+  };
+
+  const update = () => {
+    ticking = false;
+    const vh = window.innerHeight;
+    const travel = Math.min(340, vh * 0.45);
+    const scrollY = window.scrollY;
+
+    cards.forEach((card) => {
+      const absTop = naturalY.get(card);
+      if (absTop == null) return;
+      const top = absTop - scrollY;
+      const start = vh * 1.05;
+      const end = vh * 0.28;
+      let progress = (start - top) / (start - end);
+      progress = Math.min(1, Math.max(0, progress));
+      const eased = 1 - Math.pow(1 - progress, 2.4);
+      const fromTop = card.classList.contains("about-fx-from-top");
+      const y = (1 - eased) * (fromTop ? -travel : travel);
+      const opacity = Math.min(1, eased * 1.2);
+
+      card.style.opacity = String(opacity);
+      card.style.transform = `translate3d(0, ${y.toFixed(1)}px, 0)`;
+      card.classList.toggle("is-visible", eased > 0.92);
+    });
+  };
+
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(update);
+  };
+
+  const onResize = () => {
+    measure();
+    update();
+  };
+
+  measure();
+  update();
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onResize, { passive: true });
+}
+
 function initAboutMotion() {
   if (document.body.dataset.page !== "about") return;
 
   splitAboutWords();
+  initAboutTimelineScroll();
 
-  const items = [...document.querySelectorAll("[data-about-fx]")];
+  const items = [...document.querySelectorAll("[data-about-fx]:not(.about-year-card)")];
   if (!items.length) return;
 
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -583,11 +654,9 @@ function initAboutMotion() {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("is-visible");
-          return;
+        } else {
+          entry.target.classList.remove("is-visible");
         }
-        // Keep timeline cards visible once revealed so they don't clip/rejump.
-        if (entry.target.classList.contains("about-year-card")) return;
-        entry.target.classList.remove("is-visible");
       });
     },
     { threshold: 0.16, rootMargin: "0px 0px -10% 0px" }
