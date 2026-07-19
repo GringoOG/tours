@@ -551,15 +551,23 @@ let aboutMotionObserver = null;
 
 function splitAboutWords() {
   document.querySelectorAll("[data-about-words]").forEach((el) => {
-    const text = (el.textContent || "").trim().replace(/\s+/g, " ");
-    if (!text) return;
-    const words = text.split(" ");
-    el.innerHTML = words
-      .map(
-        (word, index) =>
-          `<span class="about-word" style="--word-i:${index}">${word}</span>`
+    const raw = (el.textContent || "").trim();
+    if (!raw) return;
+    const lines = raw.split(/\n+/).map((line) => line.trim()).filter(Boolean);
+    let wordIndex = 0;
+    el.innerHTML = lines
+      .map((line) =>
+        line
+          .replace(/\s+/g, " ")
+          .split(" ")
+          .map((word) => {
+            const html = `<span class="about-word" style="--word-i:${wordIndex}">${word}</span>`;
+            wordIndex += 1;
+            return html;
+          })
+          .join(" ")
       )
-      .join(" ");
+      .join("<br />");
   });
 }
 

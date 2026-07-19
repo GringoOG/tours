@@ -325,7 +325,7 @@ const i18n = {
       destinationsLead: "Choose from our most popular adventures or contact us for a custom itinerary.",
       contactTitle: "Reach out for help today",
       contactLead: "Connect with us for the best travel support in Ollantaytambo.",
-      testimonialsTitle: "Read reviews from happy guests",
+      testimonialsTitle: "Read reviews from\nhappy guests",
       testimonialsLead: "Real stories from travelers who explored the Sacred Valley with us.",
       loadMore: "Load more",
       bookNow: "Book now",
@@ -675,7 +675,7 @@ const i18n = {
       destinationsLead: "Elige entre nuestras aventuras más populares o contáctanos para un itinerario personalizado.",
       contactTitle: "Contáctanos hoy",
       contactLead: "Conéctate con nosotros para el mejor soporte de viaje en Ollantaytambo.",
-      testimonialsTitle: "Lee reseñas de huéspedes felices",
+      testimonialsTitle: "Lee reseñas de\nhuéspedes felices",
       testimonialsLead: "Historias reales de viajeros que exploraron el Valle Sagrado con nosotros.",
       loadMore: "Cargar más",
       bookNow: "Reservar ahora",
@@ -1025,7 +1025,7 @@ const i18n = {
       destinationsLead: "Choisissez parmi nos aventures les plus populaires ou contactez-nous pour un itinéraire sur mesure.",
       contactTitle: "Contactez-nous dès aujourd'hui",
       contactLead: "Notre équipe est à votre écoute pour vous accompagner au mieux à Ollantaytambo.",
-      testimonialsTitle: "Découvrez les avis de nos voyageurs",
+      testimonialsTitle: "Découvrez les avis\nde nos voyageurs",
       testimonialsLead: "Des récits authentiques de voyageurs ayant exploré la Vallée sacrée avec nous.",
       loadMore: "Afficher plus",
       bookNow: "Réserver",
@@ -1216,6 +1216,7 @@ function setLang(lang) {
   document.querySelectorAll(".lang-switch button").forEach((btn) => {
     btn.classList.toggle("active", btn.dataset.lang === lang);
   });
+  window.ToursEffects?.refresh();
 }
 
 function applyTranslations(lang) {
