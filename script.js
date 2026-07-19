@@ -1,4 +1,5 @@
 const STORAGE_KEY = "tours-lang";
+const ORDER_DRAFT_KEY = "ollanta-order-draft";
 const SUPPORTED_LOCALES = ["en", "es", "fr"];
 
 const tours = [
@@ -52,6 +53,10 @@ const i18n = {
       contact: {
         title: "Contact — Ollanta Tours",
         description: "Contact Ollanta Tours for tour planning and travel support in Ollantaytambo and the Sacred Valley.",
+      },
+      booking: {
+        title: "Complete your booking — Ollanta Tours",
+        description: "Confirm your selected Ollanta Tours experiences, dates, travelers, and contact details.",
       },
       machuPicchu: {
         title: "Machu Picchu Tour — Ollanta Tours",
@@ -316,6 +321,17 @@ const i18n = {
       message: "Message",
       submit: "Send request",
       success: "Thank you! We will contact you shortly.",
+      orderTitle: "Complete your booking",
+      orderLead: "Your selected tours are ready. Add one lead traveler and contact details to continue.",
+      contactDetails: "Lead traveler details",
+      confirmOrder: "Confirm booking",
+      confirmTitle: "Confirm your booking?",
+      confirmText: "Are you sure you want to place this booking?",
+      cancelConfirmation: "Go back",
+      approveConfirmation: "Yes, confirm booking",
+      thankYouTitle: "Thank you for your booking",
+      thankYouText: "We will contact you.",
+      close: "Close",
     },
     selects: {
       chooseTour: "Choose a tour",
@@ -347,6 +363,10 @@ const i18n = {
       contact: {
         title: "Contacto — Ollanta Tours",
         description: "Contacta con Ollanta Tours para planificar tu viaje y recibir asistencia en Ollantaytambo y el Valle Sagrado.",
+      },
+      booking: {
+        title: "Completa tu reserva — Ollanta Tours",
+        description: "Confirma tus tours seleccionados, fechas, viajeros y datos de contacto con Ollanta Tours.",
       },
       machuPicchu: {
         title: "Tour a Machu Picchu — Ollanta Tours",
@@ -611,6 +631,17 @@ const i18n = {
       message: "Mensaje",
       submit: "Enviar solicitud",
       success: "¡Gracias! Te contactaremos pronto.",
+      orderTitle: "Completa tu reserva",
+      orderLead: "Tus tours seleccionados están listos. Añade los datos de una persona responsable y la información de contacto.",
+      contactDetails: "Datos de la persona responsable",
+      confirmOrder: "Confirmar reserva",
+      confirmTitle: "¿Confirmar tu reserva?",
+      confirmText: "¿Seguro que quieres realizar esta reserva?",
+      cancelConfirmation: "Volver",
+      approveConfirmation: "Sí, confirmar reserva",
+      thankYouTitle: "Gracias por tu reserva",
+      thankYouText: "Nos pondremos en contacto contigo.",
+      close: "Cerrar",
     },
     selects: {
       chooseTour: "Elige un tour",
@@ -642,6 +673,10 @@ const i18n = {
       contact: {
         title: "Contact — Ollanta Tours",
         description: "Contactez Ollanta Tours pour organiser votre voyage et obtenir de l'aide à Ollantaytambo et dans la Vallée sacrée.",
+      },
+      booking: {
+        title: "Finalisez votre réservation — Ollanta Tours",
+        description: "Confirmez les circuits choisis, les dates, les voyageurs et vos coordonnées avec Ollanta Tours.",
       },
       machuPicchu: {
         title: "Circuit au Machu Picchu — Ollanta Tours",
@@ -906,6 +941,17 @@ const i18n = {
       message: "Message",
       submit: "Envoyer la demande",
       success: "Merci ! Nous vous contacterons très bientôt.",
+      orderTitle: "Finalisez votre réservation",
+      orderLead: "Vos circuits sélectionnés sont prêts. Ajoutez les coordonnées d'une personne responsable pour continuer.",
+      contactDetails: "Coordonnées de la personne responsable",
+      confirmOrder: "Confirmer la réservation",
+      confirmTitle: "Confirmer votre réservation ?",
+      confirmText: "Voulez-vous vraiment effectuer cette réservation ?",
+      cancelConfirmation: "Retour",
+      approveConfirmation: "Oui, confirmer",
+      thankYouTitle: "Merci pour votre réservation",
+      thankYouText: "Nous vous contacterons.",
+      close: "Fermer",
     },
     selects: {
       chooseTour: "Choisissez un circuit",
@@ -1496,6 +1542,9 @@ function renderTourBookingDetails(picker, lang = getLang()) {
   const select = picker.sourceSelect;
   const details = picker.querySelector("[data-tour-booking-details]");
   const selected = selectedTourSlugs(select);
+  const canChooseDateLaterOnNextPage = Boolean(
+    picker.closest("[data-order-entry]")
+  );
 
   details.innerHTML = selected
     .map((slug) => {
@@ -1516,7 +1565,8 @@ function renderTourBookingDetails(picker, lang = getLang()) {
                 type="date"
                 name="tourDate[${slug}]"
                 value="${values.date}"
-                ${values.dateLater ? "disabled" : "required"}
+                ${values.dateLater ? "disabled" : ""}
+                ${values.dateLater || canChooseDateLaterOnNextPage ? "" : "required"}
                 data-tour-date
               />
             </label>
@@ -1657,7 +1707,8 @@ function initTourMultiSelects() {
         const row = dateLater.closest("[data-tour-booking-row]");
         const date = row.querySelector("[data-tour-date]");
         date.disabled = dateLater.checked;
-        date.required = !dateLater.checked;
+        date.required =
+          !dateLater.checked && !dateLater.closest("[data-order-entry]");
         captureTourDetailValues(picker);
         return;
       }
@@ -1704,11 +1755,149 @@ function validateTourMultiSelects(form) {
   return valid;
 }
 
+function createOrderDraft(form) {
+  const picker = form.querySelector("[data-tour-multi-picker]");
+  if (!picker) return { tours: [] };
+
+  captureTourDetailValues(picker);
+  return {
+    tours: selectedTourSlugs(picker.sourceSelect).map((slug) => {
+      const values = picker.tourValues.get(slug) || {};
+      return {
+        slug,
+        date: values.date || "",
+        dateLater: Boolean(values.dateLater),
+        travelers: values.travelers || "1",
+      };
+    }),
+  };
+}
+
+function readOrderDraft() {
+  try {
+    const parsed = JSON.parse(sessionStorage.getItem(ORDER_DRAFT_KEY) || "{}");
+    const availableSlugs = new Set(tours.map((tour) => tour.slug));
+    const items = Array.isArray(parsed.tours) ? parsed.tours : [];
+    return {
+      tours: items
+        .filter((item) => availableSlugs.has(item?.slug))
+        .map((item) => ({
+          slug: item.slug,
+          date:
+            typeof item.date === "string" &&
+            /^\d{4}-\d{2}-\d{2}$/.test(item.date)
+              ? item.date
+              : "",
+          dateLater: Boolean(item.dateLater),
+          travelers: ["1", "2", "3", "4"].includes(String(item.travelers))
+            ? String(item.travelers)
+            : "1",
+        })),
+    };
+  } catch {
+    return { tours: [] };
+  }
+}
+
+function initOrderPage() {
+  const form = document.querySelector("[data-order-form]");
+  if (!form) return;
+
+  const select = form.querySelector("[data-tour-select][data-multi-tour]");
+  const picker = select?.tourMultiPicker;
+  if (!select || !picker) return;
+
+  const draft = readOrderDraft();
+  picker.tourValues.clear();
+  draft.tours.forEach((item) => {
+    picker.tourValues.set(item.slug, {
+      date: item.date,
+      dateLater: item.dateLater,
+      travelers: item.travelers,
+    });
+  });
+  setTourMultiSelection(
+    select,
+    draft.tours.map((item) => item.slug)
+  );
+}
+
+function showOrderConfirmation(form) {
+  const lang = getLang();
+  const submitButton = form.querySelector('[type="submit"]');
+  const backdrop = document.createElement("div");
+  backdrop.className = "order-modal-backdrop";
+  backdrop.innerHTML = `
+    <div class="order-modal" role="dialog" aria-modal="true" aria-labelledby="order-confirm-title">
+      <h2 id="order-confirm-title">${t("booking.confirmTitle", lang)}</h2>
+      <p>${t("booking.confirmText", lang)}</p>
+      <div class="order-modal-actions">
+        <button class="btn btn-outline" type="button" data-order-cancel>${t("booking.cancelConfirmation", lang)}</button>
+        <button class="btn btn-primary" type="button" data-order-approve>${t("booking.approveConfirmation", lang)}</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(backdrop);
+  document.body.classList.add("order-modal-open");
+
+  const close = () => {
+    backdrop.remove();
+    document.body.classList.remove("order-modal-open");
+    document.removeEventListener("keydown", onKeydown);
+    submitButton?.focus();
+  };
+
+  const onKeydown = (event) => {
+    if (event.key === "Escape" && document.body.contains(backdrop)) {
+      close();
+    }
+  };
+
+  backdrop.querySelector("[data-order-cancel]").addEventListener("click", close);
+  backdrop.querySelector("[data-order-approve]").addEventListener("click", () => {
+    try {
+      sessionStorage.removeItem(ORDER_DRAFT_KEY);
+    } catch {
+      // The thank-you state still works when browser storage is unavailable.
+    }
+    backdrop.innerHTML = `
+      <div class="order-modal order-modal-thanks" role="dialog" aria-modal="true" aria-labelledby="order-thanks-title">
+        <span class="order-modal-check" aria-hidden="true">✓</span>
+        <h2 id="order-thanks-title">${t("booking.thankYouTitle", lang)}</h2>
+        <p>${t("booking.thankYouText", lang)}</p>
+        <button class="btn btn-primary" type="button" data-order-close>${t("booking.close", lang)}</button>
+      </div>
+    `;
+    backdrop.querySelector("[data-order-close]").addEventListener("click", close);
+    backdrop.querySelector("[data-order-close]").focus();
+  });
+
+  document.addEventListener("keydown", onKeydown);
+  backdrop.querySelector("[data-order-approve]").focus();
+}
+
 function initForms() {
   document.querySelectorAll("[data-booking-form]").forEach((form) => {
     form.addEventListener("submit", (event) => {
       event.preventDefault();
       if (!validateTourMultiSelects(form)) return;
+
+      if (form.hasAttribute("data-order-entry")) {
+        const draft = createOrderDraft(form);
+        try {
+          sessionStorage.setItem(ORDER_DRAFT_KEY, JSON.stringify(draft));
+        } catch {
+          // Navigation still works if browser storage is unavailable.
+        }
+        window.location.href = "booking.html";
+        return;
+      }
+
+      if (form.hasAttribute("data-order-form")) {
+        showOrderConfirmation(form);
+        return;
+      }
+
       alert(t("booking.success"));
       form.reset();
       window.setTimeout(() => {
@@ -1769,6 +1958,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initHeader();
   initFaq();
   initTourMultiSelects();
+  initOrderPage();
   initPhoneFields();
   initForms();
   initDetailPage();

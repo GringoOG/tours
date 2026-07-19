@@ -1966,6 +1966,102 @@ body[data-page="home"] .faq-head .section-title {
   color: #ffd1d1;
 }
 
+.order-page-hero {
+  min-height: 330px;
+}
+
+.order-section {
+  padding-top: clamp(2rem, 4vw, 4rem);
+}
+
+.order-layout {
+  width: min(100%, 860px);
+  margin-inline: auto;
+}
+
+.order-panel {
+  position: relative;
+  top: auto;
+  padding: clamp(1.35rem, 4vw, 2.5rem);
+  background: var(--white);
+  box-shadow: 0 24px 70px rgba(33, 33, 33, 0.08);
+}
+
+.order-panel h2 {
+  margin: 0 0 1.25rem;
+}
+
+.order-panel .tour-multi {
+  margin-bottom: 0.5rem;
+}
+
+.order-submit {
+  width: 100%;
+  margin-top: 1.25rem;
+}
+
+.order-modal-open {
+  overflow: hidden;
+}
+
+.order-modal-backdrop {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+  background: rgba(8, 18, 18, 0.68);
+  backdrop-filter: blur(8px);
+}
+
+.order-modal {
+  width: min(100%, 500px);
+  padding: clamp(1.5rem, 4vw, 2.25rem);
+  border-radius: 20px;
+  background: var(--white);
+  color: var(--text);
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.25);
+}
+
+.order-modal h2 {
+  margin: 0;
+  font-size: clamp(1.55rem, 4vw, 2rem);
+}
+
+.order-modal p {
+  margin: 0.75rem 0 0;
+  color: var(--text-soft);
+}
+
+.order-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+}
+
+.order-modal-thanks {
+  text-align: center;
+}
+
+.order-modal-check {
+  display: inline-grid;
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-bottom: 1rem;
+  place-items: center;
+  border-radius: 50%;
+  background: #dff5ea;
+  color: #16734f;
+  font-size: 1.8rem;
+  font-weight: 800;
+}
+
+.order-modal-thanks .btn {
+  margin-top: 1.5rem;
+}
+
 .phone-field-wrap {
   margin: 0;
 }
@@ -2339,6 +2435,15 @@ body[data-page="home"] .faq-head .section-title {
 
   .tour-multi-menu {
     min-width: 100%;
+  }
+
+  .order-modal-actions {
+    flex-direction: column-reverse;
+  }
+
+  .order-modal-actions .btn,
+  .order-modal-thanks .btn {
+    width: 100%;
   }
 
   .feature-banner-content,
