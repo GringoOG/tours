@@ -1702,27 +1702,45 @@ body[data-page="home"] .faq-head .section-title {
 .about-hero-media {
   position: relative;
   overflow: hidden;
-  min-height: clamp(280px, 48vw, 520px);
+  width: min(100%, 50%);
+  max-width: 620px;
+  margin-inline: auto;
+  min-height: clamp(320px, 58vw, 560px);
   border-radius: clamp(22px, 3vw, 36px);
+  background: #111;
+  cursor: crosshair;
 }
 
-.about-hero-media img {
+.about-hero-media > .hero-water-canvas {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  min-height: clamp(280px, 48vw, 520px);
-  object-fit: cover;
-  object-position: center;
-  transform: scale(1.12);
-  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 0;
 }
 
-.about-hero-media.is-visible img {
-  transform: scale(1);
+.about-hero-media > .hero-water-source {
+  display: none;
+}
+
+.about-hero-media.is-static > .hero-water-canvas {
+  display: none;
+}
+
+.about-hero-media.is-static > .hero-water-source {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: clamp(320px, 58vw, 560px);
+  object-fit: cover;
+  object-position: center;
 }
 
 .about-hero-shade {
   position: absolute;
   inset: 0;
+  z-index: 1;
+  pointer-events: none;
   background:
     linear-gradient(180deg, rgba(8, 18, 18, 0.08) 20%, rgba(8, 18, 18, 0.55) 100%);
 }
@@ -1730,7 +1748,7 @@ body[data-page="home"] .faq-head .section-title {
 .about-hero-media h1 {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -1741,10 +1759,11 @@ body[data-page="home"] .faq-head .section-title {
   padding: 1.5rem;
   color: var(--white);
   text-align: center;
-  font-size: clamp(2.2rem, 5.5vw, 4.4rem);
+  font-size: clamp(1.85rem, 4.2vw, 3.1rem);
   line-height: 1.05;
   letter-spacing: -0.04em;
   text-wrap: balance;
+  pointer-events: none;
 }
 
 .about-word {
@@ -1762,39 +1781,8 @@ body[data-page="home"] .faq-head .section-title {
   transform: none;
 }
 
-.about-intro {
-  padding-top: clamp(2.5rem, 5vw, 4rem);
-  padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
-}
-
-.about-intro-grid {
-  display: grid;
-  grid-template-columns: minmax(140px, 220px) minmax(0, 1fr);
-  gap: clamp(1.25rem, 4vw, 3rem);
-  align-items: start;
-}
-
-.about-pill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: fit-content;
-  min-height: 2.4rem;
-  padding: 0.45rem 0.95rem;
-  border-radius: 12px;
-  background: #efefef;
-  color: var(--text);
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-.about-intro .section-title {
-  max-width: 18ch;
-  font-size: clamp(2.2rem, 4.5vw, 3.6rem);
-}
-
 .about-story {
-  padding-top: 0;
+  padding-top: clamp(2.5rem, 5vw, 4rem);
 }
 
 .about-story-grid {
@@ -1804,14 +1792,36 @@ body[data-page="home"] .faq-head .section-title {
   align-items: start;
 }
 
+.about-story-visual {
+  display: grid;
+  gap: 1rem;
+  justify-items: end;
+}
+
+.about-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-height: 2.4rem;
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  background: var(--white);
+  box-shadow: 0 10px 28px rgba(33, 33, 33, 0.1);
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
 .about-story-media {
+  width: 100%;
   overflow: hidden;
   border-radius: clamp(20px, 2.5vw, 28px);
 }
 
 .about-story-media img {
   width: 100%;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 5 / 4;
   object-fit: cover;
   transform: scale(1.1);
   transition: transform 1.15s cubic-bezier(0.22, 1, 0.36, 1);
@@ -1819,6 +1829,13 @@ body[data-page="home"] .faq-head .section-title {
 
 .about-story-media.is-visible img {
   transform: scale(1);
+}
+
+.about-story-title {
+  max-width: 14ch;
+  margin: 0 0 1.5rem;
+  font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+  text-wrap: balance;
 }
 
 .about-principle {
@@ -1869,6 +1886,8 @@ body[data-page="home"] .faq-head .section-title {
 
 .about-history-head,
 .about-awards-head {
+  position: relative;
+  z-index: 2;
   display: grid;
   justify-items: center;
   gap: 1rem;
@@ -1896,10 +1915,14 @@ body[data-page="home"] .faq-head .section-title {
 }
 
 .about-timeline {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.25rem;
   align-items: start;
+  overflow: clip;
+  padding-block: 0.5rem;
 }
 
 .about-year-card {
@@ -2063,11 +2086,19 @@ body[data-page="home"] .faq-head .section-title {
 }
 
 .about-fx-from-bottom {
-  transform: translate3d(0, min(300px, 42vh), 0);
+  transform: translate3d(0, min(120px, 18vh), 0);
 }
 
 .about-fx-from-top {
-  transform: translate3d(0, calc(min(300px, 42vh) * -1), 0);
+  transform: translate3d(0, calc(min(120px, 18vh) * -1), 0);
+}
+
+.about-year-card.about-fx-from-bottom {
+  transform: translate3d(0, 72px, 0);
+}
+
+.about-year-card.about-fx-from-top {
+  transform: translate3d(0, -72px, 0);
 }
 
 .about-fx-pop {
@@ -2102,7 +2133,7 @@ body[data-page="home"] .faq-head .section-title {
   .about-fx,
   .about-fx-pop,
   .about-word,
-  .about-hero-media img,
+  .about-hero-media.is-static > .hero-water-source,
   .about-story-media img,
   .about-gallery-grid img {
     opacity: 1 !important;
@@ -2139,12 +2170,20 @@ body[data-page="home"] .faq-head .section-title {
 }
 
 @media (max-width: 900px) {
-  .about-intro-grid,
+  .about-hero-media {
+    width: 100%;
+    max-width: none;
+  }
+
   .about-story-grid {
     grid-template-columns: 1fr;
   }
 
-  .about-intro .section-title {
+  .about-story-visual {
+    justify-items: start;
+  }
+
+  .about-story-title {
     max-width: none;
   }
 

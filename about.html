@@ -68,8 +68,14 @@
     <main>
       <section class="about-hero">
         <div class="container">
-          <div class="about-hero-media about-fx about-fx-media" data-about-fx>
+          <div
+            class="about-hero-media about-fx about-fx-media"
+            data-about-fx
+            data-hero-water
+          >
+            <canvas class="hero-water-canvas" aria-hidden="true"></canvas>
             <img
+              class="hero-water-source"
               src="assets/hero-main.png"
               alt="Sacred Valley adventure in Ollantaytambo"
               data-i18n-alt="images.hero"
@@ -82,35 +88,32 @@
         </div>
       </section>
 
-      <section class="section about-intro">
-        <div class="container about-intro-grid">
-          <span
-            class="about-pill about-fx about-fx-pop"
-            data-about-fx
-            data-i18n="about.servingSince"
-          >
-            Serving since 2016
-          </span>
-          <h2
-            class="section-title about-fx about-fx-fade-up"
-            data-about-fx
-            data-i18n="about.storyTitle"
-          >
-            About our travel agency journey and mission story today
-          </h2>
-        </div>
-      </section>
-
       <section class="section about-story">
         <div class="container about-story-grid">
-          <div class="about-story-media about-fx about-fx-media" data-about-fx>
-            <img
-              src="assets/moray.jpg"
-              alt="Moray terraces"
-              data-i18n-alt="images.morayTerraces"
-            />
+          <div class="about-story-visual">
+            <span
+              class="about-pill about-fx about-fx-pop"
+              data-about-fx
+              data-i18n="about.servingSince"
+            >
+              Serving since 2016
+            </span>
+            <div class="about-story-media about-fx about-fx-media" data-about-fx>
+              <img
+                src="assets/moray.jpg"
+                alt="Moray terraces"
+                data-i18n-alt="images.morayTerraces"
+              />
+            </div>
           </div>
           <div class="about-story-content">
+            <h2
+              class="section-title about-story-title about-fx about-fx-fade-up"
+              data-about-fx
+              data-i18n="about.storyTitle"
+            >
+              About our travel agency journey and mission story today
+            </h2>
             <div
               class="about-principle about-fx about-fx-slide-right"
               data-about-fx
