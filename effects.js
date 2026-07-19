@@ -691,22 +691,37 @@ function initFooterReveal() {
     return;
   }
 
+  const reveal = () => footer.classList.add("is-revealed");
+  const hide = () => footer.classList.remove("is-revealed");
+
+  const nearPageEnd = () => {
+    const doc = document.documentElement;
+    return window.scrollY + window.innerHeight >= doc.scrollHeight - 120;
+  };
+
   const observer = new IntersectionObserver(
     ([entry]) => {
-      // Reveal only once the watermark sits well into the viewport.
-      if (entry.isIntersecting && entry.intersectionRatio >= 0.55) {
-        footer.classList.add("is-revealed");
-      } else if (entry.boundingClientRect.top > window.innerHeight * 0.55) {
-        footer.classList.remove("is-revealed");
+      // Trigger once a meaningful slice of the watermark is in view,
+      // or immediately when the user reaches the page bottom.
+      if ((entry.isIntersecting && entry.intersectionRatio >= 0.2) || nearPageEnd()) {
+        reveal();
+      } else if (entry.boundingClientRect.top > window.innerHeight * 0.7) {
+        hide();
       }
     },
     {
-      threshold: [0, 0.35, 0.55, 0.75],
-      rootMargin: "0px 0px -28% 0px",
+      threshold: [0, 0.12, 0.2, 0.35, 0.5],
+      rootMargin: "0px 0px -10% 0px",
     }
   );
 
   observer.observe(watermark);
+
+  const onScroll = () => {
+    if (nearPageEnd()) reveal();
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
 }
 
 function initReviewsMarquee() {
