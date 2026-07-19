@@ -2223,8 +2223,8 @@ body[data-page="home"] .faq-head .section-title {
   overflow: hidden;
   display: grid;
   place-items: start center;
-  min-height: clamp(360px, 50vw, 580px);
-  padding: clamp(1.4rem, 3.5vw, 2.75rem);
+  min-height: clamp(270px, 37.5vw, 435px);
+  padding: clamp(1rem, 2.6vw, 2rem);
   border-radius: clamp(22px, 3vw, 36px);
   background: #111;
   color: var(--white);
@@ -2452,8 +2452,8 @@ body[data-page="home"] .faq-head .section-title {
 
 @media (max-width: 800px) {
   .reviews-hero-panel {
-    min-height: clamp(300px, 72vw, 420px);
-    padding: 1.1rem;
+    min-height: clamp(225px, 54vw, 315px);
+    padding: 0.9rem;
   }
 
   .reviews-hero-panel h1 {
