@@ -1,5 +1,6 @@
 const STORAGE_KEY = "tours-lang";
 const ORDER_DRAFT_KEY = "ollanta-order-draft";
+const MAX_TRAVELERS = 20;
 const SUPPORTED_LOCALES = ["en", "es", "fr"];
 
 const tours = [
@@ -316,6 +317,13 @@ const i18n = {
       tourDate: "Date",
       dateLater: "Arrange the date later",
       tourTravelers: "Travelers",
+      pricePerPerson: "Price per person",
+      tourTotal: "Tour total",
+      orderSummary: "Order summary",
+      totalOrder: "Total order price",
+      pricesInUsd: "Prices are shown in USD.",
+      travelerOptionOne: "1 traveler",
+      travelerOptionMany: "{count} travelers",
       requiredTours: "Select at least one tour.",
       travelers: "Number of travelers",
       message: "Message",
@@ -626,6 +634,13 @@ const i18n = {
       tourDate: "Fecha",
       dateLater: "Acordar la fecha más adelante",
       tourTravelers: "Viajeros",
+      pricePerPerson: "Precio por persona",
+      tourTotal: "Total del tour",
+      orderSummary: "Resumen del pedido",
+      totalOrder: "Precio total del pedido",
+      pricesInUsd: "Los precios se muestran en USD.",
+      travelerOptionOne: "1 viajero",
+      travelerOptionMany: "{count} viajeros",
       requiredTours: "Selecciona al menos un tour.",
       travelers: "Número de viajeros",
       message: "Mensaje",
@@ -936,6 +951,13 @@ const i18n = {
       tourDate: "Date",
       dateLater: "Fixer la date plus tard",
       tourTravelers: "Voyageurs",
+      pricePerPerson: "Prix par personne",
+      tourTotal: "Total du circuit",
+      orderSummary: "Récapitulatif de la réservation",
+      totalOrder: "Prix total de la réservation",
+      pricesInUsd: "Les prix sont indiqués en USD.",
+      travelerOptionOne: "1 voyageur",
+      travelerOptionMany: "{count} voyageurs",
       requiredTours: "Sélectionnez au moins un circuit.",
       travelers: "Nombre de voyageurs",
       message: "Message",
@@ -1526,15 +1548,77 @@ function captureTourDetailValues(picker) {
 }
 
 function tourTravelerOptions(lang, selected = "1") {
-  return [1, 2, 3, 4]
+  return Array.from({ length: MAX_TRAVELERS }, (_, index) => index + 1)
     .map((count) => {
       const value = String(count);
-      return `<option value="${value}"${value === selected ? " selected" : ""}>${t(
-        `selects.travelers${count}`,
-        lang
-      )}</option>`;
+      const label =
+        count === 1
+          ? t("booking.travelerOptionOne", lang)
+          : t("booking.travelerOptionMany", lang).replace("{count}", count);
+      return `<option value="${value}"${value === selected ? " selected" : ""}>${label}</option>`;
     })
     .join("");
+}
+
+function formatUsd(amount) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  }).format(amount);
+}
+
+function updateOrderPricing(picker, lang = getLang()) {
+  const form = picker.closest("[data-order-form]");
+  const summary = form?.querySelector("[data-order-price-summary]");
+  if (!form || !summary) return;
+
+  captureTourDetailValues(picker);
+  const items = selectedTourSlugs(picker.sourceSelect)
+    .map((slug) => {
+      const tour = tours.find((item) => item.slug === slug);
+      if (!tour) return null;
+      const travelers = Math.max(
+        1,
+        Number(picker.tourValues.get(slug)?.travelers) || 1
+      );
+      const total = tour.price * travelers;
+      picker.querySelector(
+        `[data-tour-booking-row="${slug}"] [data-tour-total]`
+      ).textContent = formatUsd(total);
+      return {
+        name: t(`tours.${slug}.name`, lang),
+        travelers,
+        unitPrice: tour.price,
+        total,
+      };
+    })
+    .filter(Boolean);
+
+  summary.hidden = items.length === 0;
+  summary.querySelector("[data-order-summary-lines]").innerHTML = items
+    .map((item) => {
+      const travelersLabel =
+        item.travelers === 1
+          ? t("booking.travelerOptionOne", lang)
+          : t("booking.travelerOptionMany", lang).replace(
+              "{count}",
+              item.travelers
+            );
+      return `
+        <div class="order-summary-line">
+          <span>
+            <strong>${item.name}</strong>
+            <small>${travelersLabel} × ${formatUsd(item.unitPrice)}</small>
+          </span>
+          <strong>${formatUsd(item.total)}</strong>
+        </div>
+      `;
+    })
+    .join("");
+  summary.querySelector("[data-order-grand-total]").textContent = formatUsd(
+    items.reduce((total, item) => total + item.total, 0)
+  );
 }
 
 function renderTourBookingDetails(picker, lang = getLang()) {
@@ -1554,6 +1638,13 @@ function renderTourBookingDetails(picker, lang = getLang()) {
         travelers: "1",
       };
       const name = t(`tours.${slug}.name`, lang);
+      const tour = tours.find((item) => item.slug === slug);
+      const showPricing = Boolean(
+        picker.closest("[data-order-form]") && tour
+      );
+      const tourTotal = tour
+        ? tour.price * (Number(values.travelers) || 1)
+        : 0;
       return `
         <article class="tour-booking-row" data-tour-booking-row="${slug}">
           <strong>${name}</strong>
@@ -1587,10 +1678,27 @@ function renderTourBookingDetails(picker, lang = getLang()) {
               ${tourTravelerOptions(lang, values.travelers)}
             </select>
           </label>
+          ${
+            showPricing
+              ? `
+                <div class="tour-price-details">
+                  <span>
+                    <small>${t("booking.pricePerPerson", lang)}</small>
+                    <strong>${formatUsd(tour.price)}</strong>
+                  </span>
+                  <span>
+                    <small>${t("booking.tourTotal", lang)}</small>
+                    <strong data-tour-total>${formatUsd(tourTotal)}</strong>
+                  </span>
+                </div>
+              `
+              : ""
+          }
         </article>
       `;
     })
     .join("");
+  updateOrderPricing(picker, lang);
 }
 
 function refreshTourMultiPicker(picker, lang = getLang()) {
@@ -1713,6 +1821,13 @@ function initTourMultiSelects() {
         return;
       }
 
+      const travelers = event.target.closest("[data-tour-travelers]");
+      if (travelers) {
+        captureTourDetailValues(picker);
+        updateOrderPricing(picker);
+        return;
+      }
+
       const checkbox = event.target.closest('.tour-multi-option input[type="checkbox"]');
       if (!checkbox) return;
       const option = [...select.options].find(
@@ -1789,9 +1904,12 @@ function readOrderDraft() {
               ? item.date
               : "",
           dateLater: Boolean(item.dateLater),
-          travelers: ["1", "2", "3", "4"].includes(String(item.travelers))
-            ? String(item.travelers)
-            : "1",
+          travelers:
+            Number.isInteger(Number(item.travelers)) &&
+            Number(item.travelers) >= 1 &&
+            Number(item.travelers) <= MAX_TRAVELERS
+              ? String(item.travelers)
+              : "1",
         })),
     };
   } catch {

@@ -114,6 +114,28 @@
               multiple
             ></select>
 
+            <section
+              class="order-price-summary"
+              data-order-price-summary
+              aria-live="polite"
+              hidden
+            >
+              <div class="order-summary-heading">
+                <h3 data-i18n="booking.orderSummary">Order summary</h3>
+                <small data-i18n="booking.pricesInUsd">
+                  Prices are shown in USD.
+                </small>
+              </div>
+              <div
+                class="order-summary-lines"
+                data-order-summary-lines
+              ></div>
+              <div class="order-grand-total">
+                <span data-i18n="booking.totalOrder">Total order price</span>
+                <strong data-order-grand-total>$0</strong>
+              </div>
+            </section>
+
             <button
               class="btn btn-primary order-submit"
               type="submit"

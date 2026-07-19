@@ -2003,6 +2003,97 @@ body[data-page="home"] .faq-head .section-title {
   margin-bottom: 0.5rem;
 }
 
+.order-panel .tour-booking-row {
+  align-items: start;
+}
+
+.tour-price-details {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--border);
+}
+
+.tour-price-details > span {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.tour-price-details > span:last-child {
+  text-align: right;
+}
+
+.tour-price-details small,
+.order-summary-line small,
+.order-summary-heading small {
+  color: var(--text-soft);
+  font-size: 0.78rem;
+}
+
+.tour-price-details strong {
+  font-size: 1.05rem;
+}
+
+.order-price-summary {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.25rem;
+  padding: clamp(1rem, 3vw, 1.4rem);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: #f8faf9;
+}
+
+.order-price-summary[hidden] {
+  display: none;
+}
+
+.order-summary-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.order-summary-heading h3 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.order-summary-lines {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.order-summary-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.order-summary-line > span {
+  display: grid;
+  gap: 0.1rem;
+}
+
+.order-grand-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.order-grand-total strong {
+  font-size: clamp(1.4rem, 4vw, 1.8rem);
+}
+
 .order-submit {
   width: 100%;
   margin-top: 1.25rem;
@@ -2447,6 +2538,12 @@ body[data-page="home"] .faq-head .section-title {
 
   .order-modal-actions {
     flex-direction: column-reverse;
+  }
+
+  .order-summary-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.2rem;
   }
 
   .order-modal-actions .btn,
