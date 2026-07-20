@@ -18,7 +18,30 @@
     </header>
     <main data-tour-detail="mountain-bike">
       <section class="page-hero"><div class="container"><p class="eyebrow" data-detail-location>Sacred Valley</p><h1 data-detail-title>Mountain Bike Adventure</h1><p data-detail-short>Downhill and valley routes around Ollantaytambo with bike, gear, and support vehicle.</p><div class="tour-price" data-detail-price>$69 <small>/ per person</small></div></div></section>
-      <section class="section"><div class="container detail-layout"><div class="detail-content"><img data-detail-image src="" alt="Mountain Bike Adventure" data-i18n-alt="tours.mountain-bike.name" style="border-radius:20px;width:100%;aspect-ratio:16/9;object-fit:cover" /><h2 data-i18n="pages.aboutTour">About this tour</h2><p data-detail-short>Downhill and valley routes around Ollantaytambo with bike, gear, and support vehicle.</p><h2 data-i18n="pages.whyTour">Why choose this tour</h2><ul><li data-i18n="tours.mountain-bike.benefit1">Quality bikes and safety equipment included</li><li data-i18n="tours.mountain-bike.benefit2">Routes adapted to your skill level</li><li data-i18n="tours.mountain-bike.benefit3">Support vehicle and guide throughout</li></ul><h2 data-i18n="pages.itinerary">Itinerary</h2><ul data-detail-itinerary></ul></div><form class="booking-panel" data-booking-form><h3 data-i18n="pages.bookNow">Book now</h3><label data-i18n="booking.name">Full name</label><input required /><label data-i18n="booking.email">Email</label><input type="email" required /><label data-i18n="booking.destination">Tour</label><select data-tour-select data-multi-tour name="tours" multiple></select><label data-i18n="booking.message">Message</label><textarea></textarea><button class="btn btn-primary" style="width:100%;margin-top:1rem" type="submit" data-i18n="booking.submit">Send request</button></form></div></section>
+      <section class="section"><div class="container detail-layout"><div class="detail-content"><img data-detail-image src="" alt="Mountain Bike Adventure" data-i18n-alt="tours.mountain-bike.name" style="border-radius:20px;width:100%;aspect-ratio:16/9;object-fit:cover" /><h2 data-i18n="pages.aboutTour">About this tour</h2><p data-detail-short>Downhill and valley routes around Ollantaytambo with bike, gear, and support vehicle.</p><h2 data-i18n="pages.whyTour">Why choose this tour</h2><ul><li data-i18n="tours.mountain-bike.benefit1">Quality bikes and safety equipment included</li><li data-i18n="tours.mountain-bike.benefit2">Routes adapted to your skill level</li><li data-i18n="tours.mountain-bike.benefit3">Support vehicle and guide throughout</li></ul><h2 data-i18n="pages.itinerary">Itinerary</h2><ul data-detail-itinerary></ul></div><form class="booking-panel detail-booking-panel" data-booking-form data-order-entry>
+              <h3 data-i18n="pages.bookNow">Book now</h3>
+              <label data-i18n="booking.destination">Tours</label>
+              <select data-tour-select data-multi-tour name="tours" multiple></select>
+              <section
+                class="order-price-summary"
+                data-order-price-summary
+                aria-live="polite"
+                hidden
+              >
+                <div class="order-summary-heading">
+                  <h3 data-i18n="booking.orderSummary">Order summary</h3>
+                  <small data-i18n="booking.pricesInUsd">Prices are shown in USD.</small>
+                </div>
+                <div class="order-summary-lines" data-order-summary-lines></div>
+                <div class="order-grand-total">
+                  <span data-i18n="booking.totalOrder">Total order price</span>
+                  <strong data-order-grand-total>$0</strong>
+                </div>
+              </section>
+              <button class="btn btn-primary" style="width:100%;margin-top:1rem" type="submit" data-i18n="booking.continueBooking">
+                Continue to booking
+              </button>
+            </form></div></section>
     </main>
     <footer class="site-footer" data-footer-stage>
       <div class="footer-backdrop" aria-hidden="true"></div>

@@ -326,6 +326,19 @@ const i18n = {
       destinationsLead: "Choose from our most popular adventures or contact us for a custom itinerary.",
       contactTitle: "Reach out for help today",
       contactLead: "Connect with us for the best travel support in Ollantaytambo.",
+      contactPanelTitle: "Connect with us for the best travel support",
+      contactPanelText:
+        "Connect with us for the best travel support and experience personalized assistance for all your travel needs. Our dedicated local team is ready to help in Ollantaytambo.",
+      contactDestination: "Travel destination",
+      contactDestinationPlaceholder: "Machu Picchu, Sacred Valley...",
+      contactNamePlaceholder: "Jane Smith",
+      contactEmailPlaceholder: "jane@email.com",
+      contactMessagePlaceholder: "Write your message here...",
+      contactSubmit: "Send message",
+      contactMapTitle: "Ollanta Tours on Plaza Principal, Ollantaytambo",
+      phoneLabel: "Phone number",
+      emailLabel: "Email address",
+      officeLabel: "Office address",
       testimonialsBadge: "Reviews",
       testimonialsTitle: "Read reviews from\nhappy guests",
       testimonialsLead: "Real stories from travelers who explored the Sacred Valley with us.",
@@ -334,7 +347,7 @@ const i18n = {
       phone: "Phone",
       email: "Email",
       office: "Office",
-      address: "Plaza Principal, Ollantaytambo, Cusco, Peru",
+      address: "Plaza Principal, Ollantaytambo",
       itinerary: "Itinerary",
       aboutTour: "About this tour",
       whyTour: "Why choose this tour",
@@ -368,6 +381,7 @@ const i18n = {
       orderLead: "Your selected tours are ready. Add one lead traveler and contact details to continue.",
       contactDetails: "Lead traveler details",
       confirmOrder: "Confirm booking",
+      continueBooking: "Continue to booking",
       confirmTitle: "Confirm your booking?",
       confirmText: "Are you sure you want to place this booking?",
       cancelConfirmation: "Go back",
@@ -678,6 +692,19 @@ const i18n = {
       destinationsLead: "Elige entre nuestras aventuras más populares o contáctanos para un itinerario personalizado.",
       contactTitle: "Contáctanos hoy",
       contactLead: "Conéctate con nosotros para el mejor soporte de viaje en Ollantaytambo.",
+      contactPanelTitle: "Conéctate con nosotros para el mejor soporte de viaje",
+      contactPanelText:
+        "Conéctate con nosotros para recibir el mejor soporte de viaje y una asistencia personalizada para todas tus necesidades. Nuestro equipo local está listo para ayudarte en Ollantaytambo.",
+      contactDestination: "Destino de viaje",
+      contactDestinationPlaceholder: "Machu Picchu, Valle Sagrado...",
+      contactNamePlaceholder: "Jane Smith",
+      contactEmailPlaceholder: "jane@email.com",
+      contactMessagePlaceholder: "Escribe tu mensaje aquí...",
+      contactSubmit: "Enviar mensaje",
+      contactMapTitle: "Ollanta Tours en la Plaza Principal, Ollantaytambo",
+      phoneLabel: "Número de teléfono",
+      emailLabel: "Correo electrónico",
+      officeLabel: "Dirección de la oficina",
       testimonialsBadge: "Reseñas",
       testimonialsTitle: "Lee reseñas de\nhuéspedes felices",
       testimonialsLead: "Historias reales de viajeros que exploraron el Valle Sagrado con nosotros.",
@@ -686,7 +713,7 @@ const i18n = {
       phone: "Teléfono",
       email: "Correo",
       office: "Oficina",
-      address: "Plaza Principal, Ollantaytambo, Cusco, Perú",
+      address: "Plaza Principal, Ollantaytambo",
       itinerary: "Itinerario",
       aboutTour: "Sobre este tour",
       whyTour: "Por qué elegir este tour",
@@ -720,6 +747,7 @@ const i18n = {
       orderLead: "Tus tours seleccionados están listos. Añade los datos de una persona responsable y la información de contacto.",
       contactDetails: "Datos de la persona responsable",
       confirmOrder: "Confirmar reserva",
+      continueBooking: "Continuar con la reserva",
       confirmTitle: "¿Confirmar tu reserva?",
       confirmText: "¿Seguro que quieres realizar esta reserva?",
       cancelConfirmation: "Volver",
@@ -1030,6 +1058,19 @@ const i18n = {
       destinationsLead: "Choisissez parmi nos aventures les plus populaires ou contactez-nous pour un itinéraire sur mesure.",
       contactTitle: "Contactez-nous dès aujourd'hui",
       contactLead: "Notre équipe est à votre écoute pour vous accompagner au mieux à Ollantaytambo.",
+      contactPanelTitle: "Contactez-nous pour le meilleur accompagnement de voyage",
+      contactPanelText:
+        "Contactez-nous pour bénéficier du meilleur accompagnement et d'une assistance personnalisée pour tous vos besoins de voyage. Notre équipe locale est prête à vous aider à Ollantaytambo.",
+      contactDestination: "Destination de voyage",
+      contactDestinationPlaceholder: "Machu Picchu, Vallée sacrée...",
+      contactNamePlaceholder: "Jane Smith",
+      contactEmailPlaceholder: "jane@email.com",
+      contactMessagePlaceholder: "Écrivez votre message ici...",
+      contactSubmit: "Envoyer le message",
+      contactMapTitle: "Ollanta Tours sur la Plaza Principal, Ollantaytambo",
+      phoneLabel: "Numéro de téléphone",
+      emailLabel: "Adresse e-mail",
+      officeLabel: "Adresse du bureau",
       testimonialsBadge: "Avis",
       testimonialsTitle: "Découvrez les avis\nde nos voyageurs",
       testimonialsLead: "Des récits authentiques de voyageurs ayant exploré la Vallée sacrée avec nous.",
@@ -1038,7 +1079,7 @@ const i18n = {
       phone: "Téléphone",
       email: "E-mail",
       office: "Agence",
-      address: "Plaza Principal, Ollantaytambo, Cusco, Pérou",
+      address: "Plaza Principal, Ollantaytambo",
       itinerary: "Itinéraire",
       aboutTour: "À propos de ce circuit",
       whyTour: "Pourquoi choisir ce circuit",
@@ -1072,6 +1113,7 @@ const i18n = {
       orderLead: "Vos circuits sélectionnés sont prêts. Ajoutez les coordonnées d'une personne responsable pour continuer.",
       contactDetails: "Coordonnées de la personne responsable",
       confirmOrder: "Confirmer la réservation",
+      continueBooking: "Continuer la réservation",
       confirmTitle: "Confirmer votre réservation ?",
       confirmText: "Voulez-vous vraiment effectuer cette réservation ?",
       cancelConfirmation: "Retour",
@@ -1240,6 +1282,10 @@ function applyTranslations(lang) {
 
   document.querySelectorAll("[data-i18n-alt]").forEach((el) => {
     el.setAttribute("alt", t(el.dataset.i18nAlt, lang));
+  });
+
+  document.querySelectorAll("[data-i18n-title]").forEach((el) => {
+    el.setAttribute("title", t(el.dataset.i18nTitle, lang));
   });
 
   document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
@@ -1612,11 +1658,16 @@ function initPhoneFields() {
     if (form.classList.contains("hero-booking")) return;
     if (form.querySelector("[data-phone-field]")) return;
 
-    const emailInput = form.querySelector('input[type="email"]');
-    if (!emailInput) return;
-
     const wrap = createPhoneField();
-    emailInput.after(wrap);
+    const mount = form.querySelector("[data-phone-mount]");
+    if (mount) {
+      mount.replaceWith(wrap);
+      wrap.classList.add("contact-field");
+    } else {
+      const emailInput = form.querySelector('input[type="email"]');
+      if (!emailInput) return;
+      emailInput.after(wrap);
+    }
     bindPhoneField(wrap);
   });
 }
@@ -1676,7 +1727,9 @@ function formatUsd(amount) {
 }
 
 function updateOrderPricing(picker, lang = getLang()) {
-  const form = picker.closest("[data-order-form]");
+  const form = picker.closest(
+    "[data-order-form], [data-tour-detail] [data-order-entry]"
+  );
   const summary = form?.querySelector("[data-order-price-summary]");
   if (!form || !summary) return;
 
@@ -1747,7 +1800,9 @@ function renderTourBookingDetails(picker, lang = getLang()) {
       const name = t(`tours.${slug}.name`, lang);
       const tour = tours.find((item) => item.slug === slug);
       const showPricing = Boolean(
-        picker.closest("[data-order-form]") && tour
+        (picker.closest("[data-order-form]") ||
+          picker.closest("[data-tour-detail]")) &&
+          tour
       );
       const tourTotal = tour
         ? tour.price * (Number(values.travelers) || 1)
@@ -1756,35 +1811,37 @@ function renderTourBookingDetails(picker, lang = getLang()) {
         <article class="tour-booking-row" data-tour-booking-row="${slug}">
           <strong>${name}</strong>
           <input type="hidden" name="tours[]" value="${slug}" />
-          <div class="tour-date-field">
-            <label>
-              <span>${t("booking.tourDate", lang)}</span>
-              <input
-                type="date"
-                name="tourDate[${slug}]"
-                value="${values.date}"
-                ${values.dateLater ? "disabled" : ""}
-                ${values.dateLater || canChooseDateLaterOnNextPage ? "" : "required"}
-                data-tour-date
-              />
-            </label>
-            <label class="tour-date-later">
-              <input
-                type="checkbox"
-                name="tourDateLater[${slug}]"
-                value="yes"
-                ${values.dateLater ? "checked" : ""}
-                data-tour-date-later
-              />
-              <span>${t("booking.dateLater", lang)}</span>
+          <div class="tour-booking-main">
+            <div class="tour-date-field">
+              <label>
+                <span>${t("booking.tourDate", lang)}</span>
+                <input
+                  type="date"
+                  name="tourDate[${slug}]"
+                  value="${values.date}"
+                  ${values.dateLater ? "disabled" : ""}
+                  ${values.dateLater || canChooseDateLaterOnNextPage ? "" : "required"}
+                  data-tour-date
+                />
+              </label>
+              <label class="tour-date-later">
+                <input
+                  type="checkbox"
+                  name="tourDateLater[${slug}]"
+                  value="yes"
+                  ${values.dateLater ? "checked" : ""}
+                  data-tour-date-later
+                />
+                <span>${t("booking.dateLater", lang)}</span>
+              </label>
+            </div>
+            <label class="tour-travelers-field">
+              <span>${t("booking.tourTravelers", lang)}</span>
+              <select name="tourTravelers[${slug}]" required data-tour-travelers>
+                ${tourTravelerOptions(lang, values.travelers)}
+              </select>
             </label>
           </div>
-          <label>
-            <span>${t("booking.tourTravelers", lang)}</span>
-            <select name="tourTravelers[${slug}]" required data-tour-travelers>
-              ${tourTravelerOptions(lang, values.travelers)}
-            </select>
-          </label>
           ${
             showPricing
               ? `
@@ -1962,6 +2019,8 @@ function initTourMultiSelects() {
 }
 
 function validateTourMultiSelects(form) {
+  if (form.hasAttribute("data-tours-optional")) return true;
+
   let valid = true;
   form.querySelectorAll("[data-tour-multi-picker]").forEach((picker) => {
     const hasTours = selectedTourSlugs(picker.sourceSelect).length > 0;
