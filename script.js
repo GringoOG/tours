@@ -1,7 +1,15 @@
 const STORAGE_KEY = "tours-lang";
+const CURRENCY_KEY = "tours-currency";
 const ORDER_DRAFT_KEY = "ollanta-order-draft";
 const MAX_TRAVELERS = 20;
 const SUPPORTED_LOCALES = ["en", "es", "fr"];
+const SUPPORTED_CURRENCIES = ["USD", "PEN", "EUR"];
+/** Approximate tourist conversion rates from USD (base tour prices). */
+const CURRENCY_RATES = {
+  USD: 1,
+  PEN: 3.75,
+  EUR: 0.92,
+};
 
 const tours = [
   {
@@ -84,6 +92,7 @@ const i18n = {
       mainNavigation: "Main navigation",
       mobileNavigation: "Mobile navigation",
       language: "Language",
+      currency: "Currency",
       menu: "Menu",
     },
     images: {
@@ -370,7 +379,8 @@ const i18n = {
       tourTotal: "Tour total",
       orderSummary: "Order summary",
       totalOrder: "Total order price",
-      pricesInUsd: "Prices are shown in USD.",
+      pricesInUsd: "Prices are shown in {code}.",
+      pricesInCurrency: "Prices are shown in {code}.",
       travelerOptionOne: "1 traveler",
       travelerOptionMany: "{count} travelers",
       requiredTours: "Select at least one tour.",
@@ -451,6 +461,7 @@ const i18n = {
       mainNavigation: "Navegación principal",
       mobileNavigation: "Navegación móvil",
       language: "Idioma",
+      currency: "Moneda",
       menu: "Menú",
     },
     images: {
@@ -737,7 +748,8 @@ const i18n = {
       tourTotal: "Total del tour",
       orderSummary: "Resumen del pedido",
       totalOrder: "Precio total del pedido",
-      pricesInUsd: "Los precios se muestran en USD.",
+      pricesInUsd: "Los precios se muestran en {code}.",
+      pricesInCurrency: "Los precios se muestran en {code}.",
       travelerOptionOne: "1 viajero",
       travelerOptionMany: "{count} viajeros",
       requiredTours: "Selecciona al menos un tour.",
@@ -818,6 +830,7 @@ const i18n = {
       mainNavigation: "Navigation principale",
       mobileNavigation: "Navigation mobile",
       language: "Langue",
+      currency: "Devise",
       menu: "Menu",
     },
     images: {
@@ -1104,7 +1117,8 @@ const i18n = {
       tourTotal: "Total du circuit",
       orderSummary: "Récapitulatif de la réservation",
       totalOrder: "Prix total de la réservation",
-      pricesInUsd: "Les prix sont indiqués en USD.",
+      pricesInUsd: "Les prix sont indiqués en {code}.",
+      pricesInCurrency: "Les prix sont indiqués en {code}.",
       travelerOptionOne: "1 voyageur",
       travelerOptionMany: "{count} voyageurs",
       requiredTours: "Sélectionnez au moins un circuit.",
@@ -1243,8 +1257,89 @@ function getLang() {
   return SUPPORTED_LOCALES.includes(saved) ? saved : "en";
 }
 
+function getCurrency() {
+  const saved = localStorage.getItem(CURRENCY_KEY);
+  return SUPPORTED_CURRENCIES.includes(saved) ? saved : "USD";
+}
+
 function t(path, lang = getLang()) {
   return path.split(".").reduce((acc, key) => acc?.[key], i18n[lang]) ?? path;
+}
+
+function formatMoney(amountUsd) {
+  const currency = getCurrency();
+  const amount = Math.round(Number(amountUsd) * CURRENCY_RATES[currency]);
+  const locale =
+    currency === "PEN" ? "es-PE" : currency === "EUR" ? "de-DE" : "en-US";
+  return new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency,
+    maximumFractionDigits: 0,
+  }).format(amount);
+}
+
+function updateCurrencyLabels(lang = getLang()) {
+  const code = getCurrency();
+  const label = t("booking.pricesInCurrency", lang).replace("{code}", code);
+  document
+    .querySelectorAll(
+      '[data-i18n="booking.pricesInCurrency"], [data-i18n="booking.pricesInUsd"]'
+    )
+    .forEach((el) => {
+      el.textContent = label;
+    });
+  document.querySelectorAll(".currency-switch").forEach((el) => {
+    el.setAttribute("aria-label", t("a11y.currency", lang));
+  });
+  document.querySelectorAll(".currency-switch button").forEach((btn) => {
+    btn.classList.toggle("active", btn.dataset.currency === code);
+  });
+}
+
+function refreshPrices(lang = getLang()) {
+  updateCurrencyLabels(lang);
+  renderTourCards(document.querySelector("[data-tour-grid]"));
+
+  const detailRoot = document.querySelector("[data-tour-detail]");
+  if (detailRoot) {
+    const slug = detailRoot.dataset.tourDetail;
+    const tour = tours.find((item) => item.slug === slug);
+    const priceEl = detailRoot.querySelector("[data-detail-price]");
+    if (tour && priceEl) {
+      const data = t(`tours.${slug}`, lang);
+      priceEl.innerHTML = `${formatMoney(tour.price)} <small>${data.per}</small>`;
+    }
+  }
+
+  refreshTourMultiSelects(lang);
+}
+
+function setCurrency(code) {
+  if (!SUPPORTED_CURRENCIES.includes(code)) code = "USD";
+  localStorage.setItem(CURRENCY_KEY, code);
+  refreshPrices();
+}
+
+function initCurrencySwitch() {
+  document.querySelectorAll(".header-actions .lang-switch").forEach((langSwitch) => {
+    if (langSwitch.parentElement.querySelector(".currency-switch")) return;
+
+    const wrap = document.createElement("div");
+    wrap.className = "currency-switch";
+    wrap.dataset.i18nAriaLabel = "a11y.currency";
+    wrap.setAttribute("aria-label", t("a11y.currency"));
+    wrap.innerHTML = SUPPORTED_CURRENCIES.map(
+      (code) =>
+        `<button type="button" data-currency="${code}">${code}</button>`
+    ).join("");
+    langSwitch.after(wrap);
+
+    wrap.querySelectorAll("button").forEach((btn) => {
+      btn.classList.toggle("active", btn.dataset.currency === getCurrency());
+      btn.addEventListener("click", () => setCurrency(btn.dataset.currency));
+    });
+  });
+  updateCurrencyLabels();
 }
 
 function getSortedTours(lang = getLang()) {
@@ -1336,6 +1431,7 @@ function applyTranslations(lang) {
   });
 
   refreshTourMultiSelects(lang);
+  updateCurrencyLabels(lang);
 }
 
 function renderTourCards(container) {
@@ -1358,7 +1454,7 @@ function renderTourCards(container) {
           <div class="tour-card-body">
             <div class="tour-location">${data.location}</div>
             <h3 class="tour-name">${data.name}</h3>
-            <div class="tour-price">$${tour.price} <small>${data.per}</small></div>
+            <div class="tour-price">${formatMoney(tour.price)} <small>${data.per}</small></div>
           </div>
         </a>
       `;
@@ -1721,14 +1817,6 @@ function tourTravelerOptions(lang, selected = "1") {
     .join("");
 }
 
-function formatUsd(amount) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(amount);
-}
-
 function updateOrderPricing(picker, lang = getLang()) {
   const form = picker.closest(
     "[data-order-form], [data-tour-detail] [data-order-entry]"
@@ -1748,7 +1836,7 @@ function updateOrderPricing(picker, lang = getLang()) {
       const total = tour.price * travelers;
       picker.querySelector(
         `[data-tour-booking-row="${slug}"] [data-tour-total]`
-      ).textContent = formatUsd(total);
+      ).textContent = formatMoney(total);
       return {
         name: t(`tours.${slug}.name`, lang),
         travelers,
@@ -1772,14 +1860,14 @@ function updateOrderPricing(picker, lang = getLang()) {
         <div class="order-summary-line">
           <span>
             <strong>${item.name}</strong>
-            <small>${travelersLabel} × ${formatUsd(item.unitPrice)}</small>
+            <small>${travelersLabel} × ${formatMoney(item.unitPrice)}</small>
           </span>
-          <strong>${formatUsd(item.total)}</strong>
+          <strong>${formatMoney(item.total)}</strong>
         </div>
       `;
     })
     .join("");
-  summary.querySelector("[data-order-grand-total]").textContent = formatUsd(
+  summary.querySelector("[data-order-grand-total]").textContent = formatMoney(
     items.reduce((total, item) => total + item.total, 0)
   );
 }
@@ -1814,36 +1902,47 @@ function renderTourBookingDetails(picker, lang = getLang()) {
         <article class="tour-booking-row" data-tour-booking-row="${slug}">
           <strong>${name}</strong>
           <input type="hidden" name="tours[]" value="${slug}" />
-          <div class="tour-booking-main">
-            <div class="tour-date-field">
-              <label>
-                <span>${t("booking.tourDate", lang)}</span>
-                <input
-                  type="date"
-                  name="tourDate[${slug}]"
-                  value="${values.date}"
-                  ${values.dateLater ? "disabled" : ""}
-                  ${values.dateLater || canChooseDateLaterOnNextPage ? "" : "required"}
-                  data-tour-date
-                />
-              </label>
-              <label class="tour-date-later">
-                <input
-                  type="checkbox"
-                  name="tourDateLater[${slug}]"
-                  value="yes"
-                  ${values.dateLater ? "checked" : ""}
-                  data-tour-date-later
-                />
-                <span>${t("booking.dateLater", lang)}</span>
+          <div class="tour-booking-body">
+            <div class="tour-booking-main">
+              <div class="tour-date-field">
+                <label>
+                  <span>${t("booking.tourDate", lang)}</span>
+                  <input
+                    type="date"
+                    name="tourDate[${slug}]"
+                    value="${values.date}"
+                    ${values.dateLater ? "disabled" : ""}
+                    ${values.dateLater || canChooseDateLaterOnNextPage ? "" : "required"}
+                    data-tour-date
+                  />
+                </label>
+                <label class="tour-date-later">
+                  <input
+                    type="checkbox"
+                    name="tourDateLater[${slug}]"
+                    value="yes"
+                    ${values.dateLater ? "checked" : ""}
+                    data-tour-date-later
+                  />
+                  <span>${t("booking.dateLater", lang)}</span>
+                </label>
+              </div>
+              <label class="tour-travelers-field">
+                <span>${t("booking.tourTravelers", lang)}</span>
+                <select name="tourTravelers[${slug}]" required data-tour-travelers>
+                  ${tourTravelerOptions(lang, values.travelers)}
+                </select>
               </label>
             </div>
-            <label class="tour-travelers-field">
-              <span>${t("booking.tourTravelers", lang)}</span>
-              <select name="tourTravelers[${slug}]" required data-tour-travelers>
-                ${tourTravelerOptions(lang, values.travelers)}
-              </select>
-            </label>
+            ${
+              tour
+                ? `
+                  <figure class="tour-booking-photo">
+                    <img src="${tour.image}" alt="${name}" loading="lazy" />
+                  </figure>
+                `
+                : ""
+            }
           </div>
           ${
             showPricing
@@ -1851,11 +1950,11 @@ function renderTourBookingDetails(picker, lang = getLang()) {
                 <div class="tour-price-details">
                   <span>
                     <small>${t("booking.pricePerPerson", lang)}</small>
-                    <strong>${formatUsd(tour.price)}</strong>
+                    <strong>${formatMoney(tour.price)}</strong>
                   </span>
                   <span>
                     <small>${t("booking.tourTotal", lang)}</small>
-                    <strong data-tour-total>${formatUsd(tourTotal)}</strong>
+                    <strong data-tour-total>${formatMoney(tourTotal)}</strong>
                   </span>
                 </div>
               `
@@ -2248,7 +2347,7 @@ function initDetailPage() {
   const data = t(`tours.${slug}`, lang);
   root.querySelector("[data-detail-title]").textContent = data.name;
   root.querySelector("[data-detail-location]").textContent = data.location;
-  root.querySelector("[data-detail-price]").innerHTML = `$${tour.price} <small>${data.per}</small>`;
+  root.querySelector("[data-detail-price]").innerHTML = `${formatMoney(tour.price)} <small>${data.per}</small>`;
   root.querySelectorAll("[data-detail-short]").forEach((el) => {
     el.textContent = data.short;
   });
@@ -2320,6 +2419,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderTourCards(document.querySelector("[data-tour-grid]"));
   renderTourPlans(document.querySelector("[data-tour-plans]"));
   initHeader();
+  initCurrencySwitch();
   initFaq();
   initTourMultiSelects();
   initOrderPage();
