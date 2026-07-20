@@ -2691,6 +2691,86 @@ body[data-page="home"] .faq-head .section-title {
   align-items: start;
 }
 
+.detail-gallery {
+  display: grid;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.detail-gallery[data-count="1"] {
+  grid-template-columns: 1fr;
+}
+
+.detail-gallery[data-count="2"] {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.detail-gallery[data-count="3"] {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.detail-gallery[data-count="4"] {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.detail-gallery[data-count="5"] {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.detail-gallery-item {
+  position: relative;
+  margin: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: var(--bg-soft);
+}
+
+.detail-gallery:not([data-count="1"]) .detail-gallery-item {
+  aspect-ratio: 4 / 3;
+  border-radius: 16px;
+}
+
+.detail-gallery[data-count="5"] .detail-gallery-item:first-child {
+  grid-column: span 2;
+  aspect-ratio: 16 / 9;
+}
+
+.detail-gallery-item img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.detail-gallery-item figcaption {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 1.4rem 0.75rem 0.65rem;
+  background: linear-gradient(transparent, rgba(12, 16, 20, 0.72));
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .detail-gallery-item {
+    animation: detail-gallery-in 0.35s ease both;
+  }
+
+  @keyframes detail-gallery-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
 .detail-content h2,
 .detail-content h3 {
   margin: 2rem 0 0.75rem;
@@ -3315,6 +3395,14 @@ body[data-page="home"] .faq-head .section-title {
   box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.18);
 }
 
+.detail-combine-hint {
+  margin: 0.45rem 0 0;
+  font-size: 0.84rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--muted, #5c6570);
+}
+
 .detail-booking-panel .order-price-summary {
   margin-top: 0.85rem;
 }
@@ -3937,6 +4025,15 @@ body[data-page="home"] .faq-head .section-title {
   .detail-layout,
   .story-grid {
     grid-template-columns: 1fr;
+  }
+
+  .detail-gallery[data-count="3"],
+  .detail-gallery[data-count="5"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .detail-gallery[data-count="5"] .detail-gallery-item:first-child {
+    grid-column: span 2;
   }
 
   body[data-page="home"] .faq-head,

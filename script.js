@@ -361,6 +361,7 @@ const i18n = {
       phonePlaceholder: "Phone number",
       destination: "Tours",
       chooseTours: "Choose one or more tours",
+      combineSave: "Combine with another tour and save!",
       selectedTours: "{count} tours selected",
       tourDate: "Date",
       dateLater: "Arrange the date later",
@@ -727,6 +728,7 @@ const i18n = {
       phonePlaceholder: "Número de teléfono",
       destination: "Tours",
       chooseTours: "Elige uno o más tours",
+      combineSave: "¡Combina con otro tour y ahorra!",
       selectedTours: "{count} tours seleccionados",
       tourDate: "Fecha",
       dateLater: "Acordar la fecha más adelante",
@@ -1093,6 +1095,7 @@ const i18n = {
       phonePlaceholder: "Numéro de téléphone",
       destination: "Circuits",
       chooseTours: "Choisissez un ou plusieurs circuits",
+      combineSave: "Combinez avec un autre circuit et économisez !",
       selectedTours: "{count} circuits sélectionnés",
       tourDate: "Date",
       dateLater: "Fixer la date plus tard",
@@ -1901,6 +1904,7 @@ function refreshTourMultiPicker(picker, lang = getLang()) {
     lang
   );
   renderTourBookingDetails(picker, lang);
+  updateDetailGallery(lang);
 }
 
 function refreshTourMultiSelects(lang = getLang()) {
@@ -2198,6 +2202,37 @@ function initForms() {
 
 }
 
+function updateDetailGallery(lang = getLang()) {
+  const root = document.querySelector("[data-tour-detail]");
+  const gallery = root?.querySelector("[data-detail-gallery]");
+  if (!root || !gallery) return;
+
+  const select = root.querySelector("[data-order-entry] [data-tour-select]");
+  const pageSlug = root.dataset.tourDetail;
+  let slugs = select ? selectedTourSlugs(select) : [];
+  if (!slugs.length && pageSlug) slugs = [pageSlug];
+
+  if (pageSlug && slugs.includes(pageSlug)) {
+    slugs = [pageSlug, ...slugs.filter((slug) => slug !== pageSlug)];
+  }
+
+  const showCaptions = slugs.length > 1;
+  gallery.dataset.count = String(slugs.length);
+  gallery.innerHTML = slugs
+    .map((slug) => {
+      const tour = tours.find((item) => item.slug === slug);
+      if (!tour) return "";
+      const name = t(`tours.${slug}.name`, lang);
+      return `
+        <figure class="detail-gallery-item">
+          <img src="${tour.image}" alt="${name}" loading="lazy" />
+          ${showCaptions ? `<figcaption>${name}</figcaption>` : ""}
+        </figure>
+      `;
+    })
+    .join("");
+}
+
 function initDetailPage() {
   const root = document.querySelector("[data-tour-detail]");
   if (!root) return;
@@ -2214,8 +2249,6 @@ function initDetailPage() {
   root.querySelectorAll("[data-detail-short]").forEach((el) => {
     el.textContent = data.short;
   });
-  root.querySelector("[data-detail-image]").src = tour.image;
-  root.querySelector("[data-detail-image]").alt = data.name;
 
   const list = root.querySelector("[data-detail-itinerary]");
   if (list) {
@@ -2231,6 +2264,8 @@ function initDetailPage() {
       setTourMultiSelection(bookingSelect, [slug]);
     }
   }
+
+  updateDetailGallery(lang);
 }
 
 function initFooterReveal() {
