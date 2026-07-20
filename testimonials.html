@@ -62,9 +62,17 @@
     <main>
       <section class="reviews-hero">
         <div class="container">
-          <div class="reviews-hero-panel about-fx about-fx-fade-up" data-about-fx>
+          <div
+            class="reviews-hero-panel about-fx about-fx-fade-up"
+            data-about-fx
+            data-hero-water
+            data-water-pos-x="0.5"
+            data-water-pos-y="0.88"
+            data-water-zoom="1.08"
+          >
+            <canvas class="hero-water-canvas" aria-hidden="true"></canvas>
             <img
-              class="reviews-hero-bg"
+              class="hero-water-source"
               src="assets/reviews-hero.jpg"
               alt=""
               aria-hidden="true"
