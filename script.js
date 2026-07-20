@@ -1943,6 +1943,7 @@ function initTourMultiSelects() {
     picker.sourceSelect = select;
     picker.tourValues = new Map();
     picker.innerHTML = `
+      <p class="tour-multi-hint" id="${id}-hint" data-i18n="booking.chooseTours"></p>
       <button
         class="tour-multi-button"
         type="button"
@@ -1964,7 +1965,9 @@ function initTourMultiSelects() {
 
     const button = picker.querySelector("[data-tour-multi-button]");
     const menu = picker.querySelector("[data-tour-multi-menu]");
-    button.setAttribute("aria-describedby", `${id}-error`);
+    const hint = picker.querySelector(".tour-multi-hint");
+    hint.textContent = t("booking.chooseTours", getLang());
+    button.setAttribute("aria-describedby", `${id}-hint ${id}-error`);
 
     const close = () => {
       menu.hidden = true;

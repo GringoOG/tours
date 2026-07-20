@@ -2842,6 +2842,13 @@ body[data-page="home"] .faq-head .section-title {
   margin-top: 0.35rem;
 }
 
+.tour-multi-hint {
+  margin: 0 0 0.45rem;
+  font-size: 0.82rem;
+  line-height: 1.35;
+  color: var(--muted, #5c6570);
+}
+
 .tour-multi-button {
   display: flex;
   width: 100%;
@@ -3013,6 +3020,10 @@ body[data-page="home"] .faq-head .section-title {
   border-color: rgba(255, 255, 255, 0.24);
   background: rgba(255, 255, 255, 0.06);
   color: var(--white);
+}
+
+.hero-booking .tour-multi-hint {
+  color: rgba(255, 255, 255, 0.82);
 }
 
 .hero-booking .tour-multi-button:focus-visible {
