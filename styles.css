@@ -3134,7 +3134,11 @@ body[data-page="home"] .faq-head .section-title {
 }
 
 .hero-booking .tour-booking-body {
-  grid-template-columns: minmax(0, 1fr) clamp(72px, 34%, 112px);
+  grid-template-columns: 1fr;
+}
+
+.hero-booking .tour-booking-photo {
+  display: none;
 }
 
 .hero-booking .tour-booking-details {
