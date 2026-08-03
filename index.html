@@ -10,6 +10,7 @@
       content="Ollanta Tours — Machu Picchu, Rainbow Mountain, and mountain bike adventures from Ollantaytambo, Peru."
     />
     <title data-i18n="meta.home.title">Ollanta Tours — Sacred Valley Adventures</title>
+    <link rel="preload" as="image" href="assets/hero-main.jpg" fetchpriority="high" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body data-page="home">
@@ -54,9 +55,11 @@
               <canvas class="hero-water-canvas" aria-hidden="true"></canvas>
               <img
                 class="hero-water-source"
-                src="assets/hero-main.png"
+                src="assets/hero-main.jpg"
                 alt="Sacred Valley adventure in Ollantaytambo"
                 data-i18n-alt="images.hero"
+                fetchpriority="high"
+                decoding="async"
               />
             </div>
             <div class="hero-overlay"></div>
@@ -93,7 +96,7 @@
           <div class="story-photos" data-story-photos>
             <figure class="story-photo" data-lift="0">
               <div class="story-photo-frame fx-shake">
-                <img src="assets/hero-main.png" alt="Sacred Valley" data-i18n-alt="images.sacredValley" loading="lazy" />
+                <img src="assets/hero-main.jpg" alt="Sacred Valley" data-i18n-alt="images.sacredValley" loading="lazy" />
               </div>
             </figure>
             <figure class="story-photo story-photo-lift" data-lift="1">
@@ -240,13 +243,13 @@
           class="tour-plans-video"
           data-tour-plans-video
           muted
-          autoplay
           loop
           playsinline
-          poster="assets/hero-main.png"
+          preload="none"
+          poster="assets/hero-main.jpg"
           aria-hidden="true"
         >
-          <source src="assets/tour-plans-background.mp4" type="video/mp4" />
+          <source data-src="assets/tour-plans-background.mp4" type="video/mp4" />
         </video>
         <div class="tour-plans-shade" aria-hidden="true"></div>
         <div class="tour-plans-content">
@@ -418,11 +421,11 @@
             <h2 class="section-title" data-i18n="instagram.title">Ollanta Tours on Instagram</h2>
           </div>
           <div class="instagram-grid">
-            <div class="instagram-item fx-shake reveal"><img src="assets/hero-main.png" alt="" /></div>
+            <div class="instagram-item fx-shake reveal"><img src="assets/hero-main.jpg" alt="" /></div>
             <div class="instagram-item fx-shake reveal"><img src="assets/machu-picchu.jpg" alt="" /></div>
             <div class="instagram-item fx-shake reveal"><img src="assets/rainbow-mountain.png" alt="" /></div>
             <div class="instagram-item fx-shake reveal"><img src="assets/mountain-bike.png" alt="" /></div>
-            <div class="instagram-item fx-shake reveal"><img src="assets/hero-main.png" alt="" /></div>
+            <div class="instagram-item fx-shake reveal"><img src="assets/hero-main.jpg" alt="" /></div>
             <div class="instagram-item fx-shake reveal"><img src="assets/rainbow-mountain.png" alt="" /></div>
           </div>
           <div class="load-more-wrap"><a class="btn btn-primary btn-pill" href="contact.html" data-i18n="instagram.button">Start your journey</a></div>

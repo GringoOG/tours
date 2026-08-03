@@ -322,6 +322,39 @@ class HeroWaterRipple {
   }
 }
 
+function initLazyTourPlansVideo() {
+  const video = document.querySelector("[data-tour-plans-video]");
+  if (!video || video.dataset.lazyBound) return;
+  video.dataset.lazyBound = "1";
+
+  const source = video.querySelector("source[data-src]");
+  const loadAndPlay = () => {
+    if (source?.dataset.src) {
+      source.src = source.dataset.src;
+      source.removeAttribute("data-src");
+      video.load();
+    }
+    const play = () => video.play().catch(() => {});
+    if (video.readyState >= 2) play();
+    else video.addEventListener("canplay", play, { once: true });
+  };
+
+  if (!("IntersectionObserver" in window)) {
+    loadAndPlay();
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (!entry.isIntersecting) return;
+      observer.disconnect();
+      loadAndPlay();
+    },
+    { rootMargin: "200px 0px" }
+  );
+  observer.observe(video);
+}
+
 function initHeroWater() {
   document.querySelectorAll("[data-hero-water]").forEach((root) => {
     new HeroWaterRipple(root);
@@ -848,6 +881,7 @@ function initReviewsMarquee() {
 document.addEventListener("DOMContentLoaded", () => {
   initSmoothScroll();
   initHeroWater();
+  initLazyTourPlansVideo();
   initImageFx();
   initScrollReveal();
   initFeatureItemReveal();

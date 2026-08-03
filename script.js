@@ -2065,18 +2065,31 @@ function initTourMultiSelects() {
     const button = picker.querySelector("[data-tour-multi-button]");
     const menu = picker.querySelector("[data-tour-multi-menu]");
     const hint = picker.querySelector(".tour-multi-hint");
+    const form = select.closest("form");
     hint.textContent = t("booking.chooseTours", getLang());
     button.setAttribute("aria-describedby", `${id}-hint ${id}-error`);
 
     const close = () => {
       menu.hidden = true;
       button.setAttribute("aria-expanded", "false");
+      picker.classList.remove("is-menu-open");
+      form?.classList.remove("is-menu-open");
+      document.querySelector(".hero")?.classList.remove("is-booking-open");
+    };
+
+    const open = () => {
+      menu.hidden = false;
+      button.setAttribute("aria-expanded", "true");
+      picker.classList.add("is-menu-open");
+      form?.classList.add("is-menu-open");
+      if (form?.classList.contains("hero-booking")) {
+        document.querySelector(".hero")?.classList.add("is-booking-open");
+      }
     };
 
     button.addEventListener("click", () => {
-      const willOpen = menu.hidden;
-      menu.hidden = !willOpen;
-      button.setAttribute("aria-expanded", String(willOpen));
+      if (menu.hidden) open();
+      else close();
     });
 
     picker.addEventListener("change", (event) => {

@@ -623,13 +623,19 @@ body[data-page="home"] .site-header:not(.scrolled) .nav-toggle {
   color: var(--white);
 }
 
-/* Hero */
 .hero {
+  position: relative;
+  z-index: 3;
   padding: calc(var(--header-h) + 1.5rem) 0 2rem;
 }
 
 body[data-page="home"] .hero {
   padding: 0;
+  z-index: 3;
+}
+
+body[data-page="home"] .hero.is-booking-open {
+  z-index: 12;
 }
 
 body[data-page="home"] .hero > .container {
@@ -774,7 +780,10 @@ body[data-page="home"] .hero-overlay {
   right: 2rem;
   bottom: 2.5rem;
   z-index: 4;
+  display: flex;
+  flex-direction: column;
   width: min(360px, calc(100% - 3rem));
+  max-height: min(72vh, 640px);
   padding: 1.35rem;
   border-radius: var(--radius-md);
   border: 1px solid rgba(255, 255, 255, 0.13);
@@ -785,6 +794,33 @@ body[data-page="home"] .hero-overlay {
   backdrop-filter: blur(12px) saturate(110%);
   color: var(--white);
   box-shadow: 0 18px 50px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+}
+
+.hero-booking.is-menu-open {
+  z-index: 8;
+}
+
+.hero-booking-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.9rem;
+  min-height: 0;
+  flex: 1 1 auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.hero-booking > .btn {
+  width: 100%;
+  min-width: 0;
+  margin-top: 1.1rem;
+  padding: 0.9rem 1.2rem;
+  flex: 0 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .hero-booking label {
@@ -792,12 +828,6 @@ body[data-page="home"] .hero-overlay {
   margin-bottom: 0.45rem;
   font-size: 0.88rem;
   color: rgba(255, 255, 255, 0.88);
-}
-
-.hero-booking-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.9rem;
 }
 
 .hero-booking select,
@@ -818,13 +848,6 @@ body[data-page="home"] .hero-overlay {
 .hero-booking input:focus {
   border-color: rgba(255, 255, 255, 0.5);
   background: rgba(255, 255, 255, 0.08);
-}
-
-.hero-booking > .btn {
-  width: 100%;
-  min-width: 0;
-  margin-top: 1.1rem;
-  padding: 0.9rem 1.2rem;
 }
 
 .hero-trust {
@@ -1350,7 +1373,7 @@ body[data-page="home"] .featured-tours-grid .tour-card {
   padding: clamp(4.5rem, 7vw, 6.5rem) 0 clamp(4rem, 6vw, 5.5rem);
   overflow: hidden;
   border-radius: var(--radius-lg);
-  background: #253331 url("assets/hero-main.png") center / cover no-repeat;
+  background: #253331 url("assets/hero-main.jpg") center / cover no-repeat;
   color: var(--white);
 }
 
@@ -3121,19 +3144,30 @@ body[data-page="home"] .faq-head .section-title {
 }
 
 .hero-booking .tour-multi-menu {
+  position: relative;
   top: auto;
-  bottom: calc(48px + 0.45rem);
+  bottom: auto;
+  left: auto;
+  width: 100%;
+  margin-top: 0.45rem;
+  z-index: 2;
   border-color: rgba(255, 255, 255, 0.2);
   background: rgba(13, 24, 23, 0.96);
   color: var(--white);
-  box-shadow: 0 -18px 48px rgba(0, 0, 0, 0.34);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.28);
   backdrop-filter: blur(18px);
 }
 
+.hero-booking .tour-multi-menu[hidden] {
+  display: none;
+}
+
 .hero-booking .tour-multi-options {
-  max-height: none;
-  overflow-y: visible;
+  max-height: min(36vh, 220px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 0.55rem;
+  -webkit-overflow-scrolling: touch;
 }
 
 .hero-booking .tour-multi .tour-multi-option {
@@ -3167,9 +3201,11 @@ body[data-page="home"] .faq-head .section-title {
 }
 
 .hero-booking .tour-booking-details {
-  max-height: min(45vh, 440px);
+  max-height: min(28vh, 220px);
   overflow-y: auto;
+  overscroll-behavior: contain;
   padding-right: 0.2rem;
+  -webkit-overflow-scrolling: touch;
 }
 
 .hero-booking .tour-booking-row label {
@@ -4137,14 +4173,9 @@ body[data-page="home"] .faq-head .section-title {
     position: static;
     width: 100%;
     max-width: min(100%, 420px);
+    max-height: min(68vh, 560px);
     margin-left: auto;
     margin-top: 2rem;
-  }
-
-  .hero-booking .tour-multi-menu {
-    top: calc(48px + 0.45rem);
-    bottom: auto;
-    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.34);
   }
 
   .hero-content {
